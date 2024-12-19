@@ -19,7 +19,7 @@ export const Posts = () => {
     }
 
     getPosts();
-    
+
   }, []);
   return (
     <div className="flex flex-col gap-2 m-2">
@@ -28,12 +28,15 @@ export const Posts = () => {
         <Link to='/admin/createpost' className="rounded-lg p-2 border-gray-900 border-2 dark:border-gray-200 dark:text-gray-200 text-gray-900">+ New post</Link>
       </div>
       {
-        [...posts].reverse().map((post: any) => {
-          return <AdminPostItem key={post._id} tittle={post.tittle} author={post.author} description={post.description} category={post.category} image={`../server/${post.image}`} date={post.createdAt} />
-          // return <AdminPostItem key={post._id} tittle={post.tittle} author={post.author} description={post.description} category={post.category} image={`../server/uploads/images/${post.image}`} date={post.createdAt} />
-        })
+        posts && posts.length > 0 ? (
+          [...posts].reverse().map((post: any) => {
+            return <AdminPostItem key={post._id} tittle={post.tittle} author={post.author} description={post.description} category={post.category} image={post.image} date={post.createdAt} />
+          })
+        ) : (
+          <div className='text-center text-3xl'>No post found</div>
+        )
       }
-      <AdminPostItem tittle="tittle" author="author" description="description" category="category" image="image" />
+
     </div>
   )
 }

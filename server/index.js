@@ -5,7 +5,12 @@ import postRoutes from './routes/postRoutes.js';
 import cors from 'cors';
 import { connect } from 'mongoose';
 import cookieParser from 'cookie-parser';
-// import path from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 dotenv.config();
 const app = express();
@@ -21,7 +26,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
-// app.use('./server/uploads/images',express.static(path.join(__dirname,'./server/uploads/images')));
+app.use('/uploads/images',express.static(path.join(__dirname,'uploads/images')));
 app.use('/',authRoutes);
 app.use('/',postRoutes);
 
