@@ -14,7 +14,7 @@ const createPost = async (req, res, next) => {
         if(!req.file){
             return res.status(400).json({ error: 'Image is required' });
         }
-        const image = `uploads/images/${req.file.filename}`;
+        const image = `${req.protocol}://${req.get('host')}/uploads/images/${req.file.filename}`;;
 
         const newPost = await postModel.create({ tittle, author, description, category, image });
         res.status(201).json({ message: 'Post created successfully' });
