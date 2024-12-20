@@ -1,7 +1,25 @@
 import { Link } from "react-router-dom"
 import { DashboardPost } from "../../components/posts/DashboardPost"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export const DashboardHome = () => {
+    const [totalPosts, setTotalPosts] = useState();
+    useEffect(() => {
+        // posts
+        const aboutPost = async () => {
+            try{
+                const response = await axios.get('/posts');
+                setTotalPosts(response.data.length);
+                console.log(response.data);
+            }
+            catch(error){
+                console.log(error);
+            }
+        }
+
+        aboutPost();
+    },[])
     return (
         <div className="">
             <h1 className='text-2xl m-2 font-bold'>Welcome to your dashboard</h1>
@@ -9,7 +27,7 @@ export const DashboardHome = () => {
                 <div className="grid grid-cols-3 gap-1 mb-4">
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            Post <br /> 34
+                            Post <br /> {totalPosts}
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
