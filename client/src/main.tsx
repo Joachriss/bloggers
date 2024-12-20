@@ -16,6 +16,7 @@ import { DashboardHome } from './pages/admin/DashboardHome.tsx'
 import { CreatePost } from './pages/admin/CreatePost.tsx'
 import { EditPost } from './pages/admin/EditPost.tsx'
 import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
+import { Layout } from './pages/Layout.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -23,6 +24,7 @@ axios.defaults.withCredentials = true;
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -37,31 +39,31 @@ const router = createBrowserRouter([
         path: 'login',
         element: <Login />
       },
+    ]
+  },
+  {
+    path: 'admin',
+    element: <Dashboard />,
+    children: [
       {
-        path: 'admin',
-        element: <Dashboard />,
-        children: [
-          {
-            index: true,
-            element: <DashboardHome />
-          },
-          {
-            path: 'posts',
-            element: <Posts />
-          },
-          {
-            path: 'createpost',
-            element: <CreatePost />
-          },
-          {
-            path: 'editpost/:postid',
-            element: <EditPost />
-          },
-          {
-            path: 'deletepost/:postid',
-            element: <AdminPostItem />
-          }
-        ]
+        index: true,
+        element: <DashboardHome />
+      },
+      {
+        path: 'posts',
+        element: <Posts />
+      },
+      {
+        path: 'createpost',
+        element: <CreatePost />
+      },
+      {
+        path: 'editpost/:postid',
+        element: <EditPost />
+      },
+      {
+        path: 'deletepost/:postid',
+        element: <AdminPostItem />
       }
     ]
   }
