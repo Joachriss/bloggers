@@ -1,14 +1,15 @@
 import axios, { AxiosError } from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-// import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { FaAngleDown } from "react-icons/fa6";
 
 export const EditPost = () => {
+  const params = useParams();
+  const postId = params.postid;
   const navigate = useNavigate();
   const [image, setImage] = useState<any>();
   const [viewImage, setViewImage] = useState<any>();
@@ -17,20 +18,41 @@ export const EditPost = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 
+  // request post details
+  useEffect(() => {
+    const getPost = async () => {
+      try{
+        const {data} = await axios.get(`/getpost/${postId}`);
+        setTittle(data.tittle);
+        setAuthor(data.author);
+        setDescription(data.description);
+        setCategory(data.category);
+        setViewImage(data.image);
+        setImage(data.image);
+
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+    getPost();
+
+  }, []);
+
   // sending post to server side
   const sendPost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append('tittle',tittle);
-      formData.append('author',author);
-      formData.append('description',description);
-      formData.append('category',category);
-      formData.append('image',image);
-      for(let [key,value] of formData.entries()){
-        console.log(key,value)
+      formData.append('tittle', tittle);
+      formData.append('author', author);
+      formData.append('description', description);
+      formData.append('category', category);
+      formData.append('image', image);
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value)
       }
-      const { data } = await axios.post("/createpost", formData, { headers: {'Content-Type': 'multipart/form-data'}});
+      const { data } = await axios.post("/createpost", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       console.log("Server Response:", data);
       if (data.error) {
         toast.error(data.error);
@@ -80,7 +102,7 @@ export const EditPost = () => {
             <input type="file" onChange={handleImage} accept="image/*" name="image" className="p-2 rounded-md text-sm font-medium border-2 border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" />
           </div>
           <div className="flex flex-col w-full col-span-2 md:col-span-1">
-            <label htmlFor="blogName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog title:</label>
+            <label htmlFor="blogName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog tittle:</label>
             <input type="text" id="blogName" value={tittle} onChange={(e) => setTittle(e.target.value)} className="p-2 rounded-md text-sm font-medium border-2 border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" name="blogName" />
           </div>
           <div className="flex flex-col w-full col-span-2 md:col-span-1">
