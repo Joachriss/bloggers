@@ -27,11 +27,9 @@ export const CreatePost = () => {
       formData.append('description',description);
       formData.append('category',category);
       formData.append('image',image);
-      for(let [key,value] of formData.entries()){
-        console.log(key,value)
-      }
+
       const { data } = await axios.post("/createpost", formData, { headers: {'Content-Type': 'multipart/form-data'}});
-      console.log("Server Response:", data);
+      
       if (data.error) {
         toast.error(data.error);
       }
@@ -103,7 +101,7 @@ export const CreatePost = () => {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    onClick={() => setCategory('gossip')}
+                    onClick={() => setCategory('Gossip')}
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
@@ -113,7 +111,7 @@ export const CreatePost = () => {
                 <MenuItem>
                   <a
                     href="#"
-                    onClick={() => setCategory('sport')}
+                    onClick={() => setCategory('Sport')}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     Sport
@@ -122,10 +120,28 @@ export const CreatePost = () => {
                 <MenuItem>
                   <a
                     href="#"
-                    onClick={() => setCategory('politics')}
+                    onClick={() => setCategory('Politics')}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     Politics
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a
+                    href="#"
+                    onClick={() => setCategory('Technology')}
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    Technology
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a
+                    href="#"
+                    onClick={() => setCategory('Social')}
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    Social
                   </a>
                 </MenuItem>
               </div>

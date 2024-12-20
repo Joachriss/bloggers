@@ -52,11 +52,9 @@ export const EditPost = () => {
       formData.append('description', description);
       formData.append('category', category);
       formData.append('image', image);
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value)
-      }
+
       const { data } = await axios.put(`/editpost/${postId}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      console.log("Server Response:", data);
+      
       if (data.error) {
         toast.error(data.error);
       }

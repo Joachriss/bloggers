@@ -5,21 +5,23 @@ import axios from "axios"
 
 export const DashboardHome = () => {
     const [totalPosts, setTotalPosts] = useState();
+    const [posts, setPosts] = useState<{ _id: string, tittle: string, image: string }[]>([]);
     useEffect(() => {
         // posts
         const aboutPost = async () => {
-            try{
+            try {
                 const response = await axios.get('/posts');
+                setPosts(response.data);
                 setTotalPosts(response.data.length);
                 console.log(response.data);
             }
-            catch(error){
+            catch (error) {
                 console.log(error);
             }
         }
 
         aboutPost();
-    },[])
+    }, [])
     return (
         <div className="">
             <h1 className='text-2xl m-2 font-bold'>Welcome to your dashboard</h1>
@@ -58,8 +60,11 @@ export const DashboardHome = () => {
                                 </Link>
                             </div>
                             <div className="flex flex-col gap-y-2 mt-4">
-                                <DashboardPost/>
-                                <DashboardPost/>
+                                {
+                                [...posts].reverse().slice(0,3).map((post, index) => {
+                                    return <DashboardPost key={index} _id={post._id} tittle={post.tittle} image={post.image} />
+                                })
+                                }
                             </div>
                         </div>
                     </div>
