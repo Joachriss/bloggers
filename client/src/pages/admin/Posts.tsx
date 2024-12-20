@@ -30,7 +30,7 @@ export const Posts = () => {
       {
         posts && posts.length > 0 ? (
           [...posts].reverse().map((post: any) => {
-            return <AdminPostItem key={post._id} tittle={post.tittle} author={post.author} description={post.description} category={post.category} image={post.image} date={post.createdAt} />
+            return <AdminPostItem key={post._id} _id={post._id} tittle={post.tittle} author={post.author} description={post.description} category={post.category} image={post.image} date={post.createdAt} />
           })
         ) : (
           <div className='text-center text-3xl'>No post found</div>

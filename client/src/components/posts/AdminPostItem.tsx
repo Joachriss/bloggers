@@ -1,6 +1,7 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const AdminPostItem = (props: any) => {
   return (
@@ -18,7 +19,7 @@ export const AdminPostItem = (props: any) => {
         </div>
         <div className="flex flex-row gap-1 justify-between items-center">
             <div className=""><FaEye size={20} /></div>
-            <div className="px-2 border-gray-700 border-l-2 border-r-2"><FaEdit size={20}/></div>
+            <Link to ={`/admin/editpost/${props._id}`} className="hover:text-gray-600 px-2 border-gray-700 border-l-2 border-r-2"><FaEdit size={20}/></Link>
             <div className=""><MdDelete size={20}/></div>
         </div>
     </div>

@@ -35,4 +35,41 @@ const getAllPosts = async (req,res,next)=>{
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
-export { createPost , getAllPosts };
+// get post by id
+const getPostById = async (req,res,next)=>{
+    const postId = req.params.id;
+    try{
+        const post = await postModel.findById(postId);
+        if(!post){
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        res.status(200).json(post);
+    }
+    catch(error){
+        console.error("Error getting post:", error);
+        res.status(500).json({ error: 'Server error', details: error.message });
+    }
+}
+
+// edit post
+const editPost = async (req,res,next)=>{
+    const postId = req.params.id;
+    try{
+        const post = await postModel.findById(postId);
+        if(!post){
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        post.tittle = req.body.tittle || post.tittle;
+        post.author = req.body.author || post.author;
+        post.description = req.body.description || post.description;
+        post.category = req.body.category || post.category;
+        post.image = req.body.image || post.image;
+        await post.save();
+        res.status(200).json({ message: 'Post updated successfully' });
+    }
+    catch(error){
+        console.error("Error editing post:", error);
+        res.status(500).json({ error: 'Server error', details: error.message });
+    }
+}
+export { createPost , getAllPosts,editPost , getPostById};
