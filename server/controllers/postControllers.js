@@ -15,9 +15,6 @@ function removeImage(image){
 // create post
 const createPost = async (req, res, next) => {
     try {
-        console.log("Creating post:", req.body);
-        console.log('Uploading image:', req.file);
-
         const { tittle, author, description, category } = req.body;
 
         if (!tittle || !author || !description || !category) {

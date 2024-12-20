@@ -10,7 +10,6 @@ export const Dashboard = () => {
             try{
                 const response = await axios.get('/posts');
                 setTotalPosts(response.data.length);
-                console.log(response.data);
             }
             catch(error){
                 console.log(error);

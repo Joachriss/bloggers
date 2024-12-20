@@ -13,7 +13,6 @@ export const DashboardHome = () => {
                 const response = await axios.get('/posts');
                 setPosts(response.data);
                 setTotalPosts(response.data.length);
-                console.log(response.data);
             }
             catch (error) {
                 console.log(error);
@@ -24,7 +23,7 @@ export const DashboardHome = () => {
     }, [])
     return (
         <div className="">
-            <h1 className='text-2xl m-2 font-bold'>Welcome to your dashboard</h1>
+            <h1 className='text-2xl m-2 font-bold'>Dashboard</h1>
             <div className="p-2 border-2 mt-1">
                 <div className="grid grid-cols-3 gap-1 mb-4">
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
@@ -61,11 +60,19 @@ export const DashboardHome = () => {
                             </div>
                             <div className="flex flex-col gap-y-2 mt-4">
                                 {
-                                [...posts].reverse().slice(0,3).map((post, index) => {
-                                    return <DashboardPost key={index} _id={post._id} tittle={post.tittle} image={post.image} />
-                                })
+                                    posts && posts.length > 0 ? (
+                                        [...posts].reverse().slice(0, 4).map((post, index) => {
+                                            return <DashboardPost key={index} _id={post._id} tittle={post.tittle} image={post.image} />
+                                        })
+                                    ) : (
+                                        <div className="text-sm text-center text-gray-500 dark:text-gray-400">  No post found</div>
+                                    )
+
                                 }
                             </div>
+                            <Link to='posts'>
+                                <div className="rounded-lg text-end mt-6 text-sm min-w-[100px] p-1 hover:font-bold  dark:border-gray-200 dark:text-blue-200 text-blue-900">View all</div>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
