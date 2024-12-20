@@ -15,6 +15,7 @@ import { Posts } from './pages/admin/Posts.tsx'
 import { DashboardHome } from './pages/admin/DashboardHome.tsx'
 import { CreatePost } from './pages/admin/CreatePost.tsx'
 import { EditPost } from './pages/admin/EditPost.tsx'
+import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           {
             path: 'editpost/:postid',
             element: <EditPost />
+          },
+          {
+            path: 'deletepost/:postid',
+            element: <AdminPostItem />
           }
         ]
       }
