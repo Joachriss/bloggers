@@ -6,6 +6,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// function to remove image from the file
+function removeImage(image){
+    const imagePath = path.join(__dirname, "../uploads/images", image);
+    fs.unlinkSync(imagePath);
+}
+
 // create post
 const createPost = async (req, res, next) => {
     try {
@@ -13,11 +19,11 @@ const createPost = async (req, res, next) => {
         console.log('Uploading image:', req.file);
 
         const { tittle, author, description, category } = req.body;
-        
+
         if (!tittle || !author || !description || !category) {
             return res.json({ error: 'All fields are required' });
         }
-        if(!req.file){
+        if (!req.file) {
             return res.status(400).json({ error: 'Image is required' });
         }
         const image = req.file.filename;
@@ -31,48 +37,47 @@ const createPost = async (req, res, next) => {
 }
 
 // get all posts
-const getAllPosts = async (req,res,next)=>{
-    try{
+const getAllPosts = async (req, res, next) => {
+    try {
         const posts = await postModel.find()
         res.status(200).json(posts);
     }
-    catch(error){
+    catch (error) {
         console.error("Error getting posts:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
 // get post by id
-const getPostById = async (req,res,next)=>{
+const getPostById = async (req, res, next) => {
     const postId = req.params.id;
-    try{
+    try {
         const post = await postModel.findById(postId);
-        if(!post){
+        if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
         res.status(200).json(post);
     }
-    catch(error){
+    catch (error) {
         console.error("Error getting post:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
 
 // edit post
-const editPost = async (req,res,next)=>{
+const editPost = async (req, res, next) => {
     const postId = req.params.id;
-    try{
+    try {
         const post = await postModel.findById(postId);
-        if(!post){
+        if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
         post.tittle = req.body.tittle || post.tittle;
         post.author = req.body.author || post.author;
         post.description = req.body.description || post.description;
         post.category = req.body.category || post.category;
-        if(req.file){
+        if (req.file) {
             // delete old image
-            const oldImagePath = path.join(__dirname,"../uploads/images",post.image);
-            fs.unlinkSync(oldImagePath);
+            removeImage(post.image);
 
             // saving new image
             post.image = req.file.filename;
@@ -81,11 +86,21 @@ const editPost = async (req,res,next)=>{
         await post.save();
         res.status(200).json({ message: 'Post updated successfully' });
     }
-    catch(error){
+    catch (error) {
         console.error("Error editing post:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
 
+// delete post
+const deletePost = async (req, res, next) => {
+    const postId = req.params.id;
+    const post = await postModel.findById(postId);
 
-export { createPost , getAllPosts,editPost , getPostById};
+    // remove image and post
+    removeImage(post.image);
+    await post.deleteOne({ _id: postId });
+    res.status(200).json({ message: 'Post deleted successfully' });
+}
+
+export { createPost, getAllPosts, editPost, getPostById, deletePost };
