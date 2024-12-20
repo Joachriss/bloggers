@@ -28,7 +28,7 @@ const createPost = async (req, res, next) => {
         }
         const image = req.file.filename;
 
-        const newPost = await postModel.create({ tittle, author, description, category, image });
+        const newPost = await postModel.create({ tittle, author, description, category, image, createdAt: Date.now() });
         res.status(201).json({ message: 'Post created successfully' });
     } catch (error) {
         console.error("Error creating post:", error);
@@ -83,6 +83,7 @@ const editPost = async (req, res, next) => {
             post.image = req.file.filename;
         }
         post.image = post.image;
+        post.updatedAt = Date.now();
         await post.save();
         res.status(200).json({ message: 'Post updated successfully' });
     }

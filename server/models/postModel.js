@@ -6,7 +6,8 @@ const postSchema = new Schema({
     description: { type: String, required: true },
     category: { type: String, required: true },
     image: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+    createdAt: { type: Date},
 });
 
 const postModel = model('posts',postSchema);
