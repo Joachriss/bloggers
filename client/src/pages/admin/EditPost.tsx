@@ -27,8 +27,11 @@ export const EditPost = () => {
         setAuthor(data.author);
         setDescription(data.description);
         setCategory(data.category);
-        setViewImage(data.image);
         setImage(data.image);
+
+        // Displaying image from the database
+        const displayImage = `http://localhost:8000/uploads/images/${data.image}`;
+        setViewImage(displayImage);
 
       }catch(error){
         console.log(error);
@@ -40,7 +43,7 @@ export const EditPost = () => {
   }, []);
 
   // sending post to server side
-  const sendPost = async (e: React.SyntheticEvent) => {
+  const upadatePost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -52,7 +55,7 @@ export const EditPost = () => {
       for (let [key, value] of formData.entries()) {
         console.log(key, value)
       }
-      const { data } = await axios.post("/createpost", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const { data } = await axios.put(`/editpost/${postId}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       console.log("Server Response:", data);
       if (data.error) {
         toast.error(data.error);
@@ -91,7 +94,7 @@ export const EditPost = () => {
   return (
     <div className='flex flex-col gap-2 m-4'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Edit post</h1>
-      <form className="flex flex-col gap-2 w-full" onSubmit={sendPost} encType='multipart/form-data'>
+      <form className="flex flex-col gap-2 w-full" onSubmit={upadatePost} encType='multipart/form-data'>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <div className="col-span-2 mx-auto flex flex-col gap-2">
             <div className="text-center italic max-w-[400px] max-h-[250px] flex justify-center items-center text-xl text-gray-500 dark:text-gray-400 border-2 border-gray-400 dark:border-gray-400 rounded-md">
