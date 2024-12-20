@@ -1,4 +1,10 @@
 import postModel from '../models/postModel.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // create post
 const createPost = async (req, res, next) => {
@@ -14,7 +20,7 @@ const createPost = async (req, res, next) => {
         if(!req.file){
             return res.status(400).json({ error: 'Image is required' });
         }
-        const image = `${req.protocol}://${req.get('host')}/uploads/images/${req.file.filename}`;;
+        const image = req.file.filename;
 
         const newPost = await postModel.create({ tittle, author, description, category, image });
         res.status(201).json({ message: 'Post created successfully' });
@@ -63,7 +69,15 @@ const editPost = async (req,res,next)=>{
         post.author = req.body.author || post.author;
         post.description = req.body.description || post.description;
         post.category = req.body.category || post.category;
-        post.image = req.body.image || post.image;
+        if(req.file){
+            // delete old image
+            const oldImagePath = path.join(__dirname,"../uploads/images",post.image);
+            fs.unlinkSync(oldImagePath);
+
+            // saving new image
+            post.image = req.file.filename;
+        }
+        post.image = post.image;
         await post.save();
         res.status(200).json({ message: 'Post updated successfully' });
     }
@@ -72,4 +86,6 @@ const editPost = async (req,res,next)=>{
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
+
+
 export { createPost , getAllPosts,editPost , getPostById};
