@@ -1,8 +1,8 @@
-import picture from '../../assets/images/sample.jpg';
+
 export const PostCard = (props: any) => {
   return (
     <div className='flex flex-col rounded-xl bg-white p-3 shadow-lg border-[1px]'>
-        <div className="mx-auto h-52 w-full overflow-hidden">
+        <div className="mx-auto h-52 w-full overflow-hidden rounded-lg">
             <img src={`http://localhost:8000/uploads/images/${props.image}`} className='rounded-lg' alt="post picture" />
         </div>
         <div className="flex flex-col mt-3 mb-auto">
