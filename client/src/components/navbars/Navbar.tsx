@@ -28,20 +28,20 @@ export const Navbar = () => {
     }, []);
 
     return (
-        <div className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <nav className="w-full">
                 <div className="justify-between flex flex-row p-6 items-center">
                     <div className="flex items-center">
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
-                    <Link to="/" className="text-4xl font-bold">goBlog</Link>
+                    <Link to="/" className="text-4xl font-bold">Describe</Link>
                     <div className="flex flex-row gap-x-5 items-center">
                         <IoSearchSharp size={24} />
-                        <div className="p-2 bg-gray-400 rounded">Subscribe</div>
+                        <div className="p-2 bg-black text-white rounded">Subscribe</div>
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1200px]">
-                    <div className="flex justify-between py-3 gap-2 my-2 border-t-[1px] border-black">
+                    <div className="flex justify-between py-3 gap-2 my-2 border-t-[1px] border-black font-medium">
                         <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">World</div>
                         <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Technology</div>
                         <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Gossip</div>
@@ -67,14 +67,14 @@ export const Navbar = () => {
                                     <MenuItem>
                                         <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                             {/* <PencilIcon className="size-4 fill-white/30" /> */}
-                                            Edit
+                                            About
                                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘E</kbd>
                                         </button>
                                     </MenuItem>
                                     <MenuItem>
                                         <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                             {/* <Square2StackIcon className="size-4 fill-white/30" /> */}
-                                            Duplicate
+                                            Contacts
                                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘D</kbd>
                                         </button>
                                     </MenuItem>
