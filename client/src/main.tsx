@@ -17,6 +17,7 @@ import { CreatePost } from './pages/admin/CreatePost.tsx'
 import { EditPost } from './pages/admin/EditPost.tsx'
 import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
 import { Layout } from './pages/Layout.tsx'
+import { PostDetails } from './pages/PostDetails.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'post/:postid',
+        element: <PostDetails />,
       },
       {
         path: 'register',
