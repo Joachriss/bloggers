@@ -40,19 +40,19 @@ export const Navbar = () => {
                         <div className="p-2 bg-black text-white rounded">Subscribe</div>
                     </div>
                 </div>
-                <div className="mx-auto hidden md:block px-3 md:px-0 sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1200px]">
-                    <div className="flex justify-between py-3 gap-2 my-2 border-t-[1px] border-black font-medium">
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">World</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Technology</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Gossip</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Politics</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Social</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Sport</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Business</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Health</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Style</div>
-                        <div className="px-2 flex justify-center items-center text-md rounded  border-b-4 border-orange-600">Travel</div>
-                        <div className="text-md flex flex-row items-center font-semibold">
+                <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
+                    <div className="flex flex-wrap justify-between py-3 gap-2 my-2 border-t-[1px] border-black font-medium">
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Politics</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Social</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Sport</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Business</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Health</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Style</div>
+                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Travel</div>
+                        <div className="flex flex-row items-center font-semibold">
                             <Menu>
                                 <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
                                     More <MdKeyboardArrowDown size={22} />
@@ -103,15 +103,15 @@ export const Navbar = () => {
             <div onClick={handleMenu} className={`absolute top-0 w-full h-screen ${isOpen ? '' : 'hidden'}`}>
 
             </div>
-            <div className={`absolute bg-black bg-opacity-[95%] hidden md:block z-10 top-0 w-[50%] h-screen duration-300 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
+            <div className={`absolute bg-black bg-opacity-[95%] hidden md:block top-0 w-[60%] h-screen duration-300 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
                 <div className="w-full flex flex-row justify-between p-3 mt-2">
                     <div className="text-xl font-bold text-white">Trending</div>
                     <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><IoCloseSharp size={24} /></div>
                 </div>
-                <div className="grid grid-cols-2 mt-5 gap-2">
+                <div className="grid grid-cols-2 mt-5 gap-4 p-3">
                     {posts && posts.length > 0 ?
                         (
-                            [...posts].reverse().map((post, index) => {
+                            [...posts].reverse().slice(0,3).map((post, index) => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (
