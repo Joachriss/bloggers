@@ -42,16 +42,16 @@ export const Navbar = () => {
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
                     <div className="flex flex-wrap justify-between py-3 gap-2 my-2 border-t-[1px] border-black font-medium">
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Politics</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Social</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Sport</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Business</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Health</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Style</div>
-                        <div className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Travel</div>
+                        <Link to='postcategory/World' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</Link>
+                        <Link to='postcategory/Technology' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</Link>
+                        <Link to='postcategory/Gossip' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</Link>
+                        <Link to='postcategory/Politics' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Politics</Link>
+                        <Link to='postcategory/Social' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Social</Link>
+                        <Link to='postcategory/Sport' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Sport</Link>
+                        <Link to='postcategory/Business' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Business</Link>
+                        <Link to='postcategory/Health' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Health</Link>
+                        <Link to='postcategory/Style' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Style</Link>
+                        <Link to='postcategory/Travel' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Travel</Link>
                         <div className="flex flex-row items-center font-semibold">
                             <Menu>
                                 <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
@@ -108,7 +108,7 @@ export const Navbar = () => {
                     <div className="text-xl font-bold text-white">Trending</div>
                     <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><IoCloseSharp size={24} /></div>
                 </div>
-                <div className="grid grid-cols-2 mt-5 gap-4 p-3">
+                <div className="grid grid-cols-2 mt-5 gap-4 p-3 h-[90vh] overflow-y-scroll">
                     {posts && posts.length > 0 ?
                         (
                             [...posts].reverse().slice(0,3).map((post, index) => {
@@ -131,7 +131,7 @@ export const Navbar = () => {
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Technology</div>
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Gossip</div>
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Politics</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Social</div>
+                    <Link to={`postcategory/social`} className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Social</Link>
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Sport</div>
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Business</div>
                     <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Health</div>
