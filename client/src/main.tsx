@@ -18,6 +18,7 @@ import { EditPost } from './pages/admin/EditPost.tsx'
 import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
 import { Layout } from './pages/Layout.tsx'
 import { PostDetails } from './pages/PostDetails.tsx'
+import { PostCategory } from './pages/PostCategory.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         element: <PostDetails />,
       },
       {
+        path: 'postcategory/:category',
+        element: <PostCategory />,
+      },
+      {
         path: 'register',
         element: <Register />
       },
@@ -44,6 +49,7 @@ const router = createBrowserRouter([
         path: 'login',
         element: <Login />
       },
+      
     ]
   },
   {
