@@ -127,18 +127,18 @@ export const Navbar = () => {
                     <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}>X</div>
                 </div>
                 <div className="flex flex-col text-white justify-between py-3 gap-2 my-2 border-t-[1px] border-black">
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">World</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Technology</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Gossip</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Politics</div>
-                    <Link to={`postcategory/social`} className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Social</Link>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Sport</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Business</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Health</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Style</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Travel</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">About</div>
-                    <div className="px-2 py-2 flex rounded  border-b-4 border-orange-600">Contacts</div>
+                    <Link  to='postcategory/World' className="p-2 flex rounded  border-b-4 border-orange-600">World</Link>
+                    <Link  to='postcategory/Technology' className="p-2 flex rounded  border-b-4 border-orange-600">Technology</Link>
+                    <Link  to='postcategory/Gossip' className="p-2 flex rounded  border-b-4 border-orange-600">Gossip</Link>
+                    <Link  to='postcategory/Politics' className="p-2 flex rounded  border-b-4 border-orange-600">Politics</Link>
+                    <Link  to='postcategory/Social' className="p-2 flex rounded  border-b-4 border-orange-600">Social</Link>
+                    <Link  to='postcategory/Sport' className="p-2 flex rounded  border-b-4 border-orange-600">Sport</Link>
+                    <Link  to='postcategory/Business' className="p-2 flex rounded  border-b-4 border-orange-600">Business</Link>
+                    <Link  to='postcategory/Health' className="p-2 flex rounded  border-b-4 border-orange-600">Health</Link>
+                    <Link  to='postcategory/Style' className="p-2 flex rounded  border-b-4 border-orange-600">Style</Link>
+                    <Link  to='postcategory/Travel' className="p-2 flex rounded  border-b-4 border-orange-600">Travel</Link>
+                    <Link  to='postcategory/About' className="p-2 flex rounded  border-b-4 border-orange-600">About</Link>
+                    <Link  to='postcategory/Contacts' className="p-2 flex rounded  border-b-4 border-orange-600">Contacts</Link>
                 </div>
             </div>
         </div>
