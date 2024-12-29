@@ -41,7 +41,7 @@ export const Navbar = () => {
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
-                    <div className="flex flex-wrap justify-between py-3 gap-2 my-2 border-t-[1px] border-black font-medium">
+                    <div className="flex flex-wrap justify-between p-3 gap-1 my-2 border-t-[1px] border-black font-medium">
                         <Link to='postcategory/World' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</Link>
                         <Link to='postcategory/Technology' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</Link>
                         <Link to='postcategory/Gossip' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</Link>
@@ -65,18 +65,18 @@ export const Navbar = () => {
                                     className="w-52 z-50 origin-top-right rounded-xl border border-white/5 bg-gray-700 p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                                 >
                                     <MenuItem>
-                                        <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                        <Link to="aboutus" className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                             {/* <PencilIcon className="size-4 fill-white/30" /> */}
                                             About
                                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘E</kbd>
-                                        </button>
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem>
-                                        <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                        <Link to ='contacts' className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                             {/* <Square2StackIcon className="size-4 fill-white/30" /> */}
                                             Contacts
                                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘D</kbd>
-                                        </button>
+                                        </Link>
                                     </MenuItem>
                                     <div className="my-1 h-px bg-white/5" />
                                     <MenuItem>

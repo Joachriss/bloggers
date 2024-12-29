@@ -49,9 +49,9 @@ export const PostDetails = () => {
                     <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
                     <div>
                         <div className="text-lg text-gray-600">Author: <span className="font-bold">{postAuthor}</span></div>
-                        <small className=" text-gray-500">{postDate}</small>
+                        <small className=" text-gray-500">Posted on: <span className="font-bold">{postDate.slice(0,10)}</span></small>
                     </div>
-                    <div className="w-full max-h-[60%] overflow-hidden my-2 rounded-lg">
+                    <div className="w-full max-h-[50%] mx-auto overflow-hidden my-2 rounded-lg">
                         <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
