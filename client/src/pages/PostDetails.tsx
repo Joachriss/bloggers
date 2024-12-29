@@ -57,7 +57,7 @@ export const PostDetails = () => {
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
                 </div>
                 <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-5">
-                    <div className="text-xl font-extrabold mb-4">Recent posts <br /> <hr className="border border-gray-900 my-2"/></div>
+                    <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-gray-900 my-2"/></div>
                     {
                         posts && posts.length > 0 ? (
                             [...posts].reverse().map((post: any) => <RecentPost key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
@@ -67,7 +67,6 @@ export const PostDetails = () => {
                     }
                 </div>
             </div>
-
         </div>
     )
 }

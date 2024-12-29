@@ -23,11 +23,15 @@ export const PostCategory = () => {
         , [])
     return (
         <div className="w-full mb-52">
-            <div className="mx-auto px-3 max-w-[1280px]">
+            <div className="mx-auto px-3 max-w-[1280px] mt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 justify-between">
                     {
                         posts && posts.length > 0 ? (
-                            [...posts].reverse().filter(categories => categories.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id}  /> )
+                            category ? (
+                                [...posts].reverse().filter(categories => categories.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                            ) : (
+                                [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                            )
                         ) : (
                             <div className="col-span-full text-center font-bold text-xl text-gray-950 dark:text-gray-100 dark:bg-gray-700 my-3 p-8">No post found</div>
                         )
