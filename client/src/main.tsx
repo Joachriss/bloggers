@@ -42,6 +42,10 @@ const router = createBrowserRouter([
         element: <PostCategory />,
       },
       {
+        path: 'postcategory',
+        element: <PostCategory />,
+      },
+      {
         path: 'register',
         element: <Register />
       },
