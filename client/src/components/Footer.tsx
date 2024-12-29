@@ -1,10 +1,22 @@
+import { FaFacebook, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa"
+import { FaPhone } from "react-icons/fa6"
+import { IoMail } from "react-icons/io5"
 import { Link } from "react-router-dom"
 
 export const Footer = () => {
     return (
-        <div className='w-full border-t-2  shadow pt-9'>
+        <div className='w-full border-t-2  shadow pt-7'>
             <div className='mx-auto px-3 md:px-0 sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1200px]'>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-3 justify-between text-center sm:text-start">
+                    <Link to='contacts' className="col-span-full text-md font-bold text-center"> Contact us</Link>
+                    <div className="col-span-full mx-auto">
+                        <div className="flex gap-x-2 flex-row  my-2">
+                            <FaInstagram size={24} />
+                            <FaFacebook size={24} />
+                            <FaTwitter size={24} />
+                            <FaTiktok size={24} />
+                        </div>
+                    </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-xl font-bold">Categories</div>
                         <Link to='postcategory/World' className="text-md">World</Link>
@@ -22,8 +34,10 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-xl font-bold">Our blog</div>
-                        <div className="text-md">Home</div>
-                        <div className="text-md">About us</div>
+                        <Link to="/" className="text-md">Home</Link>
+                        <Link to="login" className="text-md">Login</Link>
+                        <Link to="register" className="text-md">Sign up</Link>
+                        <Link to='aboutus' className="text-md">About us</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-xl font-bold">Documents</div>
@@ -33,12 +47,19 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-xl font-bold">Contacts</div>
-                        <div className="text-md">Home</div>
-                        <div className="text-md">About us</div>
+                        <div className="flex flex-row gap-x-2"><FaPhone size={24} /> <div>255 658 191 222</div></div>
+                        <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
+                        <Link to='contacts' className="text-md">Contact us</Link>
+                        <div className="flex flex-row justify-between my-2">
+                            <FaInstagram size={24} />
+                            <FaFacebook size={24} />
+                            <FaTwitter size={24} />
+                            <FaTiktok size={24} />
+                        </div>
                     </div>
                     <div className="col-span-full mt-2 flex flex-col justify-center items-center py-6 border-t-2 border-gray-900">
-                        <small>Copyright&copy;<span className="font-bold">DESCRIBE</span></small>
-                        <small>{Date().toLocaleLowerCase()}</small>
+                        <small><span className="font-bold">DESCRIBE</span>&copy;Copyright{Date().split(" ").at(3)}  </small>
+                        <small>Designed by: +255 658 191 222 Email: joachriss@gmail.com</small>
                     </div>
                 </div>
             </div>

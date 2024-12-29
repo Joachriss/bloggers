@@ -18,7 +18,7 @@ export const Home = () => {
     getPosts();
   },[]);
   return (
-    <div className="w-full mb-52">
+    <div className="w-full mb-20">
       <div className="mx-auto px-3 max-w-[1280px]">
         <div className="bg-gray-200 rounded-xl text-gray-950 dark:text-gray-100 dark:bg-gray-700 my-3 p-8 grid grid-cols-1 md:grid-cols-2">
           <div className="gap-y-5 grid">
