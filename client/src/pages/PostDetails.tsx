@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
+import { CommentForm } from "../components/CommentForm";
 
 export const PostDetails = () => {
     const params = useParams();
@@ -55,6 +56,7 @@ export const PostDetails = () => {
                         <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
+                    <CommentForm/>
                 </div>
                 <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-5">
                     <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-gray-900 my-2"/></div>

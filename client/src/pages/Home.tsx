@@ -18,9 +18,9 @@ export const Home = () => {
     getPosts();
   },[]);
   return (
-    <div className="w-full mb-20">
+    <div className="w-full mb-20 text-gray-900 dark:text-gray-200 bg-transparent">
       <div className="mx-auto px-3 max-w-[1280px]">
-        <div className="bg-gray-200 rounded-xl text-gray-950 dark:text-gray-100 dark:bg-gray-700 my-3 p-8 grid grid-cols-1 md:grid-cols-2">
+        <div className="bg-gray-200 rounded-xl text-gray-950 dark:text-gray-100 dark:bg-gray-900 shadow-lg my-3 p-8 grid grid-cols-1 md:grid-cols-2">
           <div className="gap-y-5 grid">
             <div className="text-3xl md:text-6xl italic font-medium">The post name goes here</div>
             <div className="text-xl font-thin line-clip-3">The post description goes here</div>
