@@ -5,10 +5,13 @@ import { Link } from "react-router-dom"
 
 export const Footer = () => {
     return (
-        <div className='w-full border-t-2  shadow pt-7'>
-            <div className='mx-auto px-3 md:px-0 sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1200px]'>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-3 justify-between text-center sm:text-start">
-                    <Link to='contacts' className="col-span-full text-md font-bold text-center"> Contact us</Link>
+        <div className='w-full border-t-2  shadow pt-7 bg-transparent dark:bg-slate-900'>
+            <div className='mx-auto px-3 md:px-0 max-w-[1200px]'>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-y-3 justify-between text-start">
+                    <div className="col-span-full text-md text-center">
+                        Get in touch with us 
+                        <Link to='contacts' className="font-bold"> Contacts</Link>
+                    </div>
                     <div className="col-span-full mx-auto">
                         <div className="flex gap-x-2 flex-row  my-2">
                             <FaInstagram size={24} />
@@ -50,16 +53,16 @@ export const Footer = () => {
                         <div className="flex flex-row gap-x-2"><FaPhone size={24} /> <div>255 658 191 222</div></div>
                         <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
                         <Link to='contacts' className="text-md">Contact us</Link>
-                        <div className="flex flex-row justify-between my-2">
+                        {/* <div className="flex flex-row justify-between my-2">
                             <FaInstagram size={24} />
                             <FaFacebook size={24} />
                             <FaTwitter size={24} />
                             <FaTiktok size={24} />
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="col-span-full mt-2 flex flex-col justify-center items-center py-6 border-t-2 border-gray-900">
+                    <div className="col-span-full mt-2 flex flex-col justify-center items-center py-6 border-t-2 border-gray-900 dark:border-gray-300">
                         <small><span className="font-bold">DESCRIBE</span>&copy;Copyright{Date().split(" ").at(3)}  </small>
-                        <small>Designed by: +255 658 191 222 Email: joachriss@gmail.com</small>
+                        <small>Designed by: <span className="font-bold">+255 658 191 222</span> Email: <span className="font-bold"><a href="mailto:joachriss@gmail.com">joachriss@gmail.com</a></span></small>
                     </div>
                 </div>
             </div>

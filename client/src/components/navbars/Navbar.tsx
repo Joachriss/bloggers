@@ -28,7 +28,7 @@ export const Navbar = () => {
     }, []);
 
     return (
-        <div className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div className="sticky top-0 z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <nav className="w-full">
                 <div className="justify-between flex flex-row p-6 items-center">
                     <div className="flex items-center">
@@ -37,11 +37,11 @@ export const Navbar = () => {
                     <Link to="/" className="text-4xl font-bold">Describe</Link>
                     <div className="flex flex-row gap-x-5 items-center">
                         <IoSearchSharp size={24} />
-                        <div className="p-2 bg-black text-white rounded">Subscribe</div>
+                        <button className="p-2 bg-black text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
-                    <div className="flex flex-wrap justify-between p-3 gap-1 my-2 border-t-[1px] border-black font-medium">
+                    <div className="flex flex-wrap justify-between p-3 gap-1 my-2 border-t-[1px] border-black dark:border-gray-300 font-medium">
                         <Link to='postcategory/World' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</Link>
                         <Link to='postcategory/Technology' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</Link>
                         <Link to='postcategory/Gossip' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</Link>

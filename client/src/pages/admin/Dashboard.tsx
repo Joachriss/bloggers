@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { ThemeButton } from "../../components/ThemeButton";
 export const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState();
     
@@ -153,6 +154,7 @@ export const Dashboard = () => {
 
             <div className="sm:ml-60">
                 <Outlet/>
+                <ThemeButton/>
             </div>
         </>
     )
