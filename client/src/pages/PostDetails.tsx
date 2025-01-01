@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
-import { CommentForm } from "../components/CommentForm";
+import { CommentForm } from "../components/comments/CommentForm";
+import { Comments } from "../components/comments/Comments";
 
 export const PostDetails = () => {
     const params = useParams();
@@ -52,10 +53,11 @@ export const PostDetails = () => {
                         <div className="text-lg text-gray-600 dark:text-gray-200">Author: <span className="font-bold">{postAuthor}</span></div>
                         <small className=" text-gray-500 dark:text-gray-400">Posted on: <span className="font-bold">{postDate.slice(0, 10)}</span></small>
                     </div>
-                    <div className="w-full max-h-[50%] mx-auto overflow-hidden my-2 rounded-lg">
+                    <div className="w-full max-h-[70vh] mx-auto overflow-hidden my-2 rounded-lg">
                         <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
+                    <Comments/>
                     <CommentForm />
                 </main>
                 <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-5">

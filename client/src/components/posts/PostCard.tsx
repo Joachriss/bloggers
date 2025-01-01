@@ -1,3 +1,4 @@
+import { FaUser } from "react-icons/fa6"
 import { Link } from "react-router-dom"
 
 
@@ -12,9 +13,12 @@ export const PostCard = (props: any) => {
                 <div className="md:text-md font-medium md:text-md line-clamp-2" dangerouslySetInnerHTML={{ __html: props.description }}></div>
             </div>
             <div className="flex flex-row justify-between items-center mt-2">
-                <div className="flex flex-col">
-                    <small className="text-gray-950 dark:text-gray-300 font-bold">By: {props.author}</small>
-                    <small className="text-gray-500 dark:text-gray-400">{props.date.slice(0,10)}</small>
+                <div className="flex flex-row justify-between items-center gap-x-2">
+                    <div className="aspect-square overflow-hidden w-8 rounded-full bg-transparent border-[1px] flex items-center justify-center"><FaUser/></div>
+                    <div className="flex flex-col">
+                        <small className="text-gray-950 dark:text-gray-300 font-bold">By: {props.author}</small>
+                        <small className="text-gray-500 dark:text-gray-400">{props.date.slice(0,10)}</small>
+                    </div>
                 </div>
                 <small className="border-2 bg-gray-300 dark:bg-gray-800 px-2 py-1 flex justify-center items-center rounded-lg">{props.category}</small>
             </div>
