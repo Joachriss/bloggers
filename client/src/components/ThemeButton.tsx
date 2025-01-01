@@ -19,7 +19,7 @@ export const ThemeButton = () => {
         setIsDark(!isDark);
     }
   return (
-    <button className="p-3 flex justify-center text-center fixed bottom-10 end-10 border-2 dark:bg-gray-600 bg-gray-800 rounded-full text-gray-200" onClick={setTheme}>
+    <button className="p-3 flex justify-center text-center fixed bottom-10 end-10 border-2 dark:bg-gray-800 bg-gray-800 rounded-full text-gray-200" onClick={setTheme}>
         {isDark ? <FaSun/> :<FaMoon/> }
     </button>
   )

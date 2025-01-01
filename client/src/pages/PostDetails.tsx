@@ -49,8 +49,8 @@ export const PostDetails = () => {
                 <div className="col-span-1 md:col-span-2 flex flex-col gap-y-3 gap-x-4">
                     <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
                     <div>
-                        <div className="text-lg text-gray-600">Author: <span className="font-bold">{postAuthor}</span></div>
-                        <small className=" text-gray-500">Posted on: <span className="font-bold">{postDate.slice(0,10)}</span></small>
+                        <div className="text-lg text-gray-600 dark:text-gray-200">Author: <span className="font-bold">{postAuthor}</span></div>
+                        <small className=" text-gray-500 dark:text-gray-400">Posted on: <span className="font-bold">{postDate.slice(0,10)}</span></small>
                     </div>
                     <div className="w-full max-h-[50%] mx-auto overflow-hidden my-2 rounded-lg">
                         <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
