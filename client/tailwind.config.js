@@ -5,9 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-  },
-  plugins: [],
-  darkMode: 'class'
+    extend: {
+      backgroundImage: {
+        'hero': "url{`http://localhost:8000/uploads/images/${latest.image}`}",
+      }
+    },
+    plugins: [],
+    darkMode: 'class',
+  }
 }
-

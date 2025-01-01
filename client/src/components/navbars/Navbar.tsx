@@ -28,9 +28,9 @@ export const Navbar = () => {
     }, []);
 
     return (
-        <div className="sticky top-0 z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
+        <div className="sticky top-0 mynav z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
             <nav className="w-full">
-                <div className="justify-between flex flex-row px-6 py-3 items-center">
+                <div className="justify-between flex flex-row px-3 sm:px-7 py-3 items-center">
                     <div className="flex items-center">
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
