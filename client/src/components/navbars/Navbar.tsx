@@ -111,7 +111,7 @@ export const Navbar = () => {
                 <div className="grid grid-cols-2 mt-5 gap-4 p-3 h-[90vh] overflow-y-scroll">
                     {posts && posts.length > 0 ?
                         (
-                            [...posts].reverse().slice(0,3).map((post, index) => {
+                            [...posts].reverse().slice(0,6).map((post, index) => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (

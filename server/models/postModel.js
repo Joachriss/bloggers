@@ -5,10 +5,13 @@ const postSchema = new Schema({
     author: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
+    visibility: {type: String, required: true},
     image: { type: String, required: true },
-    updatedAt: { type: Date, default: Date.now },
-    createdAt: { type: Date},
-});
+},
+{
+    timestamps:true
+}
+);
 
 const postModel = model('posts',postSchema);
 

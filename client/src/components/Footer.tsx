@@ -21,7 +21,7 @@ export const Footer = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-1">
-                        <div className="text-xl font-bold">Categories</div>
+                        <div className="text-xl font-bold mt-4">Categories</div>
                         <Link to='postcategory/World' className="text-md">World</Link>
                         <Link to='postcategory/Technology' className="text-md">Technology</Link>
                         <Link to='postcategory/Gossip' className="text-md">Gossip</Link>
@@ -36,29 +36,23 @@ export const Footer = () => {
                         <Link to='postcategory/Contacts' className="text-md">Contacts</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
-                        <div className="text-xl font-bold">Our blog</div>
+                        <div className="text-xl font-bold mt-4">Our blog</div>
                         <Link to="/" className="text-md">Home</Link>
                         <Link to="login" className="text-md">Login</Link>
                         <Link to="register" className="text-md">Sign up</Link>
                         <Link to='aboutus' className="text-md">About us</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
-                        <div className="text-xl font-bold">Documents</div>
+                        <div className="text-xl font-bold mt-4">Documents</div>
                         <div className="text-md">Privacy</div>
                         <div className="text-md">Terms and conditions</div>
                         <div className="text-md">Help & Support</div>
                     </div>
                     <div className="flex flex-col gap-y-1">
-                        <div className="text-xl font-bold">Contacts</div>
+                        <div className="text-xl font-bold mt-4">Contacts</div>
                         <div className="flex flex-row gap-x-2"><FaPhone size={24} /> <div>255 658 191 222</div></div>
                         <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
                         <Link to='contacts' className="text-md">Contact us</Link>
-                        {/* <div className="flex flex-row justify-between my-2">
-                            <FaInstagram size={24} />
-                            <FaFacebook size={24} />
-                            <FaTwitter size={24} />
-                            <FaTiktok size={24} />
-                        </div> */}
                     </div>
                     <div className="col-span-full mt-2 flex flex-col justify-center items-center py-6 border-t-2 border-gray-900 dark:border-gray-300">
                         <small><span className="font-bold">DESCRIBE</span>&copy;Copyright{Date().split(" ").at(3)}  </small>

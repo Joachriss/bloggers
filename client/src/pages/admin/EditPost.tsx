@@ -104,16 +104,16 @@ export const EditPost = () => {
           </div>
           <div className="flex flex-col w-full col-span-2 md:col-span-1">
             <label htmlFor="blogName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog tittle:</label>
-            <input type="text" id="blogName" value={tittle} onChange={(e) => setTittle(e.target.value)} className="p-2 rounded-md text-sm font-medium border-2 border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" name="blogName" />
+            <input type="text" id="blogName" value={tittle} onChange={(e) => setTittle(e.target.value)} className="p-2 bg-transparent rounded-md text-sm font-medium border-2 border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" name="blogName" />
           </div>
           <div className="flex flex-col w-full col-span-2 md:col-span-1">
             <label htmlFor="author" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author:</label>
-            <input type="text" id="author" name="author" value={author} onChange={(e) => setAuthor(e.target.value)} className=" block w-full p-2 rounded-md border-2 text-sm font-medium border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" />
+            <input type="text" id="author" name="author" value={author} onChange={(e) => setAuthor(e.target.value)} className="bg-transparent block w-full p-2 rounded-md border-2 text-sm font-medium border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" />
           </div>
 
           <Menu as="div" className="relative inline-block text-left col-span-2">
             <div>
-              <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50">
+              <MenuButton className="inline-flex bg-transparent w-full justify-center gap-x-1.5 rounded-md dark:text-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-700">
                 {category ? category : 'category'}
                 <FaAngleDown aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
               </MenuButton>
