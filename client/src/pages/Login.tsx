@@ -12,13 +12,19 @@ export const Login = () => {
   const loginUser = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const {data} = await axios.post("/login",{email,password});
-      if(data.error){
+      const { data } = await axios.post("/login", { email, password });
+      if (data.error) {
         toast.error(data.error);
-      }else{
+      } else {
+        console.log(data.user.role)
         toast.success("login successiful");
-        navigate("/admin");
-        
+        if (data.user.role === "admin") {
+          navigate("/admin");
+        }
+        else{
+          navigate("/")
+        }
+
       }
     } catch (error) {
       console.log(error);
@@ -56,9 +62,9 @@ export const Login = () => {
                 </div>
                 <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-gray-300">Forgot password?</a>
               </div>
-              <button type="submit" className="w-full text-gray-600 dark:text-gray-300 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+              <button type="submit" className="w-full text-gray-600 dark:text-gray-300 border-2 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet? <Link to="/register" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                Don’t have an account yet? <Link to="/register" className="font-extrabold text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
               </p>
             </form>
           </div>

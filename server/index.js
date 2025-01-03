@@ -7,6 +7,7 @@ import { connect } from 'mongoose';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import commentRouter from './routes/commentRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,6 +30,7 @@ app.use(cors({
 app.use('/uploads/images',express.static(path.join(__dirname,'uploads/images')));
 app.use('/',authRoutes);
 app.use('/',postRoutes);
+app.use('/',commentRouter);
 
 
 // database connection

@@ -25,7 +25,7 @@ const registerUser = async (req,res)=>{
             return res.json({error:'Password must be at least 6 characters'});
         }
         if(!confirmPassword || confirmPassword.length < 6){
-            return res.json({error:'Confirm password must be at least 6 characters'});
+            return res.json({error:'Password must be at least 6 characters'});
         }
         if(password !== confirmPassword){
             return res.json({error:'Passwords do not match'});
@@ -34,10 +34,11 @@ const registerUser = async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password,12);
 
         // create user
-        const user = await userModel.save({
+        const user = await userModel.create({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            role:"user"
         });
         res.json({user});
 
@@ -61,7 +62,7 @@ const loginUser = async (req,res)=>{
             return res.json({error:'Invalid credentials'});
         }
         if(isMatch){
-            const token = jwt.sign({email:user.email,id:user._id,name:user.name},process.env.JWT_SECRET,{expiresIn:'1h'},(err,token)=>{
+            const token = jwt.sign({email:user.email,id:user._id,name:user.name,role:user.role},process.env.JWT_SECRET,{expiresIn:'1h'},(err,token)=>{
                 if(err) throw err;
                 res.cookie('token',token).json({user});
             });

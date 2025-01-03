@@ -30,7 +30,7 @@ export const Navbar = () => {
     return (
         <div className="sticky top-0 mynav z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
             <nav className="w-full">
-                <div className="justify-between flex flex-row px-3 sm:px-7 py-3 items-center">
+                <div className="justify-between flex flex-row px-3 sm:px-5 py-3 items-center">
                     <div className="flex items-center">
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
@@ -45,13 +45,14 @@ export const Navbar = () => {
                         <Link to='postcategory/World' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">World</Link>
                         <Link to='postcategory/Technology' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Technology</Link>
                         <Link to='postcategory/Gossip' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Gossip</Link>
-                        <Link to='postcategory/Politics' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Politics</Link>
-                        <Link to='postcategory/Social' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Social</Link>
+                        {/* <Link to='postcategory/Politics' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Politics</Link>
+                        <Link to='postcategory/Social' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Social</Link> */}
                         <Link to='postcategory/Sport' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Sport</Link>
                         <Link to='postcategory/Business' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Business</Link>
                         <Link to='postcategory/Health' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Health</Link>
                         <Link to='postcategory/Style' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Style</Link>
                         <Link to='postcategory/Travel' className="px-2 flex justify-center items-center rounded  border-b-4 border-orange-600">Travel</Link>
+                        <Link to='/login' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</Link>
                         <div className="flex flex-row items-center font-semibold">
                             <Menu>
                                 <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
@@ -111,7 +112,7 @@ export const Navbar = () => {
                 <div className="grid grid-cols-2 mt-5 gap-4 p-3 h-[90vh] overflow-y-scroll">
                     {posts && posts.length > 0 ?
                         (
-                            [...posts].reverse().slice(0,6).map((post, index) => {
+                            [...posts].reverse().slice(0,5).map((post, index) => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (
@@ -130,8 +131,8 @@ export const Navbar = () => {
                     <Link reloadDocument={true} to='postcategory/World' className="p-2 flex rounded  border-b-4 border-orange-600">World</Link>
                     <Link reloadDocument={true} to='postcategory/Technology' className="p-2 flex rounded  border-b-4 border-orange-600">Technology</Link>
                     <Link reloadDocument={true} to='postcategory/Gossip' className="p-2 flex rounded  border-b-4 border-orange-600">Gossip</Link>
-                    <Link reloadDocument={true} to='postcategory/Politics' className="p-2 flex rounded  border-b-4 border-orange-600">Politics</Link>
-                    <Link reloadDocument={true} to='postcategory/Social' className="p-2 flex rounded  border-b-4 border-orange-600">Social</Link>
+                    {/* <Link reloadDocument={true} to='postcategory/Politics' className="p-2 flex rounded  border-b-4 border-orange-600">Politics</Link>
+                    <Link reloadDocument={true} to='postcategory/Social' className="p-2 flex rounded  border-b-4 border-orange-600">Social</Link> */}
                     <Link reloadDocument={true} to='postcategory/Sport' className="p-2 flex rounded  border-b-4 border-orange-600">Sport</Link>
                     <Link reloadDocument={true} to='postcategory/Business' className="p-2 flex rounded  border-b-4 border-orange-600">Business</Link>
                     <Link reloadDocument={true} to='postcategory/Health' className="p-2 flex rounded  border-b-4 border-orange-600">Health</Link>

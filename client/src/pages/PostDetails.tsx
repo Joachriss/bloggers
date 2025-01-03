@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
 import { CommentForm } from "../components/comments/CommentForm";
 import { Comments } from "../components/comments/Comments";
+import { UserContext } from "../../context/authContext";
 
 export const PostDetails = () => {
     const params = useParams();
@@ -14,6 +15,11 @@ export const PostDetails = () => {
     const [postAuthor, setPostAuthor] = useState('');
     const [postDate, setPostDate] = useState('');
     const [postDescription, setPostDescription] = useState('');
+    const authContext = useContext(UserContext);
+
+    // const {user,setUser} = authContext;
+    console.log(authContext.id);
+
     useEffect(() => {
         // get post by id
         const getPostDetails = async () => {
@@ -58,9 +64,9 @@ export const PostDetails = () => {
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
                     <Comments/>
-                    <CommentForm />
+                    <CommentForm postId={postid}/>
                 </main>
-                <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-5">
+                <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-4">
                     <div className="sticky top-36">
                         <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-gray-700 my-2" /></div>
                         {
