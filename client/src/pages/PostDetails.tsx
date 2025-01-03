@@ -16,9 +16,8 @@ export const PostDetails = () => {
     const [postDate, setPostDate] = useState('');
     const [postDescription, setPostDescription] = useState('');
     const authContext = useContext(UserContext);
+    console.log(authContext);
 
-    // const {user,setUser} = authContext;
-    console.log(authContext.id);
 
     useEffect(() => {
         // get post by id
@@ -47,6 +46,7 @@ export const PostDetails = () => {
             }
         }
 
+
         getPosts();
         getPostDetails();
     }, []);
@@ -63,8 +63,11 @@ export const PostDetails = () => {
                         <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
-                    <Comments/>
-                    <CommentForm postId={postid}/>
+
+                    <Comments postid={postid}/>
+                    {authContext.user.id ? <CommentForm postId={postid} userId={authContext.user.id}/> : ''}
+                    
+
                 </main>
                 <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-4">
                     <div className="sticky top-36">

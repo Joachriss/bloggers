@@ -1,6 +1,6 @@
 import { FaUser } from "react-icons/fa6"
 
-export const CommentCard = () => {
+export const CommentCard = (props:any) => {
     return (
         <div className='flex flex-row gap-y-2 gap-x-2 my-2'>
             {/* <div className="overflow-hidden aspect-square rounded-full flex items-center min-w-20 max-w-20 max-h-16">
@@ -12,7 +12,7 @@ export const CommentCard = () => {
             <div className='flex flex-col'>
                 <div className=" line-clamp-5 font-bold text-sm">Name</div>
                 <small className="text-sm">time</small>
-                <div className='text-md'>Maelezo mengi sana Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea amet tenetur omnis asperiores cupiditate sequi, consequatur soluta repellendus maiores eaque deleniti! Eligendi sed et voluptatum recusandae facilis, laudantium quasi quidem!</div>
+                <div className='text-md'>{props.comment}</div>
             </div>
         </div>
     )
