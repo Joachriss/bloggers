@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import postRoutes from './routes/postRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import { connect } from 'mongoose';
 import cookieParser from 'cookie-parser';
@@ -31,6 +32,7 @@ app.use('/uploads/images',express.static(path.join(__dirname,'uploads/images')))
 app.use('/',authRoutes);
 app.use('/',postRoutes);
 app.use('/',commentRouter);
+app.use('/',userRoutes);
 
 
 // database connection

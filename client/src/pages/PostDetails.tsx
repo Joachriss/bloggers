@@ -6,7 +6,7 @@ import { CommentSection } from "../components/comments/CommentSection";
 
 export const PostDetails = () => {
     const params = useParams();
-    const postid = params.postid;
+    const postId = params.postid;
     const [posts, setPosts] = useState([]);
     const [postTittle, setPostTittle] = useState('');
     const [postImage, setPostImage] = useState('');
@@ -19,7 +19,7 @@ export const PostDetails = () => {
         // get post by id
         const getPostDetails = async () => {
             try {
-                const { data } = await axios.get(`getpost/${postid}`);
+                const { data } = await axios.get(`getpost/${postId}`);
                 setPostTittle(data.tittle);
                 setPostImage(data.image);
                 setPostAuthor(data.author);
@@ -60,7 +60,7 @@ export const PostDetails = () => {
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
 
-                    <CommentSection postid={postid}/>
+                    <CommentSection postid={postId}/>
                     
 
                 </main>

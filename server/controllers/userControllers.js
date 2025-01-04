@@ -1,8 +1,13 @@
-import userModel from "../models/userModel"
-const getUserById = async () => {
+import userModel from "../models/userModel.js"
+const getUsers = async () =>{
+    const users = await userModel.find();
+    res.json(users);
+}
+
+const getUserById = async (req,res) => {
     const userId = req.params.userid;
     try {
-        const user = await postModel.findById(userId);
+        const user = await userModel.findById(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -14,6 +19,8 @@ const getUserById = async () => {
     }
 }
 
+
 export {
+    getUsers,
     getUserById
 }
