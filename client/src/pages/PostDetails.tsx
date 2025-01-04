@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
-import { CommentForm } from "../components/comments/CommentForm";
-import { Comments } from "../components/comments/Comments";
-import { UserContext } from "../../context/authContext";
+import { CommentSection } from "../components/comments/CommentSection";
 
 export const PostDetails = () => {
     const params = useParams();
@@ -15,8 +13,6 @@ export const PostDetails = () => {
     const [postAuthor, setPostAuthor] = useState('');
     const [postDate, setPostDate] = useState('');
     const [postDescription, setPostDescription] = useState('');
-    const authContext = useContext(UserContext);
-    console.log(authContext);
 
 
     useEffect(() => {
@@ -64,8 +60,7 @@ export const PostDetails = () => {
                     </div>
                     <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
 
-                    <Comments postid={postid}/>
-                    {authContext.user.id ? <CommentForm postId={postid} userId={authContext.user.id}/> : ''}
+                    <CommentSection postid={postid}/>
                     
 
                 </main>

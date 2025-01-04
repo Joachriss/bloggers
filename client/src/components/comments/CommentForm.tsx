@@ -22,7 +22,7 @@ export const CommentForm = (props:any) => {
             <div className='text-xl font-bold mb-2'>
                 {/* #Comment */}
             </div>
-            <textarea onChange={(e)=>setComments(e.target.value)} name="comment"  placeholder="Write your comment..." className='p-2 shadow-lg rounded-lg bg-transparent w-full border-2 border-gray-800' id="" rows={4}></textarea>
+            <textarea onChange={(e)=>setComments(e.target.value)} name="comment"  placeholder="Write your comment here..." className='p-2 shadow-lg rounded-lg bg-transparent w-full border-2 border-gray-800' id="" rows={4}></textarea>
             <button type="submit" onClick={handleComment} className="p-2 bg-gray-800 shadow-lg text-white rounded-lg mt-2 flex ms-auto">Comment</button>
         </div>
     )
