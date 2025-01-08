@@ -1,35 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
-import { CommentSection } from "../components/comments/CommentSection";
+import { PostDetails } from "../components/PostDetails";
 
-export const PostDetails = () => {
+export const PostDetailsLayout = () => {
+    const location = useLocation();
     const params = useParams();
     const postId = params.postid;
     const [posts, setPosts] = useState([]);
-    const [postTittle, setPostTittle] = useState('');
-    const [postImage, setPostImage] = useState('');
-    const [postAuthor, setPostAuthor] = useState('');
-    const [postDate, setPostDate] = useState('');
-    const [postDescription, setPostDescription] = useState('');
 
 
     useEffect(() => {
-        // get post by id
-        const getPostDetails = async () => {
-            try {
-                const { data } = await axios.get(`getpost/${postId}`);
-                setPostTittle(data.tittle);
-                setPostImage(data.image);
-                setPostAuthor(data.author);
-                setPostDate(data.updatedAt);
-                setPostDescription(data.description);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
         // get all posts
         const getPosts = async () => {
             try {
@@ -44,23 +26,14 @@ export const PostDetails = () => {
 
 
         getPosts();
-        getPostDetails();
-    }, []);
+    }, [location.pathname]);
     return (
         <div className="w-full relative">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-4 max-w-[1280px] mx-auto">
-                <main className="col-span-1 md:col-span-2 flex flex-col gap-y-3 gap-x-4">
-                    <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
-                    <div>
-                        <div className="text-lg text-gray-600 dark:text-gray-200">Author: <span className="font-bold">{postAuthor}</span></div>
-                        <small className=" text-gray-500 dark:text-gray-400">Posted on: <span className="font-bold">{postDate.slice(0, 10)}</span></small>
-                    </div>
-                    <div className="w-full max-h-[70vh] mx-auto overflow-hidden my-2 rounded-lg">
-                        <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
-                    </div>
-                    <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
+                <main className="col-span-1 md:col-span-2">
+                    {/* Output for post details */}
+                    <PostDetails postid={postId} key={window.location.pathname}/>
 
-                    <CommentSection postid={postId}/>
                     
 
                 </main>

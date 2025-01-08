@@ -16,7 +16,6 @@ export const Login = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        console.log(data.user.role)
         toast.success("login successiful");
         if (data.user.role === "admin") {
           navigate("/admin");

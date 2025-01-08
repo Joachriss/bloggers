@@ -6,18 +6,17 @@ import { CommentForm } from "./CommentForm";
 
 export const CommentSection = (props: any) => {
   const postid = props.postid;
-  const [postComments, setPostComments] = useState<any>([])
-  // const authContext = useContext(UserContext);
-  console.log(postComments);
+  const [postComments, setPostComments] = useState<any>([]);
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     const getComments = async () => {
-      const response = await axios.get(`/getpostcomments/:${postid}`);
+      const response = await axios.get(`getpostcomments/${postid}`);
       setPostComments(response.data);
     }
 
     getComments();
-  }, []);
+  },[]);
 
   return (
     <div>
@@ -29,14 +28,14 @@ export const CommentSection = (props: any) => {
         <div className="flex flex-col overflow-y-scroll border-t-[1px]">
           {
             postComments && postComments.length > 0 ? (
-              [...postComments].reverse().map(comments => <CommentCard comment={comments.comments} userId={comments.userId} date={comments.updatedAt} />)
+              [...postComments].reverse().map(commentss => <CommentCard key={commentss._id} comment={commentss.comments} userId={commentss.userId.name} date={commentss.updatedAt} />)
             ) : (
               <div className="text-center col-span-full text-gray-950 mx-auto dark:text-gray-100 my-3 p-8">No comments😒</div>
             )
           }
         </div>
       </div>
-      {/* <CommentForm postId={postid} userId={authContext.user.id ? authContext.user.id : ""} /> */}
+      {/* <CommentForm postId={postid} userId={userContext.user.id} /> */}
     </div>
   )
 }

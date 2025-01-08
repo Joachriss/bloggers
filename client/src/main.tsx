@@ -17,10 +17,11 @@ import { CreatePost } from './pages/admin/CreatePost.tsx'
 import { EditPost } from './pages/admin/EditPost.tsx'
 import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
 import { Layout } from './pages/Layout.tsx'
-import { PostDetails } from './pages/PostDetails.tsx'
+import { PostDetailsLayout } from './pages/PostDetailsLayout.tsx'
 import { PostCategory } from './pages/PostCategory.tsx'
 import { Contacts } from './pages/Contacts.tsx'
 import { AboutUs } from './pages/AboutUs.tsx'
+import { PostDetails } from './components/PostDetails.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'post/:postid',
-        element: <PostDetails />,
+        element: <PostDetailsLayout />,
       },
       {
         path: 'postcategory/:category',

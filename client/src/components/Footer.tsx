@@ -25,15 +25,11 @@ export const Footer = () => {
                         <Link to='postcategory/World' className="w-fit text-md">World</Link>
                         <Link to='postcategory/Technology' className="text-md w-fit p-1">Technology</Link>
                         <Link to='postcategory/Gossip' className="text-md w-fit p-1">Gossip</Link>
-                        <Link to='postcategory/Politics' className="text-md w-fit p-1">Politics</Link>
-                        <Link to='postcategory/Social' className="text-md w-fit p-1">Social</Link>
                         <Link to='postcategory/Sport' className="text-md w-fit p-1">Sport</Link>
                         <Link to='postcategory/Business' className="text-md w-fit p-1">Business</Link>
                         <Link to='postcategory/Health' className="text-md w-fit p-1">Health</Link>
                         <Link to='postcategory/Style' className="text-md w-fit p-1">Style</Link>
                         <Link to='postcategory/Travel' className="text-md w-fit p-1">Travel</Link>
-                        <Link to='postcategory/About' className="text-md w-fit p-1">About</Link>
-                        <Link to='postcategory/Contacts' className="text-md w-fit p-1">Contacts</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Our blog</div>
@@ -48,9 +44,11 @@ export const Footer = () => {
                         <div className="text-md w-fit p-1">Terms and conditions</div>
                         <div className="text-md w-fit p-1">Help & Support</div>
                     </div>
-                    <div className="flex flex-col gap-y-1">
+                    <div className="flex flex-col gap-y-2">
                         <div className="text-2xl font-bold mt-4 w-fit p-1">Contacts</div>
-                        <div className="flex flex-row gap-x-2 w-fit p-1"><FaPhone size={24} /> <div>255 658 191 222</div></div>
+                        <div className="flex flex-row gap-x-3 w-fit">
+                            <FaPhone size={24} /> <div>255 658 191 222</div>
+                        </div>
                         <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
                         <Link to='contacts' className="text-md w-fit p-1">Contact us</Link>
                     </div>

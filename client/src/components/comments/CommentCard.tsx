@@ -3,25 +3,25 @@ import { useEffect, useState } from "react"
 import { FaUser } from "react-icons/fa6"
 
 export const CommentCard = (props:any) => {
-    const userid = props.userId;
-    console.log(userid);
-    const [user,setUser] = useState<any>();
+    // const userid = props.userId;
+    // console.log(userid);
+    // const [user,setUser] = useState<any>();
 
-    useEffect(()=>{
-        const getUser = async () => {
-            try {
-                const response = await axios.get(`getuserbyid/${userid}`);
-                setUser(response.data);
+    // useEffect(()=>{
+    //     const getUser = async () => {
+    //         try {
+    //             const response = await axios.get(`getuserbyid/${userid}`);
+    //             setUser(response.data);
 
-            }
-            catch (error) {
-                console.error(error);
-            }
-        }
+    //         }
+    //         catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
 
-        getUser();
+    //     getUser();
 
-    },[]);
+    // },[userid]);
 
     return (
         <div className='flex flex-row gap-y-2 gap-x-4 my-2'>
@@ -32,9 +32,9 @@ export const CommentCard = (props:any) => {
                 <FaUser />
             </div>
             <div className='flex flex-col'>
-                <div className=" line-clamp-5 font-bold text-sm">{user.name}</div>
+                <div className=" line-clamp-5 font-bold text-sm">{props.userId}</div>
                 <small className="text-sm">{props.date.slice(0,10)}</small>
-                <div className='text-md mt-3'>{props.comment}</div>
+                <div className='text-md mt-1'>{props.comment}</div>
             </div>
         </div>
     )
