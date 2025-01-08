@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 export const CommentForm = (props:any) => {
     const [userComment,setUserComment] = useState('');
+    console.log(userComment);
     const postId = props.postId;
     const userId = props.userId;
 

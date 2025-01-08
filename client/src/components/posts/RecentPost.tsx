@@ -8,7 +8,7 @@ export const RecentPost = (props:any) => {
         </div>
         <div className='flex flex-col'>
             <div className=" line-clamp-2 font-bold text-sm">{props.tittle}</div>
-            <small className='text-xs'>{props.date.slice(0,10)}</small>
+            <small className='text-[9pt]'>{props.date.slice(0,10)}</small>
         </div>
     </Link>
   )
