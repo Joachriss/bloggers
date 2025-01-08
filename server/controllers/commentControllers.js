@@ -14,11 +14,10 @@ const getComments = async (req,res) =>{
 }
 
 const getPostCommentsByPostId = async (req,res) => {
+    // RECEIVEING AND CONVERTING postid STRING INTO ObjectId DATA TYPE
     const postId = new mongoose.Types.ObjectId(String(req.params.postid));
-    // console.log(typeof postId);
-    // console.log("post id:", postId);
-    const comments = await commentModel.find({postId:postId}).populate('user');
-    // console.log("Comments:",comments);
+
+    const comments = await commentModel.find({postId:postId}).populate('userId');
     res.json(comments);
 }
 
