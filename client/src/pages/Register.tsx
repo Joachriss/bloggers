@@ -3,41 +3,42 @@
 import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
+import { FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"
 
 export const Register = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = React.useState('');                                                                                                                                                                               
+    const [email, setEmail] = React.useState('');
     const [name, setName] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState("");
 
     // user registration
-     const registerUser = async (e: React.SyntheticEvent) => {
+    const registerUser = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try {
-            const {data} = await axios.post('/register',{name,email,password,confirmPassword});
-            if(data.error){
+            const { data } = await axios.post('/register', { name, email, password, confirmPassword });
+            if (data.error) {
                 return toast.error(data.error)
             }
-            else{
+            else {
                 toast.success('User registered successfully');
                 navigate('/login');
             }
-            
+
         }
         catch (error) {
             console.log(error);
         }
 
-      }
+    }
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
+        <section className="bg-transparent">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                {/* <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-                            Flowbite
-                    </a> */}
+                <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                    Describe
+                </Link>
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -72,6 +73,8 @@ export const Register = () => {
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already have an account? <Link to="/login" className=" text-primary-600 hover:underline dark:text-primary-500 font-extrabold">Login here</Link>
                             </p>
+                            <div className="text-center font-light text-lg w-full"><Link to='/' className="p-2 hover:font-bold flex flex-row items-center gap-x-1 mx-auto text-center w-fit"><FaHome />Homepage</Link></div>
+
                         </form>
                     </div>
                 </div>

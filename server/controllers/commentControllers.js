@@ -4,7 +4,6 @@ import ObjectId from 'mongodb';
 
 const createComment = async (req,res,next) => {
     const {postId,userId,userComment} = req.body;
-    console.log(userComment);
     const UserComment = await commentModel.create({postId,userId,userComment});
     res.status(200).json({message:"Comment sent!"});
 }

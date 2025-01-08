@@ -21,7 +21,6 @@ export const Dashboard = () => {
     },[])
     return (
         <>
-
             <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-transparent dark:border-gray-700">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
@@ -33,8 +32,8 @@ export const Dashboard = () => {
                                 </svg>
                             </button>
                             <Link to="/admin/dashboard" className="flex ms-2 md:me-24">
-                                <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 me-3" alt="FlowBite Logo" />
-                                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+                                {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 me-3" alt="FlowBite Logo" /> */}
+                                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Describe</span>
                             </Link>
                         </div>
                         <div className="flex items-center">

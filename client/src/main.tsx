@@ -115,7 +115,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <UserContextProvider>
-      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       <RouterProvider router={router} />
     </UserContextProvider>
   </StrictMode>,

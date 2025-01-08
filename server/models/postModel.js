@@ -9,7 +9,7 @@ const postSchema = new Schema({
     visibility: {type: String, required: true},
     comments:[{
         type:Schema.Types.ObjectId,
-        ref:'commentModel'
+        ref:commentModel
     }],
     image: { type: String, required: true },
 },
