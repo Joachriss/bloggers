@@ -1,4 +1,6 @@
 import commentModel from "../models/commentModel.js";
+import mongoose from "mongoose";
+import ObjectId from 'mongodb';
 
 const createComment = async (req,res,next) => {
     const {postId,userId,userComment} = req.body;
@@ -12,9 +14,11 @@ const getComments = async (req,res) =>{
 }
 
 const getPostCommentsByPostId = async (req,res) => {
-    const postId = req.params.postid;
-    const comments = await commentModel.find({postId:postId}).populate('userId');
-    console.log(comments);
+    const postId = new mongoose.Types.ObjectId(String(req.params.postid));
+    // console.log(typeof postId);
+    // console.log("post id:", postId);
+    const comments = await commentModel.find({postId:postId}).populate('user');
+    // console.log("Comments:",comments);
     res.json(comments);
 }
 

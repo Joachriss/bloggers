@@ -28,7 +28,7 @@ export const CommentSection = (props: any) => {
         <div className="flex flex-col overflow-y-scroll border-t-[1px]">
           {
             postComments && postComments.length > 0 ? (
-              [...postComments].reverse().map(commentss => <CommentCard key={commentss._id} comment={commentss.comments} userId={commentss.userId.name} date={commentss.updatedAt} />)
+              [...postComments].reverse().map(commentss => <CommentCard key={commentss._id} comment={commentss.comments} userName={commentss.user.name} date={commentss.updatedAt} />)
             ) : (
               <div className="text-center col-span-full text-gray-950 mx-auto dark:text-gray-100 my-3 p-8">No comments😒</div>
             )
