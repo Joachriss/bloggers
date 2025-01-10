@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { CommentCard } from "./CommentCard"
 import axios from "axios";
-import { UserContext } from "../../../context/authContext";
+import { UserContext } from "../../../context/UserContext";
 import { CommentForm } from "./CommentForm";
 
 export const CommentSection = (props: any) => {
   const postid = props.postid;
   const [postComments, setPostComments] = useState<any>([]);
-  const userContext = useContext<any>(UserContext);
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     const getComments = async () => {
@@ -35,7 +35,7 @@ export const CommentSection = (props: any) => {
           }
         </div>
       </div>
-      <CommentForm postId={postid} userId={userContext.user.id} />
+      <CommentForm postId={postid} userId={ userContext?.user? userContext.user.id : "" } />
     </div>
   )
 }
