@@ -6,11 +6,22 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Navbar = () => {
     const [isOpen, setOpen] = React.useState(false);
     const [posts, setPosts] = useState<any>([]);
+    const active = 'px-2 flex justify-center items-center rounded  border-b-4 border-green-600';
+    const notActive = 'px-2 flex justify-center items-center rounded';
+    const activeMobile = 'px-2 flex rounded  border-b-4 border-green-600';
+    const notActiveMobile = 'px-2 flex items-center rounded';
+    const isDesktopNavLinkActive = ({isActive}:any) =>{
+        return isActive ? active : notActive;
+    }
+    const isMobileNavLinkActive = ({isActive}:any) =>{
+        return isActive ? activeMobile : notActiveMobile;
+    }
+
     const handleMenu = () => {
         setOpen(!isOpen)
     }
@@ -42,19 +53,19 @@ export const Navbar = () => {
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
                     <div className="flex flex-wrap justify-between px-3 py-2 gap-1 my-2 border-t-[1px] border-black dark:border-gray-300 font-medium">
-                        <Link to='postcategory/World' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">World</Link>
-                        <Link to='postcategory/Technology' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Technology</Link>
-                        {/* <Link to='postcategory/Gossip' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Gossip</Link> */}
-                        {/* <Link to='postcategory/Politics' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Politics</Link>
-                        <Link to='postcategory/Social' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Social</Link> */}
-                        <Link to='postcategory/Sport' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Sport</Link>
-                        <Link to='postcategory/Business' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Business</Link>
-                        <Link to='postcategory/Health' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Health</Link>
-                        <Link to='postcategory/Style' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Style</Link>
-                        <Link to='postcategory/Travel' className="px-2 flex justify-center items-center rounded  border-b-4 border-green-600">Travel</Link>
+                        <NavLink to='postcategory/World' className={isDesktopNavLinkActive}>World</NavLink>
+                        <NavLink to='postcategory/Technology' className={isDesktopNavLinkActive}>Technology</NavLink>
+                        {/* <Link to='postcategory/Gossip' className={isDesktopNavLinkActive}>Gossip</Link> */}
+                        {/* <Link to='postcategory/Politics' className={isDesktopNavLinkActive}>Politics</Link>
+                        <Link to='postcategory/Social' className={isDesktopNavLinkActive}>Social</Link> */}
+                        <NavLink to='postcategory/Sport' className={isDesktopNavLinkActive}>Sport</NavLink>
+                        <NavLink to='postcategory/Business' className={isDesktopNavLinkActive}>Business</NavLink>
+                        <NavLink to='postcategory/Health' className={isDesktopNavLinkActive}>Health</NavLink>
+                        <NavLink to='postcategory/Style' className={isDesktopNavLinkActive}>Style</NavLink>
+                        <NavLink to='postcategory/Travel' className={isDesktopNavLinkActive}>Travel</NavLink>
                         <div className=" border-gray-600 border-r-4"></div>
-                        <Link to='login' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</Link>
-                        <Link to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</Link>
+                        <NavLink to='login' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
+                        <NavLink to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</NavLink>
                         <div className="flex flex-row items-center font-semibold">
                             <Menu>
                                 <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
@@ -130,18 +141,18 @@ export const Navbar = () => {
                     <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}>X</div>
                 </div>
                 <div className="flex flex-col text-white justify-between py-3 gap-2 my-2 border-t-[1px] border-black">
-                    <Link reloadDocument={true} to='postcategory/World' className="p-2 flex rounded  border-b-4 border-orange-600">World</Link>
-                    <Link reloadDocument={true} to='postcategory/Technology' className="p-2 flex rounded  border-b-4 border-orange-600">Technology</Link>
-                    {/* <Link reloadDocument={true} to='postcategory/Gossip' className="p-2 flex rounded  border-b-4 border-orange-600">Gossip</Link> */}
-                    {/* <Link reloadDocument={true} to='postcategory/Politics' className="p-2 flex rounded  border-b-4 border-orange-600">Politics</Link>
-                    <Link reloadDocument={true} to='postcategory/Social' className="p-2 flex rounded  border-b-4 border-orange-600">Social</Link> */}
-                    <Link reloadDocument={true} to='postcategory/Sport' className="p-2 flex rounded  border-b-4 border-orange-600">Sport</Link>
-                    <Link reloadDocument={true} to='postcategory/Business' className="p-2 flex rounded  border-b-4 border-orange-600">Business</Link>
-                    <Link reloadDocument={true} to='postcategory/Health' className="p-2 flex rounded  border-b-4 border-orange-600">Health</Link>
-                    <Link reloadDocument={true} to='postcategory/Style' className="p-2 flex rounded  border-b-4 border-orange-600">Style</Link>
-                    <Link reloadDocument={true} to='postcategory/Travel' className="p-2 flex rounded  border-b-4 border-orange-600">Travel</Link>
-                    <Link reloadDocument={true} to='postcategory/About' className="p-2 flex rounded  border-b-4 border-orange-600">About</Link>
-                    <Link reloadDocument={true} to='postcategory/Contacts' className="p-2 flex rounded  border-b-4 border-orange-600">Contacts</Link>
+                    <NavLink reloadDocument={true} to='postcategory/World' className={isMobileNavLinkActive}>World</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Technology' className={isMobileNavLinkActive}>Technology</NavLink>
+                    {/* <Link reloadDocument={true} to='postcategory/Gossip' className={isMobileNavLinkActive}>Gossip</Link> */}
+                    {/* <Link reloadDocument={true} to='postcategory/Politics' className={isMobileNavLinkActive}>Politics</Link>
+                    <Link reloadDocument={true} to='postcategory/Social' className={isMobileNavLinkActive}>Social</Link> */}
+                    <NavLink reloadDocument={true} to='postcategory/Sport' className={isMobileNavLinkActive}>Sport</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Business' className={isMobileNavLinkActive}>Business</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Health' className={isMobileNavLinkActive}>Health</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Style' className={isMobileNavLinkActive}>Style</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Travel' className={isMobileNavLinkActive}>Travel</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/About' className={isMobileNavLinkActive}>About</NavLink>
+                    <NavLink reloadDocument={true} to='postcategory/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
                 </div>
             </div>
         </div>
