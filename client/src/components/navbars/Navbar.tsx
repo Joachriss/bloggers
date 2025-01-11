@@ -2,28 +2,30 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
 
 export const Navbar = () => {
-    const [isOpen, setOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(false);
     const [posts, setPosts] = useState<any>([]);
+    const [isOpenSearch, setIsOpenSearch] = useState(false);
+    const [search, setSearch] = useState('');
     const active = 'px-2 flex justify-center items-center rounded  border-b-4 border-green-600';
     const notActive = 'px-2 flex justify-center items-center rounded';
     const activeMobile = 'px-2 flex rounded  border-b-4 border-green-600';
     const notActiveMobile = 'px-2 flex items-center rounded';
-    const isDesktopNavLinkActive = ({isActive}:any) =>{
+    const isDesktopNavLinkActive = ({ isActive }: any) => {
         return isActive ? active : notActive;
     }
-    const isMobileNavLinkActive = ({isActive}:any) =>{
+    const isMobileNavLinkActive = ({ isActive }: any) => {
         return isActive ? activeMobile : notActiveMobile;
     }
 
     const handleMenu = () => {
-        setOpen(!isOpen)
+        setIsOpen(!isOpen)
     }
 
     useEffect(() => {
@@ -45,9 +47,9 @@ export const Navbar = () => {
                     <div className="flex items-center">
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
-                    <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span  className="text-orange-600 text- font-bold">/</span>Describe</Link>
+                    <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</Link>
                     <div className="flex flex-row gap-x-5 items-center">
-                        <IoSearchSharp size={24} />
+                        <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={24} /></button>
                         <button className="p-2 bg-black text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
@@ -86,7 +88,7 @@ export const Navbar = () => {
                                         </Link>
                                     </MenuItem>
                                     <MenuItem>
-                                        <Link to ='contacts' className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                        <Link to='contacts' className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                             {/* <Square2StackIcon className="size-4 fill-white/30" /> */}
                                             Contacts
                                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘D</kbd>
@@ -125,7 +127,7 @@ export const Navbar = () => {
                 <div className="grid grid-cols-2 mt-5 gap-4 p-3 h-[90vh] overflow-y-scroll">
                     {posts && posts.length > 0 ?
                         (
-                            [...posts].reverse().slice(0,5).map((post, index) => {
+                            [...posts].reverse().slice(0, 5).map((post, index) => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (
@@ -155,6 +157,23 @@ export const Navbar = () => {
                     <NavLink reloadDocument={true} to='postcategory/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
                 </div>
             </div>
+
+            {/* Search bar dialog */}
+            <Dialog open={isOpenSearch} onClose={() => setIsOpenSearch(false)} className="relative z-50">
+                <DialogBackdrop className="fixed inset-0 bg-black/50 backdrop-blur-md" />
+                <div className="fixed inset-0 flex w-screen items-center justify-center p-4 rounded-lg">
+                    <DialogPanel className="min-w-[90%] md:min-w-[50%] space-y-4 max-w-lg rounded-xl bg-[#212121] text-gray-100 p-12">
+                        <DialogTitle className="font-bold">Search</DialogTitle>
+                        <input type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" autoFocus={true} placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
+                        {/* <Description>This will permanently deactivate your account</Description>
+                        <p>Are you sure you want to deactivate your account? All of your data will be permanently removed.</p> */}
+                        <div className="flex gap-4">
+                            <button onClick={() => setIsOpenSearch(false)}>Cancel</button>
+                            {/* <button onClick={() => setIsOpenSearch(false)}>Deactivate</button> */}
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
         </div>
     )
 }
