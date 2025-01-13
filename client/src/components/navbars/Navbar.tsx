@@ -2,11 +2,13 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
+import { RecentPost } from "../posts/RecentPost";
+import { SearchPost } from "../posts/SearchPost";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -163,14 +165,27 @@ export const Navbar = () => {
                 <DialogBackdrop className="fixed inset-0 bg-black/50 backdrop-blur-md" />
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4 rounded-lg">
                     <DialogPanel className="min-w-[90%] md:min-w-[50%] space-y-4 max-w-lg rounded-xl bg-[#212121] text-gray-100 p-12">
-                        <DialogTitle className="font-bold">Search</DialogTitle>
-                        <input type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" autoFocus={true} placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
-                        {/* <Description>This will permanently deactivate your account</Description>
-                        <p>Are you sure you want to deactivate your account? All of your data will be permanently removed.</p> */}
-                        <div className="flex gap-4">
-                            <button onClick={() => setIsOpenSearch(false)}>Cancel</button>
-                            {/* <button onClick={() => setIsOpenSearch(false)}>Deactivate</button> */}
+                        <div className="flex flex-row justify-between">
+                            <DialogTitle className="font-bold">Search</DialogTitle>
+                            <div className="">
+                                <button onClick={() => setIsOpenSearch(false)}><IoCloseSharp size={24} /></button>
+                            </div>
                         </div>
+                        <input type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" autoFocus={true} placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <div className="relative mb-5 -mt-3">
+                            <div className="min-h-[40vh] max-h-[40vh] overflow-y-scroll p-2 bg-[#171717] w-full">
+                                {posts && posts.length > 0 ?
+                                    (
+                                        [...posts].reverse().slice(0, 6).filter((post) => search ? post.tittle.toLowerCase().includes(search.toLowerCase()) : post).map((post, index) => {
+                                            return <SearchPost key={index} closeSearch={() => setIsOpenSearch(false)} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
+                                        })
+                                    ) : (
+                                        <div className="flex justify-center items-center text-white">No posts found</div>
+                                    )
+                                }
+                            </div>
+                        </div>
+
                     </DialogPanel>
                 </div>
             </Dialog>
