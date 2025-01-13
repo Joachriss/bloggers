@@ -1,14 +1,16 @@
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdClose, MdKeyboardArrowDown, MdLogin} from "react-icons/md";
 
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
-import { RecentPost } from "../posts/RecentPost";
 import { SearchPost } from "../posts/SearchPost";
+import { GiArchiveRegister } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { UserAvatar } from "../UserAvatar";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -17,7 +19,7 @@ export const Navbar = () => {
     const [search, setSearch] = useState('');
     const active = 'px-2 flex justify-center items-center rounded  border-b-4 border-green-600';
     const notActive = 'px-2 flex justify-center items-center rounded';
-    const activeMobile = 'px-2 flex rounded  border-b-4 border-green-600';
+    const activeMobile = 'px-2 w-fit flex rounded  border-b-4 border-green-600';
     const notActiveMobile = 'px-2 flex items-center rounded';
     const isDesktopNavLinkActive = ({ isActive }: any) => {
         return isActive ? active : notActive;
@@ -50,13 +52,16 @@ export const Navbar = () => {
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
                     <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</Link>
-                    <div className="flex flex-row gap-x-5 items-center">
-                        <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={24} /></button>
+                    <div className="flex flex-row gap-x-2 md:gap-x-5 items-center">
+                        <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={22} /></button>
+                        <button className="aspect-square rounded full"><FaUser size={22} /></button>
                         <button className="p-2 bg-black text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
                     <div className="flex flex-wrap justify-between px-3 py-2 gap-1 my-2 border-t-[1px] border-black dark:border-gray-300 font-medium">
+                        <NavLink to='/' className={isDesktopNavLinkActive}>Home</NavLink>
+                        <NavLink to='postcategory/all' className={isDesktopNavLinkActive}>All</NavLink>
                         <NavLink to='postcategory/World' className={isDesktopNavLinkActive}>World</NavLink>
                         <NavLink to='postcategory/Technology' className={isDesktopNavLinkActive}>Technology</NavLink>
                         {/* <Link to='postcategory/Gossip' className={isDesktopNavLinkActive}>Gossip</Link> */}
@@ -118,9 +123,12 @@ export const Navbar = () => {
                 </div>
             </nav>
 
-            <div onClick={handleMenu} className={`absolute top-0 w-full h-screen ${isOpen ? '' : 'hidden'}`}>
+            {/* Backdrop layer */}
+            <div onClick={handleMenu} className={`fixed inset-0 bg-black/50 top-0 w-full h-screen ${isOpen ? '' : 'hidden'}`}>
 
             </div>
+
+            {/* Trending posts in desktop view */}
             <div className={`absolute bg-black bg-opacity-[95%] hidden md:block top-0 w-[60%] h-screen duration-300 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
                 <div className="w-full flex flex-row justify-between p-3 mt-2">
                     <div className="text-xl font-bold text-white">Trending</div>
@@ -139,12 +147,14 @@ export const Navbar = () => {
 
                 </div>
             </div>
+
+            {/* Mobile view menu */}
             <div className={`absolute flex p-3 flex-col bg-black bg-opacity-[95%]  md:hidden z-10 top-0 w-[70%] h-screen duration-200 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
                 <div className="w-full flex flex-row justify-between mt-2">
                     <div className="text-xl font-bold text-white">Menu</div>
-                    <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}>X</div>
+                    <div className="text-sm text-gray-100 flex items-center font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><MdClose/></div>
                 </div>
-                <div className="flex flex-col text-white justify-between py-3 gap-2 my-2 border-t-[1px] border-black">
+                <div className="flex flex-col text-white justify-between py-3 gap-y-2 gap-x-1 md:gap-x-2 text-sm my-2 border-t-[1px] border-black">
                     <NavLink reloadDocument={true} to='postcategory/World' className={isMobileNavLinkActive}>World</NavLink>
                     <NavLink reloadDocument={true} to='postcategory/Technology' className={isMobileNavLinkActive}>Technology</NavLink>
                     {/* <Link reloadDocument={true} to='postcategory/Gossip' className={isMobileNavLinkActive}>Gossip</Link> */}
@@ -157,6 +167,10 @@ export const Navbar = () => {
                     <NavLink reloadDocument={true} to='postcategory/Travel' className={isMobileNavLinkActive}>Travel</NavLink>
                     <NavLink reloadDocument={true} to='postcategory/About' className={isMobileNavLinkActive}>About</NavLink>
                     <NavLink reloadDocument={true} to='postcategory/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
+                    <div className=" border-gray-600 border-b-4 my-3"></div>
+                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar/><div>Profile</div></NavLink>
+                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><MdLogin size={24}/><div>Log in</div></NavLink>
+                    <NavLink to='register' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><GiArchiveRegister size={24}/>Register</NavLink>
                 </div>
             </div>
 
@@ -176,7 +190,7 @@ export const Navbar = () => {
                             <div className="min-h-[40vh] max-h-[40vh] overflow-y-scroll p-2 bg-[#171717] w-full">
                                 {posts && posts.length > 0 ?
                                     (
-                                        [...posts].reverse().slice(0, 6).filter((post) => search ? post.tittle.toLowerCase().includes(search.toLowerCase()) : post).map((post, index) => {
+                                        [...posts].reverse().slice(0, 6).filter((post) => search ? post.tittle.toLowerCase().includes(search.toLowerCase()) : null).map((post, index) => {
                                             return <SearchPost key={index} closeSearch={() => setIsOpenSearch(false)} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                                         })
                                     ) : (
@@ -185,7 +199,6 @@ export const Navbar = () => {
                                 }
                             </div>
                         </div>
-
                     </DialogPanel>
                 </div>
             </Dialog>

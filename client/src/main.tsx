@@ -21,7 +21,7 @@ import { PostDetailsLayout } from './pages/PostDetailsLayout.tsx'
 import { PostCategory } from './pages/PostCategory.tsx'
 import { Contacts } from './pages/Contacts.tsx'
 import { AboutUs } from './pages/AboutUs.tsx'
-import { PostDetails } from './components/PostDetails.tsx'
+import { Profile } from './pages/Profile.tsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -55,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: 'aboutus',
         element: <AboutUs />,
+      },
+      {
+        path:'user/profile/:userid',
+        element:<Profile/>
       }
     ]
   },

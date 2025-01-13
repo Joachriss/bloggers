@@ -1,5 +1,5 @@
-import { FaUser } from "react-icons/fa6"
 import { Link } from "react-router-dom"
+import { UserAvatar } from "../UserAvatar"
 
 
 export const PostCard = (props: any) => {
@@ -14,9 +14,9 @@ export const PostCard = (props: any) => {
             </div>
             <div className="flex flex-row justify-between items-center mt-2">
                 <div className="flex flex-row justify-between items-center gap-x-2">
-                    <div className="aspect-square overflow-hidden w-8 rounded-full bg-transparent border-[1px] flex items-center justify-center"><FaUser/></div>
+                    <UserAvatar/>
                     <div className="flex flex-col">
-                        <small className="text-gray-950 dark:text-gray-300 font-bold">By: {props.author}</small>
+                        <small className="text-gray-950 dark:text-gray-300 font-bold">{props.author}</small>
                         <small className="text-gray-500 dark:text-gray-400">{props.date.slice(0,10)}</small>
                     </div>
                 </div>

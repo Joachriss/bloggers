@@ -27,8 +27,8 @@ export const PostCategory = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 justify-between">
                     {
                         posts && posts.length > 0 ? (
-                            category ? (
-                                [...posts].reverse().filter(categories => categories.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                            category !== 'all' ? (
+                                [...posts].reverse().filter(posts =>posts.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                             ) : (
                                 [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                             )
