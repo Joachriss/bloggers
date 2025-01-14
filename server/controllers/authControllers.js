@@ -93,10 +93,23 @@ const getProfile = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+// logout
+const logoutUser = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        res.clearCookie('token');
+        res.json({ message: 'Logout successful' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
         
 export  {
     test,
     registerUser,
     loginUser,
     getProfile,
+    logoutUser
 }

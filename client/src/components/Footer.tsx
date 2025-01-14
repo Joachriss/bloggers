@@ -45,14 +45,14 @@ export const Footer = () => {
                         <div className="text-md w-fit p-1">Help & Support</div>
                     </div>
                     <div className="flex flex-col gap-y-2">
-                        <div className="text-2xl font-bold mt-4 w-fit p-1">Contacts</div>
+                        <div className="text-2xl font-bold mt-4 w-fit">Contacts</div>
                         <div className="flex flex-row gap-x-3 w-fit">
                             <FaPhone size={24} /> <div>255 658 191 222</div>
                         </div>
                         <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
                         <Link to='contacts' className="text-md w-fit p-1">Contact us</Link>
                     </div>
-                    <div className="col-span-full mt-2 flex flex-col justify-center items-center py-6 border-t-2 border-gray-900 dark:border-gray-300">
+                    <div className="col-span-full mt-2 flex flex-col text-center items-center py-6 border-t-2 border-gray-900 dark:border-gray-300">
                         <small><span className="font-bold">DESCRIBE</span>&copy;Copyright{Date().split(" ").at(3)}  </small>
                         <small>Designed by: <span className="font-bold">+255 658 191 222</span> Email: <span className="font-bold"><a href="mailto:joachriss@gmail.com">joachriss@gmail.com</a></span></small>
                     </div>

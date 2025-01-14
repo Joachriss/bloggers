@@ -1,9 +1,9 @@
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
-import { MdClose, MdKeyboardArrowDown, MdLogin} from "react-icons/md";
+import { MdClose, MdKeyboardArrowDown, MdLogin, MdLogout, MdOutlineLogout } from "react-icons/md";
 
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
@@ -12,6 +12,7 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { UserAvatar } from "../UserAvatar";
 import toast from "react-hot-toast";
+import { UserContext } from "../../../context/UserContext";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -22,6 +23,7 @@ export const Navbar = () => {
     const notActive = 'px-2 flex justify-center items-center rounded';
     const activeMobile = 'px-2 w-fit flex rounded  border-b-4 border-green-600';
     const notActiveMobile = 'px-2 flex items-center rounded';
+    const userContext = useContext(UserContext);
     const isDesktopNavLinkActive = ({ isActive }: any) => {
         return isActive ? active : notActive;
     }
@@ -54,10 +56,10 @@ export const Navbar = () => {
                         <HiMenuAlt2 onClick={handleMenu} className="cursor-pointer" size={27} />
                     </div>
                     <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</Link>
-                    <div className="flex flex-row gap-x-2 md:gap-x-5 items-center">
+                    <div className="flex flex-row gap-x-1 md:gap-x-5 items-center">
                         <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={22} /></button>
                         <button className="aspect-square rounded full"><FaUser size={22} /></button>
-                        <button className="p-2 bg-black text-white rounded-lg">Subscribe</button>
+                        <button className="p-2 text-sm bg-black text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
@@ -75,8 +77,16 @@ export const Navbar = () => {
                         <NavLink to='postcategory/Style' className={isDesktopNavLinkActive}>Style</NavLink>
                         <NavLink to='postcategory/Travel' className={isDesktopNavLinkActive}>Travel</NavLink>
                         <div className=" border-gray-600 border-r-4"></div>
-                        <NavLink to='login' state={{ from: location.pathname }} className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
-                        <NavLink to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</NavLink>
+                        {
+                            !userContext?.user ? (
+                                <>
+                                    <NavLink to='login' state={{ from: location.pathname }} className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
+                                    <NavLink to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</NavLink>
+                                </>
+                            ) : (
+                                <div onClick={() => userContext?.logout()} className="cursor-pointer px-2 flex flex-row justify-center items-center gap-x-1 rounded  border-b-4 border-gray-600"><MdOutlineLogout size={22} /><div>Logout</div></div>
+                            )
+                        }
                         <div className="flex flex-row items-center font-semibold">
                             <Menu>
                                 <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
@@ -126,12 +136,14 @@ export const Navbar = () => {
             </nav>
 
             {/* Backdrop layer */}
-            <div onClick={handleMenu} className={`fixed inset-0 bg-black/50 top-0 w-full h-screen ${isOpen ? '' : 'hidden'}`}>
-
-            </div>
+            {
+                isOpen && (
+                    <div onClick={handleMenu} className="fixed inset-0 bg-black/50 top-0 w-full h-screen "></div>
+                )
+            }
 
             {/* Trending posts in desktop view */}
-            <div className={`absolute bg-black bg-opacity-[95%] hidden md:block top-0 w-[60%] h-screen duration-300 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
+            <div className={`absolute bg-black bg-opacity-[95%] hidden md:block top-0 w-[60%] h-screen duration-200 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
                 <div className="w-full flex flex-row justify-between p-3 mt-2">
                     <div className="text-xl font-bold text-white">Trending</div>
                     <div className="text-sm text-gray-100 font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><IoCloseSharp size={24} /></div>
@@ -154,7 +166,7 @@ export const Navbar = () => {
             <div className={`absolute flex p-3 flex-col bg-black bg-opacity-[95%]  md:hidden z-10 top-0 w-[70%] h-screen duration-200 ease-in-out ${isOpen ? 'translate-x-0' : ' -translate-x-full'} `}>
                 <div className="w-full flex flex-row justify-between mt-2">
                     <div className="text-xl font-bold text-white">Menu</div>
-                    <div className="text-sm text-gray-100 flex items-center font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><MdClose/></div>
+                    <div className="text-sm text-gray-100 flex items-center font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><MdClose /></div>
                 </div>
                 <div className="flex flex-col text-white justify-between py-3 gap-y-2 gap-x-1 md:gap-x-2 text-sm my-2 border-t-[1px] border-black">
                     <NavLink reloadDocument={true} to='postcategory/World' className={isMobileNavLinkActive}>World</NavLink>
@@ -170,9 +182,19 @@ export const Navbar = () => {
                     <NavLink reloadDocument={true} to='postcategory/About' className={isMobileNavLinkActive}>About</NavLink>
                     <NavLink reloadDocument={true} to='postcategory/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
                     <div className=" border-gray-600 border-b-4 my-3"></div>
-                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar/><div>Profile</div></NavLink>
-                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><MdLogin size={24}/><div>Log in</div></NavLink>
-                    <NavLink to='register' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><GiArchiveRegister size={24}/>Register</NavLink>
+                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar /><div>Profile</div></NavLink>
+                    {
+                        !userContext?.user ? (
+                            <>
+                                <NavLink to='login' className=" flex flex-row items-center gap-x-4 w-fit  border-gray-600"><MdLogin size={24} /><div>Log in</div></NavLink>
+                                <NavLink to='register' className=" flex flex-row items-center gap-x-4 w-fit  border-gray-600"><GiArchiveRegister size={24} /><div>Register</div></NavLink>
+                            </>
+                        ) : (
+                            <div onClick={() => userContext?.logout()} className="cursor-pointer flex flex-row items-center gap-x-4 w-fit  border-gray-600"><MdLogout size={24} /><div>Logout</div></div>
+                        )
+
+
+                    }
                 </div>
             </div>
 
@@ -183,7 +205,7 @@ export const Navbar = () => {
                     <DialogPanel className="min-w-[90%] md:min-w-[50%] space-y-4 max-w-lg rounded-xl bg-[#212121] text-gray-100 p-12">
                         <div className="flex flex-row justify-between">
                             <DialogTitle className="font-bold">Search</DialogTitle>
-                            <div className="">
+                            <div>
                                 <button onClick={() => setIsOpenSearch(false)}><IoCloseSharp size={24} /></button>
                             </div>
                         </div>
