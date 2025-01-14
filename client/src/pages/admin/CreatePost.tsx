@@ -105,7 +105,7 @@ export const CreatePost = () => {
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
-                    Gossip
+                    Exclusive
                   </a>
                 </MenuItem>
                 <MenuItem>
@@ -117,7 +117,7 @@ export const CreatePost = () => {
                     Sport
                   </a>
                 </MenuItem>
-                <MenuItem>
+                {/* <MenuItem>
                   <a
                     href="#"
                     onClick={() => setCategory('Politics')}
@@ -125,7 +125,7 @@ export const CreatePost = () => {
                   >
                     Politics
                   </a>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem>
                   <a
                     href="#"
@@ -135,7 +135,7 @@ export const CreatePost = () => {
                     Technology
                   </a>
                 </MenuItem>
-                <MenuItem>
+                {/* <MenuItem>
                   <a
                     href="#"
                     onClick={() => setCategory('Social')}
@@ -143,7 +143,7 @@ export const CreatePost = () => {
                   >
                     Social
                   </a>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem>
                   <a
                     href="#"
@@ -193,7 +193,6 @@ export const CreatePost = () => {
             </MenuItems>
           </Menu>
 
-
           <div className="col-span-2 flex flex-col w-full h-fit">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog description
               <ReactQuill
@@ -213,6 +212,7 @@ export const CreatePost = () => {
                 }
               /></label>
           </div>
+
           <div className="col-span-2 w-full text-center mt-5">
             <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto">Publish</button>
           </div>

@@ -1,22 +1,34 @@
 import {  createContext, ReactNode, useEffect, useState } from 'react';
 import axios from "axios";
+import toast from 'react-hot-toast';
 
 interface UserContextType {
     user: {id: string, name: string, email: string, role: string } | null;
-    setUser: (user :{id: string, name: string, email: string, role: string } | null) => void;
+    setUser: (user: UserContextType['user']) => void;
+    reloadUser: () => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<UserContextType['user']>(null);
-    useEffect(() => {
-        if (!user) {
-            axios.get('/profile').then(({ data }) => setUser(data));
+    
+    const getUser = async ()=>{
+        try {
+            if (!user) {
+                await axios.get('/profile').then(({ data }) => setUser(data));
+            }
         }
+        catch (error) {
+            toast.error('Get User: Something went wrong please check connection or try again');
+        }
+        
+    }
+    useEffect(() => {
+        getUser();
     }, []);
     return (
-        <UserContext.Provider value={{user,setUser}}>
+        <UserContext.Provider value={{user,setUser,reloadUser:getUser}}>
             {children}
         </UserContext.Provider>
     )

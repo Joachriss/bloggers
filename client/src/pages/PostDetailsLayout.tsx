@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RecentPost } from "../components/posts/RecentPost";
 import { PostDetails } from "../components/PostDetails";
 
 export const PostDetailsLayout = () => {
-    const location = useLocation();
     const params = useParams();
     const postId = params.postid;
     const [posts, setPosts] = useState([]);
@@ -26,7 +25,7 @@ export const PostDetailsLayout = () => {
 
 
         getPosts();
-    }, [location.pathname]);
+    }, []);
     return (
         <div className="w-full relative">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-4 max-w-[1280px] mx-auto">

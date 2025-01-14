@@ -11,6 +11,7 @@ import { SearchPost } from "../posts/SearchPost";
 import { GiArchiveRegister } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { UserAvatar } from "../UserAvatar";
+import toast from "react-hot-toast";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -39,6 +40,7 @@ export const Navbar = () => {
                 setPosts(response.data);
             } catch (error) {
                 console.error(error);
+                toast.error('Something went wrong please check connection or try again');
             }
         };
         fetchPosts();
@@ -73,7 +75,7 @@ export const Navbar = () => {
                         <NavLink to='postcategory/Style' className={isDesktopNavLinkActive}>Style</NavLink>
                         <NavLink to='postcategory/Travel' className={isDesktopNavLinkActive}>Travel</NavLink>
                         <div className=" border-gray-600 border-r-4"></div>
-                        <NavLink to='login' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
+                        <NavLink to='login' state={{ from: location.pathname }} className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
                         <NavLink to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</NavLink>
                         <div className="flex flex-row items-center font-semibold">
                             <Menu>
@@ -141,7 +143,7 @@ export const Navbar = () => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (
-                            <div className="flex justify-center items-center text-white">No posts found</div>
+                            <div className="flex col-span-full w-full h-screen justify-center items-center text-white text-center">No posts found</div>
                         )
                     }
 

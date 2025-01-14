@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { PostCard } from "../components/posts/PostCard";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const PostCategory = () => {
     const params = useParams();
@@ -16,6 +17,7 @@ export const PostCategory = () => {
             }
             catch (error) {
                 console.error(error);
+                toast.error('Something went wrong please check connection or try again');
             }
         }
         getPosts();
@@ -33,7 +35,7 @@ export const PostCategory = () => {
                                 [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                             )
                         ) : (
-                            <div className="col-span-full text-center font-bold text-xl text-gray-950 dark:text-gray-100 dark:bg-gray-700 my-3 p-8">No post found</div>
+                            <div className="col-span-full text-center font-bold text-xl text-gray-950 dark:text-gray-100 dark:bg-transparent my-3 p-8">No post found</div>
                         )
                     }
 

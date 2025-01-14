@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CommentSection } from "./comments/CommentSection";
+import toast from "react-hot-toast";
 
-export const PostDetails = (props:any) => {
+export const PostDetails = (props: any) => {
     const postId = props.postid;
     const [postTittle, setPostTittle] = useState('');
     const [postImage, setPostImage] = useState('');
@@ -22,11 +23,12 @@ export const PostDetails = (props:any) => {
                 setPostDescription(data.description);
             } catch (error) {
                 console.log(error);
+                toast.error("something went wrong, please check connection or try again");
             }
         }
         getPostDetails();
 
-    },[]);
+    }, []);
     return (
         <div className=" flex flex-col gap-y-3 gap-x-4">
             <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
@@ -38,7 +40,7 @@ export const PostDetails = (props:any) => {
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
-            <CommentSection postid={postId}/>
+            <CommentSection postid={postId} />
 
         </div>
     )

@@ -1,41 +1,53 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
+import { UserContext } from "../../context/UserContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userNavigateToPath = location.state?.from?.pathname || '/';
+  const adminNavigateToPath = location.state?.from?.pathname || '/admin';
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
+  const userContext = useContext(UserContext);
   // login user
   const loginUser = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post("/login", { email, password });
-      if (data.error) {
-        toast.error(data.error);
-      } else {
-        toast.success("login successiful");
-        if (data.user.role === "admin") {
-          navigate("/admin");
-        }
-        else {
-          navigate("/")
-        }
+    if (!userContext?.user) {
+      try {
+        const { data } = await axios.post("/login", { email, password });
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          await userContext?.reloadUser();
+          toast.success("login successiful");
+          if (data.user.role === "admin") {
+            navigate(adminNavigateToPath);
+          }
+          else {
+            navigate(userNavigateToPath)
+          }
 
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Login: something went wrong, please check connection or try again");
       }
-    } catch (error) {
-      console.log(error);
+    }
+    else{
+      toast.success('You are already logged in');
+      // navigate(location?.state?.from?.pathname);
     }
   }
   return (
     <section className="bg-transparent">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
-            Describe
+          {/* <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" /> */}
+          <span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe
         </Link>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -75,5 +87,3 @@ export const Login = () => {
     </section>
   )
 }
-
-export default Login;

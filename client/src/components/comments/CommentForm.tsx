@@ -1,26 +1,34 @@
 import axios from "axios";
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 
 export const CommentForm = (props: any) => {
+    const userContext = useContext(UserContext);
+    const location = useLocation();
     const navigate = useNavigate();
     const [userComment, setUserComment] = useState('');
     const postId = props.postId;
-    const userId = props.userId;
+    useEffect(() => {
+
+    }, []);
 
     const handleComment = async (e: React.SyntheticEvent) => {
         e.preventDefault;
+        
         try {
+            const userId = userContext?.user?.id || null;
             if (userId) {
                 const response = await axios.post('/createcomment', { postId, userId, userComment });
                 toast.success(response.data.message);
-            }else{
-                navigate('/login');
+            } else {
+                navigate('/login', { state: { from: location } });
             }
         }
         catch (error) {
             console.log(error);
+            toast.error('Comment not created, Something went wrong please check connection or try again');
         }
     }
     return (

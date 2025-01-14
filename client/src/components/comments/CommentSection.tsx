@@ -35,7 +35,7 @@ export const CommentSection = (props: any) => {
           }
         </div>
       </div>
-      <CommentForm postId={postid} userId={ userContext?.user? userContext.user.id : "" } />
+      <CommentForm postId={postid} key={userContext?.user}/>
     </div>
   )
 }
