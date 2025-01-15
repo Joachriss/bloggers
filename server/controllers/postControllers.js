@@ -36,14 +36,18 @@ const createPost = async (req, res, next) => {
 // get all posts
 const getAllPosts = async (req, res, next) => {
     try {
-        const posts = await postModel.find().populate("comments");
-        res.status(200).json(posts);
+        const posts = await postModel.find()
+        .populate({path:'comments',select:'userComment'})
+        .populate({path:'viewedBy',select:'name'});
+        
+        res.json(posts);
     }
     catch (error) {
         console.error("Error getting posts:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
+
 // get post by id
 const getPostById = async (req, res, next) => {
     const postId = req.params.id;

@@ -1,15 +1,16 @@
 import commentModel from "../models/commentModel.js";
 import mongoose from "mongoose";
-import ObjectId from 'mongodb';
+import postModel from "../models/postModel.js";
 
 const createComment = async (req,res,next) => {
     const {postId,userId,userComment} = req.body;
     const UserComment = await commentModel.create({postId,userId,userComment});
+    await postModel.findByIdAndUpdate(postId,{$push:{comments:UserComment._id}});
     res.status(200).json({message:"Comment sent!"});
 }
 
 const getComments = async (req,res) =>{
-    const comments = await commentModel.find().populate('userId');
+    const comments = await commentModel.find().populate({path:'userId',select:'name'});
     res.json(comments);
 }
 

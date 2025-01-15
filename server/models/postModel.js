@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import commentModel from './commentModel.js';
+import userModel from './userModel.js';
 
 const postSchema = new Schema({
     tittle: { type: String, required: true },
@@ -7,6 +8,10 @@ const postSchema = new Schema({
     description: { type: String, required: true },
     category: { type: String, required: true },
     visibility: {type: String, required: true},
+    viewedBy: [{ 
+        type: Schema.Types.ObjectId,
+        ref: userModel,
+     }],
     comments:[{
         type:Schema.Types.ObjectId,
         ref:commentModel
