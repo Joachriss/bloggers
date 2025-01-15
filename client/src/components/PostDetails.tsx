@@ -10,17 +10,19 @@ export const PostDetails = (props: any) => {
     const [postAuthor, setPostAuthor] = useState('');
     const [postDate, setPostDate] = useState('');
     const [postDescription, setPostDescription] = useState('');
+    const [postComments, setPostComments] = useState([]);
 
     useEffect(() => {
         // get post by id
         const getPostDetails = async () => {
             try {
-                const { data } = await axios.get(`getpost/${postId}`);
+                const { data } = await axios.get(`getpostbyid/${postId}`);
                 setPostTittle(data.tittle);
                 setPostImage(data.image);
                 setPostAuthor(data.author);
                 setPostDate(data.updatedAt);
                 setPostDescription(data.description);
+                setPostComments(data.comments);
             } catch (error) {
                 console.log(error);
                 toast.error("something went wrong, please check connection or try again");
@@ -40,7 +42,7 @@ export const PostDetails = (props: any) => {
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
-            <CommentSection postid={postId} />
+            <CommentSection comments={postComments} postid={postId}/>
 
         </div>
     )

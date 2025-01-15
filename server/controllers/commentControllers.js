@@ -5,6 +5,8 @@ import postModel from "../models/postModel.js";
 const createComment = async (req,res,next) => {
     const {postId,userId,userComment} = req.body;
     const UserComment = await commentModel.create({postId,userId,userComment});
+
+    // adding comment id to a post
     await postModel.findByIdAndUpdate(postId,{$push:{comments:UserComment._id}});
     res.status(200).json({message:"Comment sent!"});
 }
