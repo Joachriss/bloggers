@@ -79,7 +79,7 @@ const getPostById = async (req, res) => {
         }
 
         // add user to viewedBy by array
-        if(!post.viewedBy.some(viewer=> viewer.equals(userObjectId))){
+        if(userObjectId !== null && !post.viewedBy.some(viewer=> viewer.equals(userObjectId))){
             post.viewedBy.push(userObjectId);
             await post.save();
             console.log('User added to viewedBy');

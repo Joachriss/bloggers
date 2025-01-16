@@ -3,7 +3,6 @@ import { useState, useEffect, useContext } from "react";
 import { CommentSection } from "./comments/CommentSection";
 import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
-import { FaEye } from "react-icons/fa";
 
 export const PostDetails = (props: any) => {
     const postId = props.postid;
@@ -57,7 +56,6 @@ export const PostDetails = (props: any) => {
             <hr className="mb-2 border border-gray-500" />
             <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
             <CommentSection comments={postComments} postid={postId} />
-
         </div>
     )
 }

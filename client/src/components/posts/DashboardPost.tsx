@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 export const DashboardPost = (props: any) => {
     return (
         <div className="flex flex-row gap-3">
-            <img src={`http://localhost:8000/uploads/images/${props.image}`} alt="" className="w-12 h-12 rounded-md" />
+            <div className="max-w-12 min-w-12 max-h-12 min-h-12 overflow-hidden  aspect-square">
+                <img src={`http://localhost:8000/uploads/images/${props.image}`} alt="max-w-12 min-w-12 " className="rounded-md" />
+
+            </div>
             <div className="flex flex-col w-full">
                 <div className="text-sm font-bold line-clamp-1">{props.tittle}</div>
                 <div className="flex flex-row justify-between text-sm text-gray-500 dark:text-gray-400">
