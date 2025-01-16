@@ -62,7 +62,7 @@ export const DashboardHome = () => {
                                 {
                                     posts && posts.length > 0 ? (
                                         [...posts].reverse().slice(0, 4).map((post, index) => {
-                                            return <DashboardPost key={index} _id={post._id} tittle={post.tittle} image={post.image} totalComments={post.comments.length} />
+                                            return <DashboardPost key={index} _id={post._id} tittle={post.tittle} image={post.image} totalComments={post.comments.length} totalViews={post.viewedBy.length} />
                                         })
                                     ) : (
                                         <div className="text-sm text-center text-gray-500 dark:text-gray-400">  No post found</div>

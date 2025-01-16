@@ -1,13 +1,9 @@
-import { useContext, useEffect, useState } from "react";
 import { CommentCard } from "./CommentCard"
-import axios from "axios";
-import { UserContext } from "../../../context/UserContext";
 import { CommentForm } from "./CommentForm";
 
 export const CommentSection = (props: any) => {
   const comments = props.comments;
   const postid = props.postid;
-  console.log(postid);
 
   return (
     <div>

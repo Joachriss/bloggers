@@ -7,7 +7,7 @@ const postSchema = new Schema({
     author: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
-    visibility: {type: String, required: true},
+    visibility: {type: String},
     viewedBy: [{ 
         type: Schema.Types.ObjectId,
         ref: userModel,

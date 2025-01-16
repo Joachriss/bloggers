@@ -1,16 +1,21 @@
 import postModel from '../models/postModel.js';
-import fs from 'fs';
+import fs, { existsSync } from 'fs';
 import path from 'path';
+import { exit } from 'process';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import { stringify } from 'querystring';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // function to remove image from the file
-function removeImage(image){
+function removeImage(image) {
     const imagePath = path.join(__dirname, "../uploads/images", image);
     fs.unlinkSync(imagePath);
 }
+
+
 
 // create post
 const createPost = async (req, res, next) => {
@@ -33,13 +38,15 @@ const createPost = async (req, res, next) => {
     }
 }
 
+
+
 // get all posts
 const getAllPosts = async (req, res, next) => {
     try {
         const posts = await postModel.find()
-        .populate({path:'comments',select:'userComment'})
-        .populate({path:'viewedBy',select:'name'});
-        
+            .populate({ path: 'comments', select: 'userComment' })
+            .populate({ path: 'viewedBy', select: 'name' });
+
         res.json(posts);
     }
     catch (error) {
@@ -48,18 +55,57 @@ const getAllPosts = async (req, res, next) => {
     }
 }
 
+
+
 // get post by id
-const getPostById = async (req, res, next) => {
-    const postId = req.params.id;
+const getPostById = async (req, res) => {
+    const { postId, userId } = req.params;
+    console.log(userId);
+    var userObjectId = null;
+
+    // checking if userId is in valid format and converting it to ObjectId
+    if (userId && userId !== 'null') {
+        if (mongoose.Types.ObjectId.isValid(userId)) {
+            userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
+        }
+    }
+    console.log(userObjectId);
+
     try {
-        const post = await postModel.findById(postId).populate({path:'comments',populate:{path:'userId',select:'name'}});
+        const post = await postModel.findById(postId).populate({ path: 'comments' }).populate({ path: 'viewedBy', select: 'name' });
+
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
+
+        // add user to viewedBy by array
+        if(!post.viewedBy.some(viewer=> viewer.equals(userObjectId))){
+            post.viewedBy.push(userObjectId);
+            await post.save();
+            console.log('User added to viewedBy');
+        }
+
         res.status(200).json(post);
     }
     catch (error) {
         console.error("Error getting post:", error);
+        res.status(500).json({ error: 'Server error', details: error.message });
+    }
+}
+
+
+// Update post viewedBy by user id without duplicates
+const updatePostviews = async (req, res) => {
+    const { postId, userId } = req.params;
+    try {
+        const post = await postModel.findByIdAndUpdate(postId, { $push: { viewedBy: userId } }, { new: true });
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+    }
+    catch (error) {
+        console.error("Error updating post views:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 }
@@ -94,6 +140,9 @@ const editPost = async (req, res, next) => {
     }
 }
 
+
+
+
 // delete post
 const deletePost = async (req, res, next) => {
     const postId = req.params.id;
@@ -105,4 +154,4 @@ const deletePost = async (req, res, next) => {
     res.status(200).json({ message: 'Post deleted successfully' });
 }
 
-export { createPost, getAllPosts, editPost, getPostById, deletePost };
+export { createPost, getAllPosts, editPost, getPostById, deletePost, updatePostviews };
