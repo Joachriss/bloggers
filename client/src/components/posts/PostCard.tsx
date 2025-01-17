@@ -10,7 +10,7 @@ export const PostCard = (props: any) => {
             </div>
             <div className="flex flex-col mt-3 mb-auto">
                 <div className="font-bold text-lg line-clamp-1">{props.tittle}</div>
-                <div className="md:text-md font-medium md:text-md line-clamp-2" dangerouslySetInnerHTML={{ __html: props.description }}></div>
+                <div className="md:text-md font-medium line-clamp-2" dangerouslySetInnerHTML={{ __html: props.description }}></div>
             </div>
             <div className="flex flex-row justify-between items-center mt-2">
                 <div className="flex flex-row justify-between items-center gap-x-2">

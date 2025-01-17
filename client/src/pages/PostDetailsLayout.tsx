@@ -38,7 +38,7 @@ export const PostDetailsLayout = () => {
                         <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-gray-700 my-2" /></div>
                         {
                             posts && posts.length > 0 ? (
-                                [...posts].reverse().slice(0,5).map((post: any) => <RecentPost key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                                [...posts].reverse().slice(0,5).map((post: any) => <RecentPost key={post._id} views={post.viewedBy.length} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                             ) : (
                                 <div className="text-center text-gray-950 dark:text-gray-100 dark:bg-gray-700 my-3 p-8">No posts found</div>
                             )

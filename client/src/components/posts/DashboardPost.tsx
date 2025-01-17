@@ -7,7 +7,7 @@ export const DashboardPost = (props: any) => {
     return (
         <div className="flex flex-row gap-3">
             <div className="max-w-12 min-w-12 max-h-12 min-h-12 overflow-hidden  aspect-square">
-                <img src={`http://localhost:8000/uploads/images/${props.image}`} alt="max-w-12 min-w-12 " className="rounded-md" />
+                <img src={`http://localhost:8000/uploads/images/${props.image}`} className="max-w-12 min-w-12 h-12 rounded-md" />
 
             </div>
             <div className="flex flex-col w-full">

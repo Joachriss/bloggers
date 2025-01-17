@@ -16,7 +16,6 @@ export const PostDetails = (props: any) => {
 
     const userContext = useContext(UserContext);
     const userId = userContext?.user?.id || null;
-    console.log(userId);
 
     useEffect(() => {
         // get post by id
@@ -46,13 +45,16 @@ export const PostDetails = (props: any) => {
                 <div className="text-lg text-gray-600 dark:text-gray-200">Author: <span className="font-bold">{postAuthor}</span></div>
                 <div className="flex flex-row justify-between items-center">
                     <small className=" text-gray-500 dark:text-gray-400">Posted on: <span className="font-bold">{postDate.slice(0, 10)}</span></small>
-                    {/* <div className="text-sm  font-bold"> {postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div> */}
+                    <div className="text-sm  font-bold"> {postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 </div>
             </div>
             <div className="w-full max-h-[70vh] mx-auto overflow-hidden mt-2 rounded-lg">
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
-            <div className=" text-sm text-end font-bold">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
+            <div className="flex flex-row items-center justify-end">
+                <div className=" text-sm font-bold">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span> . </div>
+                <div className=" text-sm font-bold">{postComments.length} <span className="text-gray-500 dark:text-gray-400">Comments</span></div>
+            </div>
             <hr className="mb-2 border border-gray-500" />
             <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
             <CommentSection comments={postComments} postid={postId} />

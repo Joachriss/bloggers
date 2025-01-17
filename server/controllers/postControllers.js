@@ -60,7 +60,6 @@ const getAllPosts = async (req, res, next) => {
 // get post by id
 const getPostById = async (req, res) => {
     const { postId, userId } = req.params;
-    console.log(userId);
     var userObjectId = null;
 
     // checking if userId is in valid format and converting it to ObjectId
@@ -69,10 +68,9 @@ const getPostById = async (req, res) => {
             userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
         }
     }
-    console.log(userObjectId);
 
     try {
-        const post = await postModel.findById(postId).populate({ path: 'comments' }).populate({ path: 'viewedBy', select: 'name' });
+        const post = await postModel.findById(postId).populate({ path: 'comments',populate:{path:'userId',select:'name'} }).populate({ path: 'viewedBy', select: 'name' });
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
