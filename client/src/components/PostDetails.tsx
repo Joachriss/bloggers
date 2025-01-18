@@ -53,7 +53,7 @@ export const PostDetails = (props: any) => {
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
-                <LikeButton postId={postId} userId={userId} likes={postViews.length} />
+                <LikeButton key={location.pathname} postId={postId} userId={userId} likes={postViews.length} />
                 <div className=" text-sm font-bold border-x-2">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 <div className=" text-sm font-bold">{postComments.length} <span className="text-gray-500 dark:text-gray-400">Comments</span></div>
             </div>
