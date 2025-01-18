@@ -6,6 +6,7 @@ import axios from "axios"
 export const DashboardHome = () => {
     const [totalPosts, setTotalPosts] = useState();
     const [posts, setPosts] = useState<any>([]);
+    const [users, setUsers] = useState<any>([]);
     useEffect(() => {
         // posts
         const aboutPost = async () => {
@@ -18,8 +19,18 @@ export const DashboardHome = () => {
                 console.log(error);
             }
         }
+        const getUsers = async () => {
+            try {
+                const response = await axios.get('/getusers');
+                setUsers(response.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
 
         aboutPost();
+        getUsers();
     }, [])
     return (
         <div className="">
@@ -33,12 +44,12 @@ export const DashboardHome = () => {
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            Comments <br /> 34
+                            Comments <br /> {posts.map((post: any) => post.comments.length).reduce((a: any, b: any) => a + b, 0)}
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-2xl text-gray-400 dark:text-gray-500">
-                            Users <br /> 34
+                            Users <br /> {users.length}
                         </p>
                     </div>
                 </div>

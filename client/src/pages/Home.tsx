@@ -57,7 +57,6 @@ export const Home = () => {
             posts && posts.length > 0 ? (
               [...posts].reverse().slice(6, 6).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
             ) : (
-              // <div className="text-center col-span-full text-gray-950 mx-auto dark:text-gray-100 my-3 p-8">No posts found</div>
               ""
             )
           }
