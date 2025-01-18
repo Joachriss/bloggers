@@ -3,18 +3,24 @@ import { PostCard } from "../components/posts/PostCard"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { HorizontalScrollPost } from "../components/posts/HorizontalScrollPost";
+import toast from "react-hot-toast";
+import { DefaultSpinner } from "../components/spinners/DefaultSpinner";
 
 export const Home = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getPosts = async () => {
       try {
         const response = await axios.get('/posts');
+        setLoading(false);
         setPosts(response.data);
 
       }
       catch (error) {
         console.error(error);
+        setLoading(false);
+        toast.error('Something went wrong please check connection or try again');
       }
     }
     getPosts();
@@ -22,6 +28,17 @@ export const Home = () => {
   return (
     <div className="w-full mb-20 text-gray-900 dark:text-gray-200 bg-transparent">
       <div className="mx-auto px-3 max-w-[1280px]">
+        {
+          loading ? (
+            <div className="flex flex-col items-center justify-center py-12">
+              <DefaultSpinner />
+            </div>
+          ):
+          (
+            ""
+          )
+        }
+
         {[...posts].reverse().slice(0, 1).map((latest: any) => {
           return (
             <div key={latest._id}><div className="max-h-[50vh] rounded-xl text-gray-100 bg-[#212121] shadow-lg my-3  grid grid-cols-1 md:grid-cols-2"><div className="gap-y-5 grid p-8"><div className="text-3xl md:text-6xl italic font-medium">{latest.tittle}</div><div className="text-xl font-thin line-clamp-2" dangerouslySetInnerHTML={{ __html: latest.description }}></div><Link to={`/post/${latest._id}`} className="font-bold underline text-xl">Continue reading...</Link></div> <div className="p-0 overflow-hidden rounded-lg relative max-h-[50vh] md:block hidden"><img src={`http://localhost:8000/uploads/images/${latest.image}`} className="scale-110 w-full rounded-lg" alt="" /><div className="w-full h-full absolute top-0 bg-opacity-90 bg-gradient-to-r from-[#212121] to-transparent"></div></div></div ></div>)

@@ -211,7 +211,7 @@ export const Navbar = () => {
                         </div>
                         <input type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" autoFocus={true} placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
                         <div className="relative mb-5 -mt-3">
-                            <div className="min-h-[40vh] max-h-[40vh] overflow-y-scroll p-2 bg-[#171717] w-full">
+                            <div className="min-h-[30vh] max-h-[30vh] overflow-y-scroll p-2 w-full">
                                 {posts && posts.length > 0 ?
                                     (
                                         [...posts].reverse().slice(0, 6).filter((post) => search ? post.tittle.toLowerCase().includes(search.toLowerCase()) : null).map((post, index) => {
