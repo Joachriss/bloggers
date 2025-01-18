@@ -2,27 +2,34 @@ import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext";
+import { DefaultSpinner } from "../components/spinners/DefaultSpinner";
 
 export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userNavigateToPath = location.state?.from?.pathname || '/';
   const adminNavigateToPath = location.state?.from?.pathname || '/admin';
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const userContext = useContext(UserContext);
   // login user
   const loginUser = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setLoading(true);
     if (!userContext?.user) {
       try {
         const { data } = await axios.post("/login", { email, password });
+
         if (data.error) {
+          setLoading(false);
           toast.error(data.error);
         } else {
           await userContext?.reloadUser();
+          setLoading(false);
           toast.success("login successiful");
           if (data.user.role === "admin") {
             navigate(adminNavigateToPath);
@@ -74,7 +81,7 @@ export const Login = () => {
                 </div>
                 <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-gray-300">Forgot password?</a>
               </div>
-              <button type="submit" className="w-full text-gray-600 dark:text-gray-300 border-2 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+              <button type="submit" className="w-full text-gray-600 dark:text-gray-300 border-2 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 " disabled={loading}>{loading ?<DefaultSpinner />:"Sign in"}</button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet? <Link to="/register" className="font-extrabold text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
               </p>
