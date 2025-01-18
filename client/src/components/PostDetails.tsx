@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { CommentSection } from "./comments/CommentSection";
 import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
+import { LikeButton } from "./LikeButton";
 
 export const PostDetails = (props: any) => {
     const postId = props.postid;
@@ -51,8 +52,9 @@ export const PostDetails = (props: any) => {
             <div className="w-full max-h-[70vh] mx-auto overflow-hidden mt-2 rounded-lg">
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
-            <div className="flex flex-row items-center justify-end">
-                <div className=" text-sm font-bold">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span> . </div>
+            <div className="grid grid-cols-3 justify-between text-center items-center">
+                <LikeButton postId={postId} userId={userId} likes={postViews.length} />
+                <div className=" text-sm font-bold border-x-2">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 <div className=" text-sm font-bold">{postComments.length} <span className="text-gray-500 dark:text-gray-400">Comments</span></div>
             </div>
             <hr className="mb-2 border border-gray-500" />
