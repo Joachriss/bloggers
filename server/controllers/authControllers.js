@@ -57,16 +57,18 @@ const loginUser = async (req,res)=>{
         if(!user){
             return res.json({error:'User does not exist'});
         }
-        const isMatch = bcrypt.compare(password, user.password);
-        if(!isMatch){
-            return res.json({error:'Invalid credentials'});
-        }
-        if(isMatch){
+        const isMatch = await bcrypt.compare(password, user.password);
+        
+        if(isMatch === true){
             const token = jwt.sign({email:user.email,id:user._id,name:user.name,role:user.role},process.env.JWT_SECRET,{expiresIn:'1h'},(err,token)=>{
                 if(err) throw err;
                 res.cookie('token',token).json({user});
             });
         }
+        else{
+            return res.json({error:'Invalid credentials'});
+        }
+
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Server error' });

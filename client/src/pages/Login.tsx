@@ -22,6 +22,7 @@ export const Login = () => {
     setLoading(true);
     if (!userContext?.user) {
       try {
+
         const { data } = await axios.post("/login", { email, password });
 
         if (data.error) {
@@ -31,6 +32,7 @@ export const Login = () => {
           await userContext?.reloadUser();
           setLoading(false);
           toast.success("login successiful");
+
           if (data.user.role === "admin") {
             navigate(adminNavigateToPath);
           }
@@ -46,7 +48,12 @@ export const Login = () => {
     }
     else{
       toast.success('You are already logged in');
-      // navigate(location?.state?.from?.pathname);
+      if(userContext?.user?.role === 'admin'){
+        navigate(adminNavigateToPath);
+      }
+      else{
+        navigate(userNavigateToPath);
+      }
     }
   }
   return (

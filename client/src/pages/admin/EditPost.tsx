@@ -22,7 +22,7 @@ export const EditPost = () => {
   useEffect(() => {
     const getPost = async () => {
       try{
-        const {data} = await axios.get(`/getpost/${postId}`);
+        const {data} = await axios.get(`/getpostforediting/${postId}`);
         setTittle(data.tittle);
         setAuthor(data.author);
         setDescription(data.description);

@@ -15,7 +15,7 @@ export const DashboardPost = (props: any) => {
                 <div className="flex flex-row justify-between text-sm text-gray-500 dark:text-gray-400">
                     <small className="flex flex-row items-center gap-x-1"><FiMessageSquare /> <div>{props.totalComments} Comments</div></small>
                     <small className="flex flex-row items-center gap-x-1"><FaEye /> <div>{props.totalViews} Views</div></small>
-                    <Link to={`/admin/editpost/${props._id}`} className="hover:text-gray-900 flex flex-row items-center gap-x-1"><FaEdit /> <div>Edit</div></Link>
+                    <Link to={`/admin/editpost/${props.id}`} className="hover:text-gray-900 flex flex-row items-center gap-x-1"><FaEdit /> <div>Edit</div></Link>
                 </div>
             </div>
         </div>

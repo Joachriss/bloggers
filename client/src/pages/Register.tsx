@@ -5,29 +5,35 @@ import React from "react";
 import toast from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"
+import { DefaultSpinner } from "../components/spinners/DefaultSpinner";
 
 export const Register = () => {
     const navigate = useNavigate();
     const [email, setEmail] = React.useState('');
     const [name, setName] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
     const [confirmPassword, setConfirmPassword] = React.useState("");
 
     // user registration
     const registerUser = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const { data } = await axios.post('/register', { name, email, password, confirmPassword });
             if (data.error) {
+                setLoading(false);
                 return toast.error(data.error)
             }
             else {
                 toast.success('User registered successfully');
+                setLoading(false);
                 navigate('/login');
             }
 
         }
         catch (error) {
+            setLoading(false);
             console.log(error);
             toast.error("something went wrong, please check connection or try again");
         }
@@ -70,7 +76,7 @@ export const Register = () => {
                                     <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
                                 </div>
                             </div>
-                            <button type="submit" className="w-full border-2 text-gray-600 dark:text-gray-300 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
+                            <button type="submit" className="w-full border-2 text-gray-600 dark:text-gray-300 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled={loading}>{loading ? <DefaultSpinner /> : "Create an account"}</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already have an account? <Link to="/login" className=" text-primary-600 hover:underline dark:text-primary-500 font-extrabold">Login here</Link>
                             </p>

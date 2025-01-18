@@ -57,6 +57,25 @@ const getAllPosts = async (req, res, next) => {
 
 
 
+const getPostForEditing = async (req, res) => {
+    const postId = req.params.postId;
+    const post_id = mongoose.Types.ObjectId.createFromHexString(postId);
+    try {
+        const post = await postModel.findById(post_id);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.status(200).json(post);
+    }
+    catch (error) {
+        console.error("Error getting post:", error);
+        res.status(500).json({ error: 'Server error', details: error.message });
+    }
+}
+
+
 // get post by id
 const getPostById = async (req, res) => {
     const { postId, userId } = req.params;
@@ -152,4 +171,4 @@ const deletePost = async (req, res, next) => {
     res.status(200).json({ message: 'Post deleted successfully' });
 }
 
-export { createPost, getAllPosts, editPost, getPostById, deletePost, updatePostviews };
+export { createPost, getAllPosts, editPost, getPostById, deletePost, updatePostviews, getPostForEditing };
