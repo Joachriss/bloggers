@@ -209,7 +209,7 @@ export const Navbar = () => {
                                 <button onClick={() => setIsOpenSearch(false)}><IoCloseSharp size={24} /></button>
                             </div>
                         </div>
-                        <input type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" autoFocus={true} placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <input autoFocus={isOpenSearch} type="search" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" placeholder="Search..." name="search" id="search" contentEditable={true} value={search} onChange={(e) => setSearch(e.target.value)} />
                         <div className="relative mb-5 -mt-3">
                             <div className="min-h-[30vh] max-h-[30vh] overflow-y-scroll p-2 w-full">
                                 {posts && posts.length > 0 ?

@@ -28,7 +28,7 @@ export const LikeButton = (props:any) => {
     }
     
   return (
-    <button className="flex justify-center items-center p-1 gap-x-1"  onClick={handleLike}>
+    <button className="flex rounded-lg justify-center items-center p-1 gap-x-1"  onClick={handleLike}>
         {likedCount}
         {isLiked ? <FaHeart color="red" /> : <FaHeart color="gray" />}
     </button>

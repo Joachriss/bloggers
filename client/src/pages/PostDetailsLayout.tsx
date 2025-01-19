@@ -50,7 +50,7 @@ export const PostDetailsLayout = () => {
                 </main>
                 <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-4">
                     <div className="sticky top-36">
-                        <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-gray-700 my-2" /></div>
+                        <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-green-700 my-2" /></div>
                         {
                             posts && posts.length > 0 ? (
                                 [...posts].reverse().slice(0, 5).map((post: any) => <RecentPost key={post._id} views={post.viewedBy.length} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
@@ -59,7 +59,7 @@ export const PostDetailsLayout = () => {
                             )
                         }
 
-                        <div className="italic font-thin text-lg mt-5 mb-2">Archieve:</div> <hr className="border border-gray-700 my-2" />
+                        <div className="italic font-thin text-lg mt-5 mb-2">Archieve:</div> <hr className="border border-green-700 my-2" />
                         <Link to="" className="text-blue-500 underline hover:font-bold">December2024</Link><br />
                         <Link to="" className="text-blue-500 underline hover:font-bold">November2024</Link><br />
                         <Link to="" className="text-blue-500 underline hover:font-bold">October2024</Link><br />
