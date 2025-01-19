@@ -89,14 +89,14 @@ const getPostById = async (req, res) => {
     }
 
     try {
-        const post = await postModel.findById(postId).populate({ path: 'comments',populate:{path:'userId',select:'name'} }).populate({ path: 'viewedBy', select: 'name' });
+        const post = await postModel.findById(postId).populate({ path: 'comments', populate: { path: 'userId', select: 'name' } }).populate({ path: 'viewedBy', select: 'name' });
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
         // add user to viewedBy by array
-        if(userObjectId !== null && !post.viewedBy.some(viewer=> viewer.equals(userObjectId))){
+        if (userObjectId !== null && !post.viewedBy.some(viewer => viewer.equals(userObjectId))) {
             post.viewedBy.push(userObjectId);
             await post.save();
             console.log('User added to viewedBy');
@@ -111,19 +111,41 @@ const getPostById = async (req, res) => {
 }
 
 
-// Update post viewedBy by user id without duplicates
-const updatePostviews = async (req, res) => {
+// update post likes
+const handleLikes = async (req, res) => {
     const { postId, userId } = req.params;
-    try {
-        const post = await postModel.findByIdAndUpdate(postId, { $push: { viewedBy: userId } }, { new: true });
+    console.log(userId);
+    console.log(postId);
+    console.log('clicked');
 
-        if (!post) {
+    var userObjectId = null;
+    if (userId && userId !== null && mongoose.Types.ObjectId.isValid(userId)) {
+        userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
+        console.log('converted');
+    }
+
+    try {
+        console.log(userObjectId);
+        const post = await postModel.findById(postId);
+        if(!post){
             return res.status(404).json({ error: 'Post not found' });
         }
-    }
-    catch (error) {
-        console.error("Error updating post views:", error);
-        res.status(500).json({ error: 'Server error', details: error.message });
+        const hasLiked =  post.likedBy.some(liker => liker.equals(userObjectId));
+        console.log(hasLiked);
+        if (hasLiked) {
+            post.likedBy.pull(userObjectId);
+            await post.save();
+            console.log('Unliked');
+        }
+        else {
+            console.log(hasLiked);
+            post.likedBy.push(userObjectId);
+            await post.save();
+            console.log('Liked');
+            
+        }
+    } catch (error) {
+        console.error("Error updating post likes:", error);
     }
 }
 
@@ -171,4 +193,4 @@ const deletePost = async (req, res, next) => {
     res.status(200).json({ message: 'Post deleted successfully' });
 }
 
-export { createPost, getAllPosts, editPost, getPostById, deletePost, updatePostviews, getPostForEditing };
+export { createPost, getAllPosts, editPost, getPostById, deletePost, getPostForEditing, handleLikes };

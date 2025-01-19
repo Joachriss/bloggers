@@ -3,34 +3,34 @@ import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 export const LikeButton = (props:any) => {
-    const postId = props.postId;
-    const userId = props.userId;
-    const [isLiked, setIsLiked] = useState(false);
-    const [likedCount, setLikedCount] = useState(0);
+    const {postId,userId, likes,liked} = props;
+    const [isLiked, setIsLiked] = useState<boolean>(liked);
+    const [likedCount, setLikedCount] = useState<number>(0);
+    console.log(isLiked);
 
     useEffect(() => {
-        if (props.likes) {
-            setLikedCount(props.likes);
-        }
-    }, [props.likes]);
+        setLikedCount(likes);
+        setIsLiked(liked);
+    }, [likes, liked]);
 
-    const handleLike = async (e: React.SyntheticEvent) => {
-        e.preventDefault;
-        if (isLiked) {
+
+    const handleLike = async () => {
+        console.log(isLiked);
+        if (isLiked === true) {
+            await axios.put(`/likepost/${postId}/${userId}`);
             setLikedCount(likedCount - 1);
             setIsLiked(false);
-            // await axios.put(`/post/${postId}/${userId}/${isLiked}`);
         } else {
+            await axios.put(`/likepost/${postId}/${userId}`); 
             setLikedCount(likedCount + 1);
             setIsLiked(true);
-            // await axios.put(`/post/${postId}/${userId}/${isLiked}`);
         }
     }
-    
-  return (
-    <button className="flex rounded-lg justify-center items-center p-1 gap-x-1"  onClick={handleLike}>
-        {likedCount}
-        {isLiked ? <FaHeart color="red" /> : <FaHeart color="gray" />}
-    </button>
-  )
+
+    return (
+        <button className="flex rounded-lg justify-center items-center p-1 gap-x-1" onClick={handleLike}>
+            {likedCount}
+            {isLiked ? <FaHeart color="red" /> : <FaHeart color="gray" />}
+        </button>
+    )
 }
