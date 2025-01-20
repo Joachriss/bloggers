@@ -120,29 +120,36 @@ const handleLikes = async (req, res) => {
 
     var userObjectId = null;
     if (userId && userId !== null && mongoose.Types.ObjectId.isValid(userId)) {
-        userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
+        // userObjectId = mongoose.Types.ObjectId.createFromHexString(userId);
         console.log('converted');
     }
 
     try {
-        console.log(userObjectId);
+        console.log(userId);
         const post = await postModel.findById(postId);
-        if(!post){
+        if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
-        const hasLiked =  post.likedBy.some(liker => liker.equals(userObjectId));
+
+        const hasLiked = post.likedBy.some(
+            (liker) => {
+                return liker.toString() === userId;
+            }
+        );
+
         console.log(hasLiked);
-        if (hasLiked) {
-            post.likedBy.pull(userObjectId);
+        if (hasLiked === true && userId !== null) {
+            post.likedBy.pull(userId);
             await post.save();
-            console.log('Unliked');
+            res.json({ message: 'Unliked' });
+            console.log('unliked');
         }
-        else {
-            console.log(hasLiked);
-            post.likedBy.push(userObjectId);
+        else if (hasLiked === false && userId !== null) {
+            post.likedBy.push(userId);
             await post.save();
-            console.log('Liked');
-            
+            res.json({ message: 'Liked' });
+            console.log('liked');
+
         }
     } catch (error) {
         console.error("Error updating post likes:", error);
