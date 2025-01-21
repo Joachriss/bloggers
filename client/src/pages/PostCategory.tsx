@@ -42,7 +42,7 @@ export const PostCategory = () => {
                                 category !== 'all' ? (
                                     [...posts].reverse().filter(posts => posts.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                                 ) : (
-                                    [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                                    [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.createdAt} _id={post._id} />)
                                 )
                             ) : (
                                 <div className="col-span-full text-center font-bold text-xl text-gray-950 dark:text-gray-100 dark:bg-transparent my-3 p-8">No post found</div>
