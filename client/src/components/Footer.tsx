@@ -54,7 +54,7 @@ export const Footer = () => {
                     </div>
                     <div className="col-span-full mt-2 flex flex-col text-center items-center py-6 border-t-2 border-gray-900 dark:border-gray-300">
                         <small><span className="font-bold">DESCRIBE</span>&copy;Copyright{Date().split(" ").at(3)}  </small>
-                        <small>Designed by: <span className="font-bold">+255 658 191 222</span> Email: <span className="font-bold"><a href="mailto:joachriss@gmail.com">joachriss@gmail.com</a></span></small>
+                        <small>Designed & developed by: <span className="font-bold">+255 658 191 222</span> Email: <span className="font-bold"><a href="mailto:joachriss@gmail.com">joachriss@gmail.com</a></span></small>
                     </div>
                 </div>
             </div>

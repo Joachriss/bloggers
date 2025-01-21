@@ -152,7 +152,7 @@ export const Navbar = () => {
                     {posts && posts.length > 0 ?
                         (
                             [...posts].reverse().slice(0, 5).map((post, index) => {
-                                return <TrendyPost key={index} image={post.image} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
+                                return <TrendyPost key={index} image={post.image} tittle={post.tittle} views={post.viewedBy.length} totalComments={post.comments.length} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (
                             <div className="flex col-span-full w-full h-screen justify-center items-center text-white text-center">No posts found</div>
@@ -168,7 +168,7 @@ export const Navbar = () => {
                     <div className="text-xl font-bold text-white">Menu</div>
                     <div className="text-sm text-gray-100 flex items-center font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><MdClose /></div>
                 </div>
-                <div className="flex flex-col text-white justify-between py-3 gap-y-2 gap-x-1 md:gap-x-2 text-sm my-2 border-t-[1px] border-black">
+                <div className="flex flex-col text-white justify-between py-3 gap-y-4 gap-x-1 md:gap-x-2 text-sm my-2 border-t-[1px] border-black">
                     <NavLink reloadDocument={true} to='postcategory/World' className={isMobileNavLinkActive}>World</NavLink>
                     <NavLink reloadDocument={true} to='postcategory/Technology' className={isMobileNavLinkActive}>Technology</NavLink>
                     {/* <Link reloadDocument={true} to='postcategory/Gossip' className={isMobileNavLinkActive}>Gossip</Link> */}
