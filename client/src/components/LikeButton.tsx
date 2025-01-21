@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { NumberFormatter } from "./NumberFormatter";
 
 export const LikeButton = (props:any) => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ export const LikeButton = (props:any) => {
 
     return (
         <button className="flex rounded-lg justify-center items-center p-1 gap-x-1" onClick={handleLike}>
-            {likedCount}
+            <NumberFormatter value={likedCount}/>
             {isLiked ? <FaHeart color="red" /> : <FaHeart color="gray" />} 
         </button>
     )

@@ -4,6 +4,7 @@ import { CommentSection } from "./comments/CommentSection";
 import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
 import { LikeButton } from "./LikeButton";
+import { NumberFormatter } from "./NumberFormatter";
 
 export const PostDetails = (props: any) => {
     const postId = props.postid;
@@ -53,7 +54,7 @@ export const PostDetails = (props: any) => {
                 <div className="text-lg text-gray-600 dark:text-gray-200">Author: <span className="font-bold">{postAuthor}</span></div>
                 <div className="flex flex-row justify-between items-center">
                     <small className=" text-gray-500 dark:text-gray-400">Posted on: <span className="font-bold">{postDate.slice(0, 10)}</span></small>
-                    <div className="text-sm  font-bold"> {postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
+                    <div className="text-sm flex flex-row items-center gap-x-1 font-bold"> <NumberFormatter value={postViews.length} /><span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 </div>
             </div>
             <div className="w-full max-h-[70vh] mx-auto overflow-hidden mt-2 rounded-lg">
@@ -61,11 +62,11 @@ export const PostDetails = (props: any) => {
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
                 <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked}/>
-                <div className=" text-sm font-bold border-x-2">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
-                <div className=" text-sm font-bold">{postComments.length} <span className="text-gray-500 dark:text-gray-400">Comments</span></div>
+                <div className=" text-sm font-bold flex flex-row items-center justify-center gap-x-1 border-x-2"><NumberFormatter value={postViews.length}/> <span className="text-gray-500 dark:text-gray-400">Views</span></div>
+                <div className=" text-sm font-bold flex flex-row items-center justify-center gap-x-1"><NumberFormatter value={postComments.length} /><span className="text-gray-500 dark:text-gray-400">Comments</span></div>
             </div>
             <hr className="mb-2 border border-green-500" />
-            <div className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
+            <div className="text-lg" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
             <CommentSection comments={postComments} postid={postId} />
         </div>
     )

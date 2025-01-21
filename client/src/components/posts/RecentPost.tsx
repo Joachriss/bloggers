@@ -1,5 +1,6 @@
 import { FaEye } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
+import { NumberFormatter } from '../NumberFormatter'
 
 export const RecentPost = (props: any) => {
   return (
@@ -12,7 +13,7 @@ export const RecentPost = (props: any) => {
         <div className='flex flex-row gap-x-2 text-[9pt]'>
             {props.date.slice(0, 10)} .
             <div className='flex flex-row items-center gap-x-1'>
-              <div>{props.views}</div><FaEye />
+              <div><NumberFormatter value={props.views}/></div><FaEye />
             </div>
 
         </div>

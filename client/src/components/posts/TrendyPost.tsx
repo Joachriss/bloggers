@@ -1,5 +1,6 @@
 import { FaComment, FaEye } from "react-icons/fa6"
 import { Link } from "react-router-dom"
+import { NumberFormatter } from "../NumberFormatter"
 
 export const TrendyPost = (props: any) => {
   return (
@@ -14,11 +15,11 @@ export const TrendyPost = (props: any) => {
           <small className="text-gray-200">{props.date.slice(0,10)}</small>
           <div className="flex flex-row items-center gap-x-4">
             <div className="flex flex-row items-center gap-x-1">
-              <div>{props.views}</div>
+              <div><NumberFormatter value={props.views}/></div>
               <FaEye />
             </div>
             <div className="flex flex-row items-center gap-x-1">
-              <div>{props.totalComments}</div>
+              <div><NumberFormatter value={props.totalComments}/></div>
               <FaComment />
             </div>
           </div>
