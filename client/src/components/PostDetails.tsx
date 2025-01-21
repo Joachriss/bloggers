@@ -45,7 +45,7 @@ export const PostDetails = (props: any) => {
         }
         getPostDetails();
 
-    }, [postId,userId]);
+    }, [postId,userId,hasUserLiked,postLikes.length]);
     return (
         <div className=" flex flex-col gap-y-3 gap-x-4">
             <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
@@ -60,7 +60,7 @@ export const PostDetails = (props: any) => {
                 <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
-                <LikeButton postId={postId} userId={userId} likes={postLikes.length} liked={hasUserLiked}/>
+                <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked}/>
                 <div className=" text-sm font-bold border-x-2">{postViews.length} <span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 <div className=" text-sm font-bold">{postComments.length} <span className="text-gray-500 dark:text-gray-400">Comments</span></div>
             </div>
