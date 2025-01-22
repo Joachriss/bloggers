@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext";
 import { DefaultSpinner } from "../components/spinners/DefaultSpinner";
+import GoogleButton from "react-google-button";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -89,6 +90,9 @@ export const Login = () => {
                 <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-gray-300">Forgot password?</a>
               </div>
               <button type="submit" className="w-full text-gray-600 dark:text-gray-300 border-2 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 " disabled={loading}>{loading ?<DefaultSpinner />:"Sign in"}</button>
+              <div className="mx-auto w-fit">
+                <GoogleButton onClick={() => { }}/>
+              </div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet? <Link to="/register" className="font-extrabold text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
               </p>
