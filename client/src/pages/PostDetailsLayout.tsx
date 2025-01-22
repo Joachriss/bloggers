@@ -34,8 +34,8 @@ export const PostDetailsLayout = () => {
     }, []);
     return (
         <div className="w-full relative">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-4 max-w-[1280px] mx-auto">
-                <main className="col-span-1 md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-12  gap-y-5 p-4 max-w-[1280px] mx-auto">
+                <main className="col-span-1 md:col-span-8">
                     {/* Output for post details */}
                     {
                         loading ? (
@@ -48,8 +48,11 @@ export const PostDetailsLayout = () => {
                     }
 
                 </main>
-                <div className="col-span-1 flex gap-2 flex-col border-s-2 border-gray-600 py-2 px-4">
-                    <div className="sticky top-36">
+
+                <div className="col-span-1 hidden md:block border mx-auto border-gray-500"><div className="h-full sticky top-36"></div></div>
+
+                <div className="col-span-3 flex gap-2 flex-col">
+                    <div className="sticky top-36 bg-white dark:bg-transparent  py-2 px-4 rounded-lg">
                         <div className="text-xl font-extrabold mb-4">Recent posts: <br /> <hr className="border border-green-700 my-2" /></div>
                         {
                             posts && posts.length > 0 ? (
