@@ -1,28 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
 // import App from './App.tsx'
-import {Login} from './pages/Login.tsx'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Register } from './pages/Register.tsx'
-import { Home } from './pages/Home.tsx'
-import { ErrorPage } from './pages/ErrorPage.tsx'
-import axios from 'axios'
-import { UserContextProvider } from '../context/UserContext.tsx'
-import { Toaster } from 'react-hot-toast'
-import { Dashboard } from './pages/admin/Dashboard.tsx'
-import { Posts } from './pages/admin/Posts.tsx'
-import { DashboardHome } from './pages/admin/DashboardHome.tsx'
-import { CreatePost } from './pages/admin/CreatePost.tsx'
-import { EditPost } from './pages/admin/EditPost.tsx'
-import { AdminPostItem } from './components/posts/AdminPostItem.tsx'
-import { Layout } from './pages/Layout.tsx'
-import { PostDetailsLayout } from './pages/PostDetailsLayout.tsx'
-import { PostCategory } from './pages/PostCategory.tsx'
-import { Contacts } from './pages/Contacts.tsx'
-import { AboutUs } from './pages/AboutUs.tsx'
-import { Profile } from './pages/Profile.tsx'
-import { ThemeButton } from './components/ThemeButton.tsx'
+import { Login } from './pages/Login.tsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Register } from './pages/Register.tsx';
+import { Home } from './pages/Home.tsx';
+import { ErrorPage } from './pages/ErrorPage.tsx';
+import axios from 'axios';
+import { UserContextProvider } from '../context/UserContext.tsx';
+import { Toaster } from 'react-hot-toast';
+import { Dashboard } from './pages/admin/Dashboard.tsx';
+import { Posts } from './pages/admin/Posts.tsx';
+import { DashboardHome } from './pages/admin/DashboardHome.tsx';
+import { CreatePost } from './pages/admin/CreatePost.tsx';
+import { EditPost } from './pages/admin/EditPost.tsx';
+import { AdminPostItem } from './components/posts/AdminPostItem.tsx';
+import { Layout } from './pages/Layout.tsx';
+import { PostDetailsLayout } from './pages/PostDetailsLayout.tsx';
+import { PostCategory } from './pages/PostCategory.tsx';
+import { Contacts } from './pages/Contacts.tsx';
+import { AboutUs } from './pages/AboutUs.tsx';
+import { Profile } from './pages/Profile.tsx';
+import { ThemeButton } from './components/ThemeButton.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -58,8 +59,8 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path:'user/profile/:userid',
-        element:<Profile/>
+        path: 'user/profile/:userid',
+        element: <Profile />
       }
     ]
   },
@@ -92,9 +93,9 @@ const router = createBrowserRouter([
   {
     path: '/register',
     children: [
-      { 
+      {
         index: true,
-        element: <Register /> 
+        element: <Register />
       }
     ]
   },
@@ -119,10 +120,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <UserContextProvider>
-      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
-      <RouterProvider router={router} />
-      <ThemeButton />
-    </UserContextProvider>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <UserContextProvider>
+        <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
+        <RouterProvider router={router} />
+        <ThemeButton />
+      </UserContextProvider>
+    </GoogleOAuthProvider>
   </StrictMode>,
 )
