@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { FaAngleDown } from "react-icons/fa6";
 import pictureHolder from "../../assets/images/placeholder-image.jpg";
+import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
 
 export const CreatePost = () => {
   const navigate = useNavigate();
@@ -16,10 +17,12 @@ export const CreatePost = () => {
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // sending post to server side
   const sendPost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('tittle',tittle);
@@ -31,9 +34,11 @@ export const CreatePost = () => {
       const { data } = await axios.post("/createpost", formData, { headers: {'Content-Type': 'multipart/form-data'}});
       
       if (data.error) {
+        setLoading(false);
         toast.error(data.error);
       }
       else {
+        setLoading(false);
         toast.success(data.message);
         navigate('/admin/posts');
       }
@@ -214,7 +219,7 @@ export const CreatePost = () => {
           </div>
 
           <div className="col-span-2 w-full text-center mt-5">
-            <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto">Publish</button>
+            <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto" disabled={loading}>{loading ? <DefaultSpinner /> : 'Publish'}</button>
           </div>
         </div>
       </form>
