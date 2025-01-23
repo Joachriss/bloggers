@@ -6,6 +6,7 @@ import 'react-quill-new/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { FaAngleDown } from "react-icons/fa6";
+import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
 
 export const EditPost = () => {
   const params = useParams();
@@ -17,6 +18,7 @@ export const EditPost = () => {
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // request post details
   useEffect(() => {
@@ -45,6 +47,7 @@ export const EditPost = () => {
   // sending post to server side
   const upadatePost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('tittle', tittle);
@@ -56,9 +59,11 @@ export const EditPost = () => {
       const { data } = await axios.put(`/editpost/${postId}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       
       if (data.error) {
+        setLoading(false);
         toast.error(data.error);
       }
       else {
+        setLoading(false);
         toast.success(data.message);
         navigate('/admin/posts');
       }
@@ -151,16 +156,6 @@ export const EditPost = () => {
                     Politics
                   </a>
                 </MenuItem>
-                {/* <form action="#" method="POST">
-                  <MenuItem>
-                    <button
-                      type="submit"
-                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
-                    >
-                      Sign out
-                    </button>
-                  </MenuItem>
-                </form> */}
               </div>
             </MenuItems>
           </Menu>
@@ -186,7 +181,7 @@ export const EditPost = () => {
               /></label>
           </div>
           <div className="col-span-2 w-full text-center mt-5">
-            <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto">Update</button>
+            <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto" disabled={loading}>{loading ? <DefaultSpinner /> : 'Update'}</button>
           </div>
         </div>
       </form>

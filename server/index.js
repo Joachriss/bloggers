@@ -8,7 +8,8 @@ import { connect } from 'mongoose';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import commentRouter from './routes/commentRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
+import googleRoutes from './routes/googleAuthRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,8 +32,9 @@ app.use(cors({
 app.use('/uploads/images',express.static(path.join(__dirname,'uploads/images')));
 app.use('/',authRoutes);
 app.use('/',postRoutes);
-app.use('/',commentRouter);
+app.use('/',commentRoutes);
 app.use('/',userRoutes);
+app.use('/',googleRoutes);
 
 
 // database connection
