@@ -1,4 +1,6 @@
 import axios from "axios";
+import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 const googleAuthentication = async (req, res) => {
     console.log(req.body);
@@ -9,7 +11,24 @@ const googleAuthentication = async (req, res) => {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
         console.log(userData.data);
-        res.json(userData.data);
+
+        // check user in the database
+        const user = await userModel.findOne({ email: userData.data.email });
+        if (!user) {
+            // create new user
+            const user = await userModel.create({
+                name: userData.data.name,
+                email: userData.data.email,
+                role: "user"
+            });
+        }
+
+        // creating jwt token for user
+        const token = jwt.sign({ id: user._id, email: user.email, role: user.role, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h'});
+        res.cookie('token', token).json({
+            message: `Welcome back ${user.name}`,
+            user: user,
+        });
     } catch (error) {
         console.log(error);
     }
