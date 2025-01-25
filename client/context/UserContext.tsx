@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 interface UserContextType {
-    user: {id: string, name: string, email: string, role: string } | null;
+    user: {id: string, name: string, email: string, role: string } | null | undefined;
     setUser: (user: UserContextType['user']) => void;
     reloadUser: () => Promise<void>;
     logout: () => Promise<void>;
