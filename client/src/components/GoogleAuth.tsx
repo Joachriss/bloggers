@@ -1,5 +1,4 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
 import GoogleButton from "react-google-button"
 import { DefaultSpinner } from "./spinners/DefaultSpinner";
 import axios from "axios";
@@ -9,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export const GoogleAuth = (props:any) => {
   const {loading, setLoading} = props;
-  const [userData, setUserData] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const userNavigateToPath = location.state?.from?.pathname || '/';
@@ -23,7 +21,6 @@ export const GoogleAuth = (props:any) => {
         const userInfo = await axios.post('/auth/google', {accessToken} );
   
         console.log(userInfo.data.user);
-        setUserData(userInfo.data.user);
         toast.success(userInfo.data.message);
         if (userInfo.data.user.role === "admin") {
           navigate(adminNavigateToPath);

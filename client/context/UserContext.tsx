@@ -1,7 +1,6 @@
 import {  createContext, ReactNode, useEffect, useState } from 'react';
 import axios from "axios";
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 interface UserContextType {
     user: {id: string, name: string, email: string, role: string } | null | undefined;
@@ -23,7 +22,6 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
             }
         }
         catch (error) {
-            // toast.error('Get User: Something went wrong please check connection or try again');
         }
         
     }
