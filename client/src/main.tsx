@@ -24,6 +24,7 @@ import { AboutUs } from './pages/AboutUs.tsx';
 import { Profile } from './pages/Profile.tsx';
 import { ThemeButton } from './components/ThemeButton.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -66,7 +67,8 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin',
-    element: <Dashboard />,
+    element: (<ProtectedRoute requiredRole='admin'> <Dashboard /> </ProtectedRoute>),
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -92,6 +94,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/register',
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -101,6 +104,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -108,6 +112,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/error',
+    element: <ErrorPage />,
+  }
 ], {
   future: {
     v7_relativeSplatPath: true,
