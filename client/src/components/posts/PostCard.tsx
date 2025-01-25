@@ -1,20 +1,25 @@
 import { Link } from "react-router-dom"
 import { UserAvatar } from "../UserAvatar"
+import aboutus from '../../assets/images/aboutus.png'
+import DOMPurify from 'dompurify'
 
 
 export const PostCard = (props: any) => {
+    const image = props.image;
+    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    console.log(image)
     return (
         <Link to={`/post/${props._id}`} className='flex flex-col rounded-xl bg-transparent p-3 shadow-lg cursor-pointer'>
             <div className="mx-auto max-h-52 w-full overflow-hidden rounded-lg">
-                <img src={`http://localhost:8000/uploads/images/${props.image}`} loading="lazy" className='rounded-lg scale-110' alt="post picture" />
+                <img src={`${baseImageUrl}/uploads/images/${image}`} loading="lazy" className='rounded-lg object-cover' alt="post picture" />
             </div>
             <div className="flex flex-col mt-3 mb-auto">
                 <div className="font-bold text-lg line-clamp-1">{props.tittle}</div>
-                <div className="md:text-md font-medium line-clamp-2" dangerouslySetInnerHTML={{ __html: props.description }}></div>
+                <div className="md:text-md font-medium line-clamp-2" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.description) }}></div>
             </div>
             <div className="flex flex-row justify-between items-center mt-2">
                 <div className="flex flex-row justify-between items-center gap-x-2">
-                    <UserAvatar/>
+                    <UserAvatar userImage={aboutus}/>
                     <div className="flex flex-col">
                         <small className="text-gray-950 dark:text-gray-300 font-bold">{props.author}</small>
                         <small className="text-gray-500 dark:text-gray-400">{props.date.slice(0,10)}</small>
