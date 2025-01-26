@@ -4,6 +4,8 @@ import { DefaultSpinner } from "./spinners/DefaultSpinner";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 
 export const GoogleAuth = (props:any) => {
@@ -12,6 +14,7 @@ export const GoogleAuth = (props:any) => {
   const location = useLocation();
   const userNavigateToPath = location.state?.from?.pathname || '/';
   const adminNavigateToPath = location.state?.from?.pathname || '/admin';
+  const userContext = useContext(UserContext);
   
   const handleGoogleLogin = useGoogleLogin({
     onSuccess:async (tokenResponse) => {
@@ -21,6 +24,7 @@ export const GoogleAuth = (props:any) => {
         const userInfo = await axios.post('/auth/google', {accessToken} );
   
         console.log(userInfo.data.user);
+        await userContext?.reloadUser();
         toast.success(userInfo.data.message);
         if (userInfo.data.user.role === "admin") {
           navigate(adminNavigateToPath);

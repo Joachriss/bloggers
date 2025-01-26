@@ -3,7 +3,7 @@ import 'react-quill-new/dist/quill.snow.css';
 
 export const QuillEditor = (props: any) => {
     const { description, setDescription } = props;
-    
+
     // toolbar options for quill editor
     const toolbarOptions = [
         [{ 'size': ['small', false, 'large', 'huge'] }],

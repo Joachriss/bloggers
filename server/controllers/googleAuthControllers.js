@@ -2,6 +2,7 @@ import axios from "axios";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
+
 const googleAuthentication = async (req, res) => {
     console.log(req.body);
     try {
