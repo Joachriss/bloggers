@@ -1,12 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { FaAngleDown } from "react-icons/fa6";
 import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
+import { QuillEditor } from '../../components/QuillEditor';
 
 export const EditPost = () => {
   const params = useParams();
@@ -23,8 +22,8 @@ export const EditPost = () => {
   // request post details
   useEffect(() => {
     const getPost = async () => {
-      try{
-        const {data} = await axios.get(`/getpostforediting/${postId}`);
+      try {
+        const { data } = await axios.get(`/getpostforediting/${postId}`);
         setTittle(data.tittle);
         setAuthor(data.author);
         setDescription(data.description);
@@ -35,7 +34,7 @@ export const EditPost = () => {
         const displayImage = `http://localhost:8000/uploads/images/${data.image}`;
         setViewImage(displayImage);
 
-      }catch(error){
+      } catch (error) {
         console.log(error);
       }
     }
@@ -57,7 +56,7 @@ export const EditPost = () => {
       formData.append('image', image);
 
       const { data } = await axios.put(`/editpost/${postId}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      
+
       if (data.error) {
         setLoading(false);
         toast.error(data.error);
@@ -72,21 +71,7 @@ export const EditPost = () => {
     }
   }
 
-  // toolbar options for quill editor
-  const toolbarOptions = [
-    [{ 'size': ['small', false, 'large', 'huge'] }],
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [{ 'font': [] }],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],
-    [{ 'direction': 'rtl' }],
-    [{ 'color': [] }, { 'background': [] }],
-    [{ 'align': [] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    ['blockquote', 'code-block'],
-    ['link', 'image', 'video', 'formula'],
-    ['clean'],
-  ];
+
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null && e.target.files.length > 0) {
@@ -163,22 +148,8 @@ export const EditPost = () => {
 
           <div className="col-span-2 flex flex-col w-full h-fit">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog description
-              <ReactQuill
-                theme="snow"
-                id="description"
-                value={description}
-                placeholder="Start typing here..."
-                onChange={setDescription}
-                modules={{
-                  toolbar: toolbarOptions,
-                  history: {          // Enable with custom configurations
-                    delay: 2500,
-                    userOnly: true
-                  },
-                }
-
-                }
-              /></label>
+              <QuillEditor description={description} setDescription={setDescription} />
+            </label>
           </div>
           <div className="col-span-2 w-full text-center mt-5">
             <button type="submit" className="bg-gray-700 text-white p-2 rounded-md mx-auto" disabled={loading}>{loading ? <DefaultSpinner /> : 'Update'}</button>

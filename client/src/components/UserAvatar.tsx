@@ -17,7 +17,7 @@ export const UserAvatar = (props:any) => {
 
     const userAvatar = userImageCheck();
     return (
-        <div className="aspect-square overflow-hidden w-8 rounded-full bg-transparent border-[1px] flex items-center justify-center">
+        <div className="aspect-square overflow-hidden w-8 rounded-full bg-transparent border-[1px] border-gray-500 flex items-center justify-center">
             {
                 userAvatar ? <img src={userAvatar} className='w-full h-full rounded-full object-cover' alt="User avatar" onError={(e) => {
                     e.currentTarget.src = user;

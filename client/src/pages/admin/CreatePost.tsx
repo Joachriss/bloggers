@@ -1,13 +1,12 @@
 import axios, { AxiosError } from 'axios';
 import { ChangeEvent, useState } from 'react';
 import toast from 'react-hot-toast';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { FaAngleDown } from "react-icons/fa6";
 import pictureHolder from "../../assets/images/placeholder-image.jpg";
 import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
+import { QuillEditor } from '../../components/QuillEditor';
 
 export const CreatePost = () => {
   const navigate = useNavigate();
@@ -25,14 +24,14 @@ export const CreatePost = () => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append('tittle',tittle);
-      formData.append('author',author);
-      formData.append('description',description);
-      formData.append('category',category);
-      formData.append('image',image);
+      formData.append('tittle', tittle);
+      formData.append('author', author);
+      formData.append('description', description);
+      formData.append('category', category);
+      formData.append('image', image);
 
-      const { data } = await axios.post("/createpost", formData, { headers: {'Content-Type': 'multipart/form-data'}});
-      
+      const { data } = await axios.post("/createpost", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+
       if (data.error) {
         setLoading(false);
         toast.error(data.error);
@@ -47,21 +46,7 @@ export const CreatePost = () => {
     }
   }
 
-  // toolbar options for quill editor
-  const toolbarOptions = [
-    [{ 'size': ['small', false, 'large', 'huge'] }],
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [{ 'font': [] }],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],
-    [{ 'direction': 'rtl' }],
-    [{ 'color': [] }, { 'background': [] }],
-    [{ 'align': [] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    ['blockquote', 'code-block'],
-    ['link', 'image', 'video', 'formula'],
-    ['clean'],
-  ];
+  
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null && e.target.files.length > 0) {
@@ -180,24 +165,12 @@ export const CreatePost = () => {
             </MenuItems>
           </Menu>
 
-          <div className="col-span-2 flex flex-col w-full h-fit">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog description
-              <ReactQuill
-                theme="snow"
-                id="description"
-                value={description}
-                placeholder="Start typing here..."
-                onChange={setDescription}
-                modules={{
-                  toolbar: toolbarOptions,
-                  history: {          // Enable with custom configurations
-                    delay: 2500,
-                    userOnly: true
-                  },
-                }
-
-                }
-              /></label>
+          <div className="col-span-2 text-gray-900 dark:text-white flex flex-col w-full h-fit">
+            <label className="block mb-2 text-sm pt-2font-medium">Blog description
+            
+            <QuillEditor description={description} setDescription={setDescription} />
+              
+            </label>
           </div>
 
           <div className="col-span-2 w-full text-center mt-5">

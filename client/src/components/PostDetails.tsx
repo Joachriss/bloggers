@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
 import { LikeButton } from "./LikeButton";
 import { NumberFormatter } from "./NumberFormatter";
+import  DOMPurify  from "dompurify";
 
 export const PostDetails = (props: any) => {
     const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';

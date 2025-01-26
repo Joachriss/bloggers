@@ -16,7 +16,6 @@ export const RecentPost = (props: any) => {
             <div className='flex flex-row items-center gap-x-1'>
               <NumberFormatter value={props.views}/><FaEye />
             </div>
-
         </div>
       </div>
     </Link>
