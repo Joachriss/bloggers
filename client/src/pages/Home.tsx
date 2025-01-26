@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { HorizontalScrollPost } from "../components/posts/HorizontalScrollPost";
 import toast from "react-hot-toast";
 import { DefaultSpinner } from "../components/spinners/DefaultSpinner";
+import DOMPurify from 'dompurify';
 
 export const Home = () => {
+  const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -33,15 +35,15 @@ export const Home = () => {
             <div className="flex flex-col items-center justify-center py-12">
               <DefaultSpinner />
             </div>
-          ):
-          (
-            ""
-          )
+          ) :
+            (
+              ""
+            )
         }
 
         {[...posts].reverse().slice(0, 1).map((latest: any) => {
           return (
-            <div key={latest._id}><div className="max-h-[50vh] rounded-xl text-gray-100 bg-[#212121] shadow-lg my-3  grid grid-cols-1 md:grid-cols-2"><div className="gap-y-5 grid p-8"><div className="text-3xl md:text-6xl italic font-medium">{latest.tittle}</div><div className="text-xl font-thin line-clamp-2" dangerouslySetInnerHTML={{ __html: latest.description }}></div><Link to={`/post/${latest._id}`} className="font-bold underline text-xl">Continue reading...</Link></div> <div className="p-0 overflow-hidden rounded-lg relative max-h-[50vh] md:block hidden"><img src={`http://localhost:8000/uploads/images/${latest.image}`} className="scale-110 w-full rounded-lg" alt="" /><div className="w-full h-full absolute top-0 bg-opacity-90 bg-gradient-to-r from-[#212121] to-transparent"></div></div></div ></div>)
+            <div key={latest._id}><div className="max-h-[50vh] rounded-xl text-gray-100 bg-[#212121] shadow-lg my-3  grid grid-cols-1 md:grid-cols-2"><div className="gap-y-5 grid p-8"><div className="text-3xl md:text-6xl italic font-medium">{latest.tittle}</div><div className="text-xl font-thin line-clamp-2" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(latest.description) }}></div><Link to={`/post/${latest._id}`} className="font-bold underline text-xl">Continue reading...</Link></div> <div className="p-0 overflow-hidden rounded-lg relative max-h-[50vh] md:block hidden"><img src={`${baseImageUrl}/uploads/images/${latest.image}`} className="scale-110 w-full rounded-lg" alt="" /><div className="w-full h-full absolute top-0 bg-opacity-90 bg-gradient-to-r from-[#212121] to-transparent"></div></div></div ></div>)
         })}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 justify-between">

@@ -7,6 +7,7 @@ import { LikeButton } from "./LikeButton";
 import { NumberFormatter } from "./NumberFormatter";
 
 export const PostDetails = (props: any) => {
+    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
     const postId = props.postid;
     const [postTittle, setPostTittle] = useState('');
     const [postImage, setPostImage] = useState('');
@@ -58,7 +59,7 @@ export const PostDetails = (props: any) => {
                 </div>
             </div>
             <div className="w-full max-h-[70vh] mx-auto overflow-hidden mt-2 rounded-lg">
-                <img src={`http://localhost:8000/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
+                <img src={`${baseImageUrl}/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
                 <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked}/>
