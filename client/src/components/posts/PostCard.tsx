@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { UserAvatar } from "../UserAvatar"
-import aboutus from '../../assets/images/aboutus.png'
 import DOMPurify from 'dompurify'
 
 
