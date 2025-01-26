@@ -27,14 +27,6 @@ export const QuillEditor = (props: any) => {
         onChange={setDescription}
         modules={{
             toolbar: toolbarOptions,
-            locale: {
-                // change them depending on your language
-                altTip: "Hold down the alt key to zoom",
-                floatLeft: "Left",
-                floatRight: "Right",
-                center: "Center",
-                restore: "Restore"
-            },
             history: {          // Enable with custom configurations
                 delay: 2500,
                 userOnly: true
