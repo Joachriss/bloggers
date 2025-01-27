@@ -20,9 +20,9 @@ function removeImage(image) {
 // create post
 const createPost = async (req, res, next) => {
     try {
-        const { tittle, author, description, category } = req.body;
+        const { tittle, author, description, category, visibility, createdBy } = req.body;
 
-        if (!tittle || !author || !description || !category) {
+        if (!tittle || !author || !description || !category || !visibility || !createdBy) {
             return res.json({ error: 'All fields are required' });
         }
         if (!req.file) {
@@ -30,7 +30,7 @@ const createPost = async (req, res, next) => {
         }
         const image = req.file.filename;
 
-        const newPost = await postModel.create({ tittle, author, description, category, image, createdAt: Date.now() });
+        const newPost = await postModel.create({ tittle, author, description, category, createdBy, image, visibility });
         res.status(201).json({ message: 'Post created successfully' });
     } catch (error) {
         console.error("Error creating post:", error);
@@ -168,6 +168,8 @@ const editPost = async (req, res, next) => {
         post.author = req.body.author || post.author;
         post.description = req.body.description || post.description;
         post.category = req.body.category || post.category;
+        post.visibility = req.body.visibility || post.visibility;
+        post.editedBy.push(req.body.editedBy || post.editedBy);
         if (req.file) {
             // delete old image
             removeImage(post.image);
@@ -176,7 +178,6 @@ const editPost = async (req, res, next) => {
             post.image = req.file.filename;
         }
         post.image = post.image;
-        post.updatedAt = Date.now();
         await post.save();
         res.status(200).json({ message: 'Post updated successfully' });
     }

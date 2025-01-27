@@ -7,7 +7,12 @@ const postSchema = new Schema({
     author: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
-    visibility: {type: String},
+    createdBy: { type: Schema.Types.ObjectId, ref: userModel, required: true },
+    visibility: {
+        type: String,
+        enum: ['public', 'private','none'],
+        default: 'public',
+    },
     viewedBy: [{ 
         type: Schema.Types.ObjectId,
         ref: userModel,
@@ -19,6 +24,10 @@ const postSchema = new Schema({
     comments:[{
         type:Schema.Types.ObjectId,
         ref:commentModel
+    }],
+    editedBy:[{
+        type: Schema.Types.ObjectId,
+        ref:userModel
     }],
     image: { type: String, required: true },
 },

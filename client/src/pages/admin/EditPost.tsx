@@ -1,12 +1,15 @@
 import axios, { AxiosError } from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import { PostForm } from '../../components/PostForm';
+import { PostForm } from '../../components/posts/PostForm';
+import { UserContext } from '../../../context/UserContext';
 
 export const EditPost = () => {
   const params = useParams();
   const postId = params.postid;
+  const userContext = useContext(UserContext);
+  let userId: string | null = null;
   const navigate = useNavigate();
   const [image, setImage] = useState<any>();
   const [viewImage, setViewImage] = useState<any>();
@@ -14,10 +17,12 @@ export const EditPost = () => {
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [visibility, setVisibility] = useState('');
   const [loading, setLoading] = useState(false);
 
   // request post details
   useEffect(() => {
+    userId = userContext?.user?.id || null;
     const getPost = async () => {
       try {
         const { data } = await axios.get(`/getpostforediting/${postId}`);
@@ -26,6 +31,7 @@ export const EditPost = () => {
         setDescription(data.description);
         setCategory(data.category);
         setImage(data.image);
+        setVisibility(data.visibility);
 
         // Displaying image from the database
         const displayImage = `http://localhost:8000/uploads/images/${data.image}`;
@@ -51,6 +57,10 @@ export const EditPost = () => {
       formData.append('description', description);
       formData.append('category', category);
       formData.append('image', image);
+      formData.append('visibility', visibility);
+      if (userId !== null) {
+        formData.append('editedBy', userId);
+      }
 
       const { data } = await axios.put(`/editpost/${postId}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
@@ -64,6 +74,8 @@ export const EditPost = () => {
         navigate('/admin/posts');
       }
     } catch (error: AxiosError | any) {
+      setLoading(false);
+      toast.error("something went wrong, please check connection or try again");
       console.log(error.response.data.details);
     }
   }
@@ -92,6 +104,8 @@ export const EditPost = () => {
           author={author}
           category={category}
           image={image}
+          visibility={visibility}
+          setVisibility={setVisibility} 
         />
       </form>
     </div>

@@ -1,18 +1,27 @@
 import axios, { AxiosError } from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { PostForm } from '../../components/PostForm';
+import { PostForm } from '../../components/posts/PostForm';
+import placeholder from '../../assets/images/placeholder-image.jpg';
+import { UserContext } from '../../../context/UserContext';
 
 export const CreatePost = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState<any>();
-  const [viewImage, setViewImage] = useState<any>();
+  const [viewImage, setViewImage] = useState<any>(placeholder);
   const [tittle, setTittle] = useState('');
+  const userContext = useContext(UserContext);
+  let userId: string | null = null;
   const [author, setAuthor] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [visibility, setVisibility] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    userId = userContext?.user?.id || null;
+  }, []);
 
   // sending post to server side
   const sendPost = async (e: React.SyntheticEvent) => {
@@ -25,6 +34,10 @@ export const CreatePost = () => {
       formData.append('description', description);
       formData.append('category', category);
       formData.append('image', image);
+      formData.append('visibility', visibility);
+      if(userId !== null) {
+        formData.append('createdBy', userId);
+      }
 
       const { data } = await axios.post("/createpost", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
@@ -38,10 +51,12 @@ export const CreatePost = () => {
         navigate('/admin/posts');
       }
     } catch (error: AxiosError | any) {
+      setLoading(false);
+      toast.error("something went wrong, please check connection or try again");
       console.log(error.response.data.details);
     }
   }
-
+  // setViewImage(placeholder);
 
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +80,8 @@ export const CreatePost = () => {
           setTittle={setTittle}
           setAuthor={setAuthor}
           setCategory={setCategory}
+          visibility={visibility}
+          setVisibility={setVisibility}
           loading={loading}
         />
       </form>
