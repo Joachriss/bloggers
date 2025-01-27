@@ -35,12 +35,12 @@ export default function ViewersChart() {
          },
           // bottomAxis Line Styles
          "& .MuiChartsAxis-bottom .MuiChartsAxis-line":{
-          stroke:"#0000FF",
+          stroke:`rgb(106, 169, 169)`,
           strokeWidth:0.4
          },
          // leftAxis Line Styles
          "& .MuiChartsAxis-left .MuiChartsAxis-line":{
-          stroke:"#00000FF",
+          stroke:`rgb(106, 169, 169)`,
           strokeWidth:0.4
          }
       }}
