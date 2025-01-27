@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext,  useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { PostForm } from '../../components/posts/PostForm';
@@ -18,10 +18,8 @@ export const CreatePost = () => {
   const [category, setCategory] = useState('');
   const [visibility, setVisibility] = useState('');
   const [loading, setLoading] = useState(false);
+  userId = userContext?.user?.id || null;
 
-  useEffect(() => {
-    userId = userContext?.user?.id || null;
-  }, []);
 
   // sending post to server side
   const sendPost = async (e: React.SyntheticEvent) => {

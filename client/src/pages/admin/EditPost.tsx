@@ -19,10 +19,10 @@ export const EditPost = () => {
   const [category, setCategory] = useState('');
   const [visibility, setVisibility] = useState('');
   const [loading, setLoading] = useState(false);
+  userId =  userContext?.user?.id || null;
 
   // request post details
   useEffect(() => {
-    userId = userContext?.user?.id || null;
     const getPost = async () => {
       try {
         const { data } = await axios.get(`/getpostforediting/${postId}`);
@@ -32,16 +32,16 @@ export const EditPost = () => {
         setCategory(data.category);
         setImage(data.image);
         setVisibility(data.visibility);
-
+        
         // Displaying image from the database
         const displayImage = `http://localhost:8000/uploads/images/${data.image}`;
         setViewImage(displayImage);
-
+        
       } catch (error) {
         console.log(error);
       }
     }
-
+    
     getPost();
 
   }, []);

@@ -169,6 +169,7 @@ const editPost = async (req, res, next) => {
         post.description = req.body.description || post.description;
         post.category = req.body.category || post.category;
         post.visibility = req.body.visibility || post.visibility;
+        console.log(req.body.editedBy);
         post.editedBy.push(req.body.editedBy || post.editedBy);
         if (req.file) {
             // delete old image
