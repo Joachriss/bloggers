@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { DashboardPost } from "../../components/posts/DashboardPost"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import ViewersChart from "../../components/charts/ViewersChart"
 
 export const DashboardHome = () => {
     const [totalPosts, setTotalPosts] = useState();
@@ -38,30 +39,34 @@ export const DashboardHome = () => {
             <div className="p-2 mt-1">
                 <div className="grid grid-cols-4 gap-1 mb-4">
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
+                        <p className="text-lg md:text-2xl text-gray-400 dark:text-gray-500">
                             Post <br /> {totalPosts}
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
+                        <p className="text-lg md:text-2xl text-gray-400 dark:text-gray-500">
                             Views <br /> {posts.map((post: any) => post.viewedBy.length).reduce((a: number, b: number) => a + b, 0)}
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
+                        <p className="text-lg md:text-2xl text-gray-400 dark:text-gray-500">
                             Comments <br /> {posts.map((post: any) => post.comments.length).reduce((a: number, b: number) => a + b, 0)}
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">
+                        <p className="text-lg md:text-2xl text-gray-400 dark:text-gray-500">
                             Users <br /> {users.length}
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-start p-2 h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+                <div className="flex flex-col justify-start p-2 mb-4 rounded bg-gray-50 fontColor dark:bg-gray-800">
                     <p className="text-2xl text-gray-400 dark:text-gray-500">
                         Chart
                     </p>
+                    <div className="fontColor">
+
+                    <ViewersChart/>
+                    </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4">
                     <div className="flex justify-start rounded bg-gray-50 dark:bg-gray-800">
