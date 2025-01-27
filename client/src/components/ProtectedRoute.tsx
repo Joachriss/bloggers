@@ -18,7 +18,7 @@ export const ProtectedRoute = (props: any) => {
             navigate("/login",{replace: true});
         }
         
-    }, [userContext?.user, requiredRole, navigate]);
+    }, [userContext?.user, requiredRole]);
     return children;
 
 }

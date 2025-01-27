@@ -2,11 +2,6 @@ import axios, { AxiosError } from 'axios';
 import { ChangeEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { FaAngleDown } from "react-icons/fa6";
-import pictureHolder from "../../assets/images/placeholder-image.jpg";
-import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
-import { QuillEditor } from '../../components/QuillEditor';
 import { PostForm } from '../../components/PostForm';
 
 export const CreatePost = () => {
@@ -47,7 +42,7 @@ export const CreatePost = () => {
     }
   }
 
-  
+
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null && e.target.files.length > 0) {
@@ -59,7 +54,19 @@ export const CreatePost = () => {
     <div className='flex flex-col gap-2 m-4'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Create a new post</h1>
       <form className="flex flex-col gap-2 w-full" onSubmit={sendPost} encType='multipart/form-data'>
-        <PostForm viewImage={viewImage} handleImage={handleImage} tittle={tittle} author={author} category={category} description={description} setDescription={setDescription} setTittle={setTittle} setAuthor={setAuthor} setCategory={setCategory} loading={loading}/>
+        <PostForm
+          viewImage={viewImage}
+          handleImage={handleImage}
+          tittle={tittle}
+          author={author}
+          category={category}
+          description={description}
+          setDescription={setDescription}
+          setTittle={setTittle}
+          setAuthor={setAuthor}
+          setCategory={setCategory}
+          loading={loading}
+        />
       </form>
     </div>
   )

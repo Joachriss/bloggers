@@ -2,10 +2,6 @@ import axios, { AxiosError } from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { FaAngleDown } from "react-icons/fa6";
-import { DefaultSpinner } from '../../components/spinners/DefaultSpinner';
-import { QuillEditor } from '../../components/QuillEditor';
 import { PostForm } from '../../components/PostForm';
 
 export const EditPost = () => {
@@ -84,7 +80,19 @@ export const EditPost = () => {
     <div className='flex flex-col gap-2 m-4'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Edit post</h1>
       <form className="flex flex-col gap-2 w-full" onSubmit={upadatePost} encType='multipart/form-data'>
-        <PostForm viewImage={viewImage} setTittle={setTittle} setAuthor={setAuthor} setDescription={setDescription} setCategory={setCategory} handleImage={handleImage} loading={loading} description={description} tittle={tittle} author={author} category={category} image={image} />
+        <PostForm viewImage={viewImage}
+          setTittle={setTittle}
+          setAuthor={setAuthor}
+          setDescription={setDescription}
+          setCategory={setCategory}
+          handleImage={handleImage}
+          loading={loading}
+          description={description}
+          tittle={tittle}
+          author={author}
+          category={category}
+          image={image}
+        />
       </form>
     </div>
   )

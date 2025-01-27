@@ -35,7 +35,7 @@ export const DashboardHome = () => {
     return (
         <div className="">
             <h1 className='text-2xl m-2 font-bold'>Dashboard</h1>
-            <div className="p-2 border-2 mt-1">
+            <div className="p-2 mt-1">
                 <div className="grid grid-cols-4 gap-1 mb-4">
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-2xl text-gray-400 dark:text-gray-500">
