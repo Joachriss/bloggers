@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
 export const HorizontalScrollPost = (props: any) => {
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     return (
         <Link to={`/post/${props._id}`} className='flex flex-col rounded-xl w-52 bg-transparent p-3 shadow-lg cursor-pointer'>
             <div className="mx-auto aspect-square  w-52 overflow-hidden rounded-lg">
-                <img src={`${baseImageUrl}/uploads/images/${props.image}`} loading="lazy" className='rounded-lg object-cover aspect-square' alt="post picture" />
+                <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${props.image}`} loading="lazy" className='rounded-lg object-cover aspect-square' alt="post picture" />
             </div>
             <div className="mt-3 mb-auto px-1">
                 <div className="text-xs md:text-md font-medium line-clamp-2">{props.tittle}</div>

@@ -2,7 +2,7 @@ import { FaUser } from "react-icons/fa6"
 import user from "../assets/images/user.png";
 
 export const UserAvatar = (props:any) => {
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     let userImage = props.userImage;
     console.log(userImage)
 
@@ -12,7 +12,7 @@ export const UserAvatar = (props:any) => {
         }
         userImage = userImage.toString();
         userImage = userImage.trim();
-        return userImage.startsWith('http') ? userImage : `${baseImageUrl}/uploads/images/${userImage}`; 
+        return userImage.startsWith('http') ? userImage : `${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${userImage}`; 
     }
 
     const userAvatar = userImageCheck();

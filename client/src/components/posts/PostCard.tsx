@@ -5,12 +5,11 @@ import DOMPurify from 'dompurify'
 
 export const PostCard = (props: any) => {
     const {image,tittle,description,author,date,category} = props;
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
-    console.log(image)
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     return (
         <Link to={`/post/${props._id}`} className='flex flex-col rounded-xl bg-transparent p-3 shadow-lg cursor-pointer'>
             <div className="mx-auto max-h-52 w-full overflow-hidden rounded-lg">
-                <img src={`${baseImageUrl}/uploads/images/${image}`} loading="lazy" className='rounded-lg object-cover' alt="post picture" />
+                <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${image}`} loading="lazy" className='rounded-lg object-cover' alt="post picture" />
             </div>
             <div className="flex flex-col mt-3 mb-auto">
                 <div className="font-bold text-lg line-clamp-1">{tittle}</div>

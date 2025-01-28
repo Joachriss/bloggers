@@ -4,11 +4,11 @@ import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export const DashboardPost = (props: any) => {
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     return (
         <div className="flex flex-row gap-3">
             <div className="max-w-12 min-w-12 max-h-12 min-h-12 overflow-hidden  aspect-square">
-                <img src={`${baseImageUrl}/uploads/images/${props.image}`} className="max-w-12 min-w-12 h-12 rounded-md" />
+                <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${props.image}`} className="max-w-12 min-w-12 h-12 rounded-md" />
 
             </div>
             <div className="flex flex-col w-full">

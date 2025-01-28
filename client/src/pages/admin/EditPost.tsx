@@ -34,7 +34,7 @@ export const EditPost = () => {
         setVisibility(data.visibility);
         
         // Displaying image from the database
-        const displayImage = `http://localhost:8000/uploads/images/${data.image}`;
+        const displayImage = `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${data.image}`;
         setViewImage(displayImage);
         
       } catch (error) {

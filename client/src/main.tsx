@@ -26,7 +26,7 @@ import { ThemeButton } from './components/ThemeButton.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([

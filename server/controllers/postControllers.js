@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 // function to remove image from the file
 function removeImage(image) {
-    const imagePath = path.join(__dirname, "../uploads/images", image);
+    const imagePath = path.join(__dirname, "../${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}", image);
     fs.unlinkSync(imagePath);
 }
 

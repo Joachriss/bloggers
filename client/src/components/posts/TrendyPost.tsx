@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 import { NumberFormatter } from "../NumberFormatter"
 
 export const TrendyPost = (props: any) => {
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     return (
     <Link reloadDocument={true} to={`post/${props._id}`} className='overflow-hidden rounded-lg relative w-full max-h-80'>
-      <img src={`${baseImageUrl}/uploads/images/${props.image}`} className="scale-150 object-cover" alt="Trending post picture" />
+      <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${props.image}`} className="scale-150 object-cover" alt="Trending post picture" />
       <div className="absolute top-0 bg-opacity-70 bg-black w-full h-full p-3">
         <div className="text-sm w-fit bg-orange-500 p-2 rounded text-white font-bold mb-auto">Trending</div>
         <div className='flex absolute bottom-3 flex-col gap-y-1'>

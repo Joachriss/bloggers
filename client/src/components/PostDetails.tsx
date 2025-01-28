@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
 import { LikeButton } from "./LikeButton";
 import { NumberFormatter } from "./NumberFormatter";
-import  DOMPurify  from "dompurify";
 
 export const PostDetails = (props: any) => {
     const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
@@ -60,7 +59,7 @@ export const PostDetails = (props: any) => {
                 </div>
             </div>
             <div className="w-full max-h-[70vh] mx-auto overflow-hidden mt-2 rounded-lg">
-                <img src={`${baseImageUrl}/uploads/images/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
+                <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
                 <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked}/>

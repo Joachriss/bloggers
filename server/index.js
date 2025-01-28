@@ -29,7 +29,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
-app.use('/uploads/images',express.static(path.join(__dirname,'uploads/images')));
+app.use('/uploads',express.static(path.join(__dirname,'uploads/')));
 app.use('/',authRoutes);
 app.use('/',postRoutes);
 app.use('/',commentRoutes);
@@ -38,7 +38,9 @@ app.use('/',googleRoutes);
 
 
 // database connection
-connect(process.env.MONGO_URL).then(()=>console.log('Database connected')).catch((err)=>console.log(err));
+connect(process.env.MONGO_URL)
+.then(()=>console.log('Database connected'))
+.catch((err)=>console.log(err));
 
 const port = process.env.PORT || 3000;
 

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 export const AdminPostItem = (props: any) => {
-    const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
+    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     const handleDelete = async () => {
     try {
       const { data } = await axios.delete(`/deletepost/${props._id}`);
@@ -19,7 +19,7 @@ export const AdminPostItem = (props: any) => {
   return (
     <div className="flex rounded flex-row justify-between shadow-md p-2 border-b-2 text-gray-900 dark:text-gray-200 border-gray-200 dark:border-gray-700">
       <div className="flex flex-row gap-3">
-        <img src={`${baseImageUrl}/uploads/images/${props.image}`} alt="" className="w-12 h-12 rounded" />
+        <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${props.image}`} alt="" className="w-12 h-12 rounded" />
         <div className="flex flex-col">
           <div className="text-sm md:text-xl line-clamp-1">{props.tittle}</div>
           <div className="flex flex-row gap-x-2 text-sm text-gray-500 dark:text-gray-400">
