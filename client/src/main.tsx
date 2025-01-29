@@ -41,15 +41,23 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: 'posts/create',
+        element: <CreatePost />
+      },
+      {
+        path: 'posts/edit/:postid',
+        element: <EditPost />
+      },
+      {
         path: 'post/:postid',
         element: <PostDetailsLayout />,
       },
       {
-        path: 'postcategory/:category',
+        path: 'posts/category/:category',
         element: <PostCategory />,
       },
       {
-        path: 'postcategory',
+        path: 'posts/category',
         element: <PostCategory />,
       },
       {
@@ -61,7 +69,7 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: 'user/profile/',
+        path: 'user/profile/:userid',
         element: <Profile />
       },
       {

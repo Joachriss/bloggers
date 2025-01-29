@@ -20,7 +20,9 @@ export const CreatePost = () => {
   const [loading, setLoading] = useState(false);
   userId = userContext?.user?.id || null;
 
-
+  // if (userId === null) {
+  //   return navigate('/login', { state: { from: location } });
+  // }
   // sending post to server side
   const sendPost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -35,6 +37,8 @@ export const CreatePost = () => {
       formData.append('visibility', visibility);
       if(userId !== null) {
         formData.append('createdBy', userId);
+      }else{
+        return navigate('/login', { state: { from: location } });
       }
 
       const { data } = await axios.post("/createpost", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
@@ -46,7 +50,11 @@ export const CreatePost = () => {
       else {
         setLoading(false);
         toast.success(data.message);
-        navigate('/admin/posts');
+        if(userContext?.user?.role === "admin") {
+          navigate('/admin/posts');
+        }else {
+          navigate(`/user/profile/${userContext?.user?.id}`);
+        }
       }
     } catch (error: AxiosError | any) {
       setLoading(false);
@@ -54,7 +62,6 @@ export const CreatePost = () => {
       console.log(error.response.data.details);
     }
   }
-  // setViewImage(placeholder);
 
 
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +71,7 @@ export const CreatePost = () => {
     }
   }
   return (
-    <div className='flex flex-col gap-2 m-4'>
+    <div className='flex flex-col gap-2 m-4 max-w-[1280px] mx-auto'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Create a new post</h1>
       <form className="flex flex-col gap-2 w-full" onSubmit={sendPost} encType='multipart/form-data'>
         <PostForm

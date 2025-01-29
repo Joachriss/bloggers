@@ -22,14 +22,14 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Categories</div>
-                        <Link to='postcategory/World' className="w-fit text-md">World</Link>
-                        <Link to='postcategory/Technology' className="text-md w-fit p-1">Technology</Link>
-                        <Link to='postcategory/Gossip' className="text-md w-fit p-1">Gossip</Link>
-                        <Link to='postcategory/Sport' className="text-md w-fit p-1">Sport</Link>
-                        <Link to='postcategory/Business' className="text-md w-fit p-1">Business</Link>
-                        <Link to='postcategory/Health' className="text-md w-fit p-1">Health</Link>
-                        <Link to='postcategory/Style' className="text-md w-fit p-1">Style</Link>
-                        <Link to='postcategory/Travel' className="text-md w-fit p-1">Travel</Link>
+                        <Link to='posts/category/World' className="w-fit text-md">World</Link>
+                        <Link to='posts/category/Technology' className="text-md w-fit p-1">Technology</Link>
+                        <Link to='posts/category/Gossip' className="text-md w-fit p-1">Gossip</Link>
+                        <Link to='posts/category/Sport' className="text-md w-fit p-1">Sport</Link>
+                        <Link to='posts/category/Business' className="text-md w-fit p-1">Business</Link>
+                        <Link to='posts/category/Health' className="text-md w-fit p-1">Health</Link>
+                        <Link to='posts/category/Style' className="text-md w-fit p-1">Style</Link>
+                        <Link to='posts/category/Travel' className="text-md w-fit p-1">Travel</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Our blog</div>

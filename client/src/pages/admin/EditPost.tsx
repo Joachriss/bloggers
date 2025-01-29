@@ -89,7 +89,7 @@ export const EditPost = () => {
     }
   }
   return (
-    <div className='flex flex-col gap-2 m-4'>
+    <div className='flex flex-col gap-2 m-4 max-w-[1280px] mx-auto'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Edit post</h1>
       <form className="flex flex-col gap-2 w-full" onSubmit={upadatePost} encType='multipart/form-data'>
         <PostForm viewImage={viewImage}

@@ -90,7 +90,7 @@ export const Navbar = () => {
                                     <Link to="/posts/create" >
                                         <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Create Post</div>
                                     </Link>
-                                    <Link to={"user/profile"}>
+                                    <Link to={`user/profile/${userContext?.user?.id}`}>
                                         <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">My profile</div>
                                     </Link>
                                     {/* <li>
@@ -109,17 +109,17 @@ export const Navbar = () => {
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
                     <div className="flex flex-wrap justify-between px-3 py-2 gap-1 my-2 border-t-[1px] border-black dark:border-gray-300 font-medium">
                         <NavLink to='/' className={isDesktopNavLinkActive}>Home</NavLink>
-                        <NavLink to='postcategory/all' className={isDesktopNavLinkActive}>All</NavLink>
-                        <NavLink to='postcategory/World' className={isDesktopNavLinkActive}>World</NavLink>
-                        <NavLink to='postcategory/Technology' className={isDesktopNavLinkActive}>Technology</NavLink>
-                        {/* <Link to='postcategory/Gossip' className={isDesktopNavLinkActive}>Gossip</Link> */}
-                        {/* <Link to='postcategory/Politics' className={isDesktopNavLinkActive}>Politics</Link>
-                        <Link to='postcategory/Social' className={isDesktopNavLinkActive}>Social</Link> */}
-                        <NavLink to='postcategory/Sport' className={isDesktopNavLinkActive}>Sport</NavLink>
-                        <NavLink to='postcategory/Business' className={isDesktopNavLinkActive}>Business</NavLink>
-                        <NavLink to='postcategory/Health' className={isDesktopNavLinkActive}>Health</NavLink>
-                        <NavLink to='postcategory/Style' className={isDesktopNavLinkActive}>Style</NavLink>
-                        <NavLink to='postcategory/Travel' className={isDesktopNavLinkActive}>Travel</NavLink>
+                        <NavLink to='posts/category/all' className={isDesktopNavLinkActive}>All</NavLink>
+                        <NavLink to='posts/category/World' className={isDesktopNavLinkActive}>World</NavLink>
+                        <NavLink to='posts/category/Technology' className={isDesktopNavLinkActive}>Technology</NavLink>
+                        {/* <Link to='posts/category/Gossip' className={isDesktopNavLinkActive}>Gossip</Link> */}
+                        {/* <Link to='posts/category/Politics' className={isDesktopNavLinkActive}>Politics</Link>
+                        <Link to='posts/category/Social' className={isDesktopNavLinkActive}>Social</Link> */}
+                        <NavLink to='posts/category/Sport' className={isDesktopNavLinkActive}>Sport</NavLink>
+                        <NavLink to='posts/category/Business' className={isDesktopNavLinkActive}>Business</NavLink>
+                        <NavLink to='posts/category/Health' className={isDesktopNavLinkActive}>Health</NavLink>
+                        <NavLink to='posts/category/Style' className={isDesktopNavLinkActive}>Style</NavLink>
+                        <NavLink to='posts/category/Travel' className={isDesktopNavLinkActive}>Travel</NavLink>
                         <div className=" border-gray-600 border-r-4"></div>
                         {
                             !userContext?.user ? (
@@ -213,18 +213,18 @@ export const Navbar = () => {
                     <div className="text-sm text-gray-100 flex items-center font-bold cursor-pointer p-1 bg-red-800 rounded-md" onClick={handleMenu}><MdClose /></div>
                 </div>
                 <div className="flex flex-col text-white justify-between py-3 gap-y-4 gap-x-1 md:gap-x-2 text-sm my-2 border-t-[1px] border-black">
-                    <NavLink reloadDocument={true} to='postcategory/World' className={isMobileNavLinkActive}>World</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Technology' className={isMobileNavLinkActive}>Technology</NavLink>
-                    {/* <Link reloadDocument={true} to='postcategory/Gossip' className={isMobileNavLinkActive}>Gossip</Link> */}
-                    {/* <Link reloadDocument={true} to='postcategory/Politics' className={isMobileNavLinkActive}>Politics</Link>
-                    <Link reloadDocument={true} to='postcategory/Social' className={isMobileNavLinkActive}>Social</Link> */}
-                    <NavLink reloadDocument={true} to='postcategory/Sport' className={isMobileNavLinkActive}>Sport</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Business' className={isMobileNavLinkActive}>Business</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Health' className={isMobileNavLinkActive}>Health</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Style' className={isMobileNavLinkActive}>Style</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Travel' className={isMobileNavLinkActive}>Travel</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/About' className={isMobileNavLinkActive}>About</NavLink>
-                    <NavLink reloadDocument={true} to='postcategory/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/World' className={isMobileNavLinkActive}>World</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Technology' className={isMobileNavLinkActive}>Technology</NavLink>
+                    {/* <Link reloadDocument={true} to='posts/category/Gossip' className={isMobileNavLinkActive}>Gossip</Link> */}
+                    {/* <Link reloadDocument={true} to='posts/category/Politics' className={isMobileNavLinkActive}>Politics</Link>
+                    <Link reloadDocument={true} to='posts/category/Social' className={isMobileNavLinkActive}>Social</Link> */}
+                    <NavLink reloadDocument={true} to='posts/category/Sport' className={isMobileNavLinkActive}>Sport</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Business' className={isMobileNavLinkActive}>Business</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Health' className={isMobileNavLinkActive}>Health</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Style' className={isMobileNavLinkActive}>Style</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Travel' className={isMobileNavLinkActive}>Travel</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/About' className={isMobileNavLinkActive}>About</NavLink>
+                    <NavLink reloadDocument={true} to='posts/category/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
                     <div className=" border-gray-600 border-b-4 my-3"></div>
                     <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar /><div>Profile</div></NavLink>
                     {
