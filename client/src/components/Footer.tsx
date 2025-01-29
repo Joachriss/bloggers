@@ -10,7 +10,7 @@ export const Footer = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-3 justify-between text-start">
                     <div className="col-span-full text-md text-center">
                         Get in touch with us 
-                        <Link to='contacts' className="font-bold"> Contacts</Link>
+                        <Link to='contacts' className="font-bold text-green-500 hover:text-green-600"> Contacts</Link>
                     </div>
                     <div className="col-span-full mx-auto">
                         <div className="flex gap-x-2 flex-row my-2">
@@ -22,6 +22,7 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Categories</div>
+                        <hr className="border border-red-500 my-2 w-[80%]"/>
                         <Link to='posts/category/World' className="w-fit text-md">World</Link>
                         <Link to='posts/category/Technology' className="text-md w-fit p-1">Technology</Link>
                         <Link to='posts/category/Gossip' className="text-md w-fit p-1">Gossip</Link>
@@ -33,6 +34,7 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Our blog</div>
+                        <hr className="border border-red-500 my-2 w-[80%]"/>
                         <Link to="/" className="text-md w-fit p-1">Home</Link>
                         <Link to="login" className="text-md w-fit p-1">Login</Link>
                         <Link to="register" className="text-md w-fit p-1">Sign up</Link>
@@ -40,12 +42,14 @@ export const Footer = () => {
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Documents</div>
+                        <hr className="border border-red-500 my-2 w-[80%]"/>
                         <div className="text-md w-fit p-1">Privacy</div>
                         <div className="text-md w-fit p-1">Terms and conditions</div>
                         <div className="text-md w-fit p-1">Help & Support</div>
                     </div>
                     <div className="flex flex-col gap-y-2">
                         <div className="text-2xl font-bold mt-4 w-fit">Contacts</div>
+                        <hr className="border border-red-500 my-2 w-[80%]"/>
                         <div className="flex flex-row gap-x-3 w-fit">
                             <FaPhone size={24} /> <div>255 658 191 222</div>
                         </div>

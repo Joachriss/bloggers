@@ -73,7 +73,7 @@ export const Navbar = () => {
 
                         <div className="flex items-center ms-3 relative">
                             <div>
-                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm bg-gray-800 rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm bg-transparent rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                     <span className="sr-only">Open user menu</span>
                                     {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
                                 </button>
@@ -125,11 +125,11 @@ export const Navbar = () => {
                         {
                             !userContext?.user ? (
                                 <>
-                                    <NavLink to='login' state={{ from: location.pathname }} className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
-                                    <NavLink to='register' className="px-2 flex justify-center items-center rounded  border-b-4 border-gray-600">Register</NavLink>
+                                    <NavLink to='login' state={{ from: location.pathname }} className="px-2 hover:border-red-500 flex justify-center items-center rounded  border-b-4 border-gray-600">Log in</NavLink>
+                                    <NavLink to='register' className="px-2 flex justify-center items-center hover:border-red-500 rounded  border-b-4 border-gray-600">Register</NavLink>
                                 </>
                             ) : (
-                                <div onClick={() => userContext?.logout()} className="cursor-pointer px-2 flex flex-row justify-center items-center gap-x-1 rounded  border-b-4 border-gray-600"><MdOutlineLogout size={22} /><div>Logout</div></div>
+                                <div onClick={() => userContext?.logout()} className="cursor-pointer hover:border-red-500 px-2 flex flex-row justify-center items-center gap-x-1 rounded  border-b-4 border-gray-600"><MdOutlineLogout size={22} /><div>Logout</div></div>
                             )
                         }
                         <div className="flex flex-row items-center font-semibold">
@@ -227,7 +227,7 @@ export const Navbar = () => {
                     <NavLink reloadDocument={true} to='posts/category/About' className={isMobileNavLinkActive}>About</NavLink>
                     <NavLink reloadDocument={true} to='posts/category/Contacts' className={isMobileNavLinkActive}>Contacts</NavLink>
                     <div className=" border-gray-600 border-b-4 my-3"></div>
-                    <NavLink to='login' className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar /><div>Profile</div></NavLink>
+                    <NavLink to={`user/profile/${userContext?.user?.id}`} className="px- flex flex-row items-center gap-x-4 w-fit  border-gray-600"><UserAvatar /><div>Profile</div></NavLink>
                     {
                         !userContext?.user ? (
                             <>

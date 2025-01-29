@@ -18,7 +18,6 @@ export const LikeButton = (props: any) => {
     }, [liked, likes]);
 
     const handleLike = async () => {
-        console.log(isLiked);
         if (isLiked === true && userId !== null) {
             await axios.put(`/likepost/${postId}/${userId}`).then((res) => toast.success(res.data.message));
             setLikedCount(likedCount - 1);
