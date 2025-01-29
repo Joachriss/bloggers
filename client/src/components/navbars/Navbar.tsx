@@ -35,10 +35,15 @@ export const Navbar = () => {
     }
 
     const handleMenu = () => {
-        setIsOpen(!isOpen)
+        setIsOpen(!isOpen);
+    }
+    
+    // for backdrop
+    const handleBackdrop = () => {
+        setIsOpen(false);
+        setDropdownOpen(false);
     }
 
-    console.log(userContext?.user);
 
     useEffect(() => {
         userImage =userContext?.user?.image || null;
@@ -67,12 +72,12 @@ export const Navbar = () => {
 
                         <div className="flex items-center ms-3 relative">
                             <div>
-                                <button type="button" onClick={() => setDropdownOpen(!dropdownOpen)} className="flex text-sm bg-gray-800 rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm bg-gray-800 rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                     <span className="sr-only">Open user menu</span>
                                     {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
                                 </button>
                             </div>
-                            <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">
+                            <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base min-w-[200px] list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">
                                 <div className="px-4 py-3" role="none">
                                     <p className="text-sm text-gray-900 dark:text-white" role="none">
                                         {userContext?.user?.name}
@@ -82,15 +87,15 @@ export const Navbar = () => {
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">
-                                    <Link to={"user/editprofile"}>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profile</a>
+                                    <Link to="/posts/create" >
+                                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Create Post</div>
                                     </Link>
-                                    <li >
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                                    </li>
-                                    <li>
+                                    <Link to={"user/profile"}>
+                                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">My profile</div>
+                                    </Link>
+                                    {/* <li>
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                                    </li>
+                                    </li> */}
                                     <li onClick={() => userContext?.logout()}>
                                         <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</div>
                                     </li>
@@ -176,9 +181,9 @@ export const Navbar = () => {
 
             {/* Backdrop layer */}
             {
-                isOpen && (
-                    <div onClick={handleMenu} className="fixed inset-0 bg-black/50 top-0 w-full h-screen "></div>
-                )
+                isOpen || dropdownOpen ? (
+                    <div onClick={handleBackdrop} className="fixed inset-0 bg-black/10 top-0 w-full h-screen "></div>
+                ) : null
             }
 
             {/* Trending posts in desktop view */}
