@@ -20,12 +20,13 @@ const googleAuthentication = async (req, res) => {
             const user = await userModel.create({
                 name: userData.data.name,
                 email: userData.data.email,
+                image: userData.data.picture,
                 role: "user"
             });
         }
 
         // creating jwt token for user
-        const token = jwt.sign({ id: user._id, email: user.email, role: user.role, name: user.name }, process.env.JWT_SECRET, { expiresIn: '1h'});
+        const token = jwt.sign({ id: user._id, email: user.email, role: user.role, name: user.name,image:user.image,aboutMe:user.aboutMe }, process.env.JWT_SECRET, { expiresIn: '1h'});
         res.cookie('token', token).json({
             message: `Welcome back ${user.name}`,
             user: user,

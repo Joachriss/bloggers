@@ -21,10 +21,11 @@ import { PostDetailsLayout } from './pages/PostDetailsLayout.tsx';
 import { PostCategory } from './pages/PostCategory.tsx';
 import { Contacts } from './pages/Contacts.tsx';
 import { AboutUs } from './pages/AboutUs.tsx';
-import { Profile } from './pages/Profile.tsx';
+import { EditProfile } from './pages/EditProfile.tsx';
 import { ThemeButton } from './components/ThemeButton.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
+import { Profile } from './pages/Profile.tsx';
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -60,8 +61,12 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: 'user/profile/:userid',
+        path: 'user/profile/',
         element: <Profile />
+      },
+      {
+        path: 'user/editprofile/',
+        element: <EditProfile />
       }
     ]
   },
@@ -89,6 +94,14 @@ const router = createBrowserRouter([
       {
         path: 'deletepost/:postid',
         element: <AdminPostItem />
+      },
+      {
+        path: 'user/profile',
+        element: <Profile />
+      },
+      {
+        path: 'user/editprofile',
+        element: <EditProfile />
       }
     ]
   },

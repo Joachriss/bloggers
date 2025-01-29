@@ -4,7 +4,6 @@ import user from "../assets/images/user.png";
 export const UserAvatar = (props:any) => {
     const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
     let userImage = props.userImage;
-    console.log(userImage)
 
     const userImageCheck = ()=>{
         if (!userImage) {

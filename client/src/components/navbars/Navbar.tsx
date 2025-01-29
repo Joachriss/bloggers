@@ -19,11 +19,14 @@ export const Navbar = () => {
     const [posts, setPosts] = useState<any>([]);
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [search, setSearch] = useState('');
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdown = dropdownOpen ? '' : 'hidden';
     const active = 'px-2 flex justify-center items-center rounded  border-b-4 border-green-600';
-    const notActive = 'px-2 flex justify-center items-center rounded';
+    const notActive = 'px-2 flex justify-center items-center rounded hover:border-b border-green-300';
     const activeMobile = 'px-2 w-fit flex rounded  border-b-4 border-green-600';
     const notActiveMobile = 'px-2 flex items-center rounded';
     const userContext = useContext(UserContext);
+    let userImage = userContext?.user?.image || null;
     const isDesktopNavLinkActive = ({ isActive }: any) => {
         return isActive ? active : notActive;
     }
@@ -35,7 +38,10 @@ export const Navbar = () => {
         setIsOpen(!isOpen)
     }
 
+    console.log(userContext?.user);
+
     useEffect(() => {
+        userImage =userContext?.user?.image || null;
         const fetchPosts = async () => {
             try {
                 const response = await axios.get('/posts');
@@ -46,7 +52,7 @@ export const Navbar = () => {
             }
         };
         fetchPosts();
-    }, []);
+    }, [userContext?.user?.id]);
 
     return (
         <div className="sticky top-0 mynav z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
@@ -58,7 +64,40 @@ export const Navbar = () => {
                     <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</Link>
                     <div className="flex flex-row gap-x-1 md:gap-x-5 items-center">
                         <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={22} /></button>
-                        <button className="aspect-square rounded full"><FaUser size={22} /></button>
+
+                        <div className="flex items-center ms-3 relative">
+                            <div>
+                                <button type="button" onClick={() => setDropdownOpen(!dropdownOpen)} className="flex text-sm bg-gray-800 rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                    <span className="sr-only">Open user menu</span>
+                                    {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
+                                </button>
+                            </div>
+                            <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">
+                                <div className="px-4 py-3" role="none">
+                                    <p className="text-sm text-gray-900 dark:text-white" role="none">
+                                        {userContext?.user?.name}
+                                    </p>
+                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                        {userContext?.user?.email}
+                                    </p>
+                                </div>
+                                <ul className="py-1" role="none">
+                                    <Link to={"user/editprofile"}>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profile</a>
+                                    </Link>
+                                    <li >
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
+                                    </li>
+                                    <li onClick={() => userContext?.logout()}>
+                                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <button className="p-2 text-sm bg-black text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
@@ -151,7 +190,7 @@ export const Navbar = () => {
                 <div className="grid grid-cols-2 mt-5 gap-4 p-3 h-[90vh] overflow-y-scroll">
                     {posts && posts.length > 0 ?
                         (
-                            [...posts].reverse().slice(0, 5).map((post, index) => {
+                            [...posts].reverse().slice(0, 4).map((post, index) => {
                                 return <TrendyPost key={index} image={post.image} tittle={post.tittle} views={post.viewedBy.length} totalComments={post.comments.length} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />
                             })
                         ) : (

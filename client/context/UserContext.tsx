@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from 'react-hot-toast';
 
 interface UserContextType {
-    user: {id: string, name: string, email: string, role: string } | null | undefined;
+    user: {id: string, name: string, email: string, role: string, image: string,aboutMe: string } | null | undefined;
     setUser: (user: UserContextType['user']) => void;
     reloadUser: () => Promise<void>;
     logout: () => Promise<void>;

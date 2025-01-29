@@ -4,10 +4,12 @@ import { Link, Outlet } from "react-router-dom";
 import { ThemeButton } from "../../components/ThemeButton";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
+import { FaUser } from "react-icons/fa";
 export const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState();
     const userContext = useContext(UserContext);
     const user = userContext?.user;
+    let userImage = user?.image || null;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdown = dropdownOpen ? '' : 'hidden';
@@ -15,6 +17,7 @@ export const Dashboard = () => {
 
 
     useEffect(() => {
+        userImage=user?.image || null;
         // posts
         const aboutPost = async () => {
             try {
@@ -50,7 +53,7 @@ export const Dashboard = () => {
                                 <div>
                                     <button type="button" onClick={() => setDropdownOpen(!dropdownOpen)} className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
-                                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="user photo" />
+                                        {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
                                     </button>
                                 </div>
                                 <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">
@@ -69,10 +72,13 @@ export const Dashboard = () => {
                                         <li >
                                             <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
                                         </li>
+                                        <Link to={`/admin/user/editprofile`}>
+                                            <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profile</div>
+                                        </Link>
                                         <li>
                                             <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
                                         </li>
-                                        <li  onClick={() => userContext?.logout()}>
+                                        <li onClick={() => userContext?.logout()}>
                                             <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</div>
                                         </li>
                                     </ul>
