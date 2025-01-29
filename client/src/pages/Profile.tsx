@@ -22,9 +22,10 @@ export const Profile = () => {
 
 
     useEffect(() => {
+        profileId === params.userid;
         const profile = async () => {
             try {
-                const response = await axios.get(`/profile/${profileId}`);
+                const response = await axios.get(`/getuserbyid/${profileId}`);
                 setUsername(response.data.name);
                 setAboutMe(response.data.aboutMe);
                 setEmail(response.data.email);
@@ -35,14 +36,6 @@ export const Profile = () => {
                 console.error(error);
             }
         }
-        // if (user) {
-        //     setUsername(user.name);
-        //     setAboutMe(user.aboutMe);
-        //     setEmail(user.email);
-        //     if (user.image) {
-        //         setViewImage(`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${user.image}` || `${userss}`);
-        //     }
-        // }
 
         const getPosts = async () => {
             try {
@@ -60,7 +53,7 @@ export const Profile = () => {
 
         profile();
         getPosts();
-    }, [userContext]);
+    }, [profileId]);
 
 
 

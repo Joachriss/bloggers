@@ -46,6 +46,7 @@ export const Navbar = () => {
 
 
     useEffect(() => {
+        userContext?.reloadUser();
         userImage =userContext?.user?.image || null;
         const fetchPosts = async () => {
             try {
