@@ -2,20 +2,13 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { DeletePostDialog } from "../utils/DeletePostDialog";
+import { useState } from "react";
 
 export const AdminPostItem = (props: any) => {
-    const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
-    const handleDelete = async () => {
-    try {
-      const { data } = await axios.delete(`/deletepost/${props._id}`);
-      console.log(data);
-      toast.success(data.message);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const baseImageUrl = import.meta.env.VITE_BACKEND_BASE_URL || 'http://localhost:8000';
+ 
   return (
     <div className="flex rounded flex-row justify-between shadow-md p-2 border-b-2 text-gray-900 dark:text-gray-200 border-gray-200 dark:border-gray-700">
       <div className="flex flex-row gap-3">
@@ -32,8 +25,11 @@ export const AdminPostItem = (props: any) => {
       <div className="flex flex-row gap-1 justify-between items-center">
         <div className=""><FaEye size={20} /></div>
         <Link to={`/admin/editpost/${props._id}`} className="hover:text-gray-600 px-2 border-gray-700 border-l-2 border-r-2"><FaEdit size={20} /></Link>
-        <button onClick={handleDelete} className="hover:text-gray-600 px-2 border-gray-700"><MdDelete size={20} /></button>
+        <button onClick={() => setIsDeleteOpen(true)} className="hover:text-gray-600 px-2 border-gray-700"><MdDelete size={20} /></button>
       </div>
+
+      {/* delete post */}
+      <DeletePostDialog postId={props._id} isDeleteOpen={isDeleteOpen} setIsDeleteOpen={setIsDeleteOpen} />
     </div>
   )
 }

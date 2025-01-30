@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 // function to remove image from the file
 function removeImage(image) {
-    const imagePath = path.join(__dirname, "../public/images/posts", image);
+    const imagePath = path.join(__dirname, "../uploads/images/posts", image);
     fs.unlinkSync(imagePath);
 }
 
