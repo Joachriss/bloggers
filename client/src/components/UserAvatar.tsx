@@ -14,14 +14,11 @@ export const UserAvatar = (props:any) => {
         return userImage.startsWith('http') ? userImage : `${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${userImage}`; 
     }
 
-    const userAvatar = userImageCheck();
+    const userAvatar = userImageCheck() || user;
     return (
         <div className="aspect-square overflow-hidden w-8 rounded-full bg-transparent border-[1px] border-gray-500 flex items-center justify-center">
-            {
-                userAvatar ? <img src={userAvatar} className='w-full h-full rounded-full object-cover' alt="User avatar" onError={(e) => {
-                    e.currentTarget.src = user;
-                }} /> : <FaUser/>
-            }
+                <img src={userAvatar} className='w-full h-full rounded-full object-cover' alt="User avatar"/>
+                    
         </div>
     )
 }

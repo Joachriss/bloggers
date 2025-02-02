@@ -9,9 +9,9 @@ import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
 import { SearchPost } from "../posts/SearchPost";
 import { GiArchiveRegister } from "react-icons/gi";
-import { FaUser } from "react-icons/fa";
 import { UserAvatar } from "../UserAvatar";
 import toast from "react-hot-toast";
+import userAvatarImage from "../../assets/images/user.png";
 import { UserContext } from "../../../context/UserContext";
 
 export const Navbar = () => {
@@ -44,6 +44,18 @@ export const Navbar = () => {
         setDropdownOpen(false);
     }
 
+    // image checker
+    const userImageCheck = ()=>{
+        if (!userImage) {
+            return null;
+        }
+        userImage = userImage.toString();
+        userImage = userImage.trim();
+        return userImage.startsWith('http') ? userImage : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${userImage}`; 
+    }
+
+    const userAvatar = userImageCheck() || userAvatarImage;
+    console.log(userAvatar);
 
     useEffect(() => {
         userContext?.reloadUser();
@@ -69,13 +81,13 @@ export const Navbar = () => {
                     </div>
                     <Link to="/" className="text-4xl font-bold"><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</Link>
                     <div className="flex flex-row gap-x-1 md:gap-x-5 items-center">
-                        <button onClick={() => setIsOpenSearch(true)}><IoSearchSharp size={22} /></button>
+                        <button onClick={() => setIsOpenSearch(true)} className="hover:border-white border-transparent border p-1 rounded-full flex justify-center items-center"><IoSearchSharp size={22} /></button>
 
                         <div className="flex items-center ms-3 relative">
                             <div>
-                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm bg-transparent rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm hover:bg-gray-200 bg-transparent rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                     <span className="sr-only">Open user menu</span>
-                                    {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
+                                    <img className="rounded-full w-8 aspect-square object-cover" src={userAvatar} alt="user photo" />
                                 </button>
                             </div>
                             <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base min-w-[200px] list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">

@@ -5,6 +5,7 @@ import { ThemeButton } from "../../components/ThemeButton";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { FaUser } from "react-icons/fa";
+import userAvatarImage from "../../assets/images/user.png";
 export const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState();
     const userContext = useContext(UserContext);
@@ -30,7 +31,22 @@ export const Dashboard = () => {
         }
 
         aboutPost();
-    }, [user])
+    }, [user]);
+
+
+    // image checker
+    const userImageCheck = ()=>{
+        if (!userImage) {
+            return null;
+        }
+        userImage = userImage.toString();
+        userImage = userImage.trim();
+        return userImage.startsWith('http') ? userImage : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${userImage}`; 
+    }
+
+    const userAvatar = userImageCheck() || userAvatarImage;
+    console.log(userAvatar);
+
     return (
         <>
             <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
@@ -53,7 +69,7 @@ export const Dashboard = () => {
                                 <div>
                                     <button type="button" onClick={() => setDropdownOpen(!dropdownOpen)} className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
-                                        {userImage ? <img className="rounded-full w-8 aspect-square object-cover" src={`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${userContext?.user?.image}`} alt="user photo" /> : <FaUser size={22} />}
+                                        <img className="rounded-full w-8 aspect-square object-cover" src={userAvatar} alt="user photo" />
                                     </button>
                                 </div>
                                 <div className={`z-50 ${dropdown} top-8 end-1 absolute my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600`} id="dropdown-user">

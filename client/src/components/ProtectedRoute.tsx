@@ -7,7 +7,7 @@ export const ProtectedRoute = (props: any) => {
     const { children, requiredRole } = props;
     const navigate = useNavigate();
     const userContext = useContext(UserContext);
-    useEffect(() => {
+    // useEffect(() => {
         if (userContext?.user?.role !== requiredRole) {
             if(userContext?.user?.role === 'user'){
                 toast.error("Unauthorized access");
@@ -18,7 +18,7 @@ export const ProtectedRoute = (props: any) => {
             navigate("/login",{replace: true});
         }
         
-    }, [userContext?.user, requiredRole]);
+    // }, [userContext?.user, requiredRole]);
     return children;
 
 }

@@ -40,7 +40,7 @@ export const PostCategory = () => {
                         ) : (
                             posts && posts.length > 0 ? (
                                 category !== 'all' ? (
-                                    [...posts].reverse().filter(posts => posts.category === category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
+                                    [...posts].reverse().filter(posts => posts.category == category).map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.updatedAt} _id={post._id} />)
                                 ) : (
                                     [...posts].reverse().map((post: any) => <PostCard key={post._id} image={post.image} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.createdAt} _id={post._id} />)
                                 )

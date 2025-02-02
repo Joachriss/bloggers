@@ -27,7 +27,7 @@ export const QuillEditor = (props: any) => {
         onChange={setDescription}
         modules={{
             toolbar: toolbarOptions,
-            history: {          // Enable with custom configurations
+            history: {          
                 delay: 2500,
                 userOnly: true
             },

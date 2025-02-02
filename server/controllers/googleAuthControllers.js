@@ -4,10 +4,8 @@ import jwt from "jsonwebtoken";
 
 
 const googleAuthentication = async (req, res) => {
-    console.log(req.body);
     try {
         const accessToken = req.body.accessToken;
-        console.log(accessToken);
         const userData = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
@@ -23,6 +21,10 @@ const googleAuthentication = async (req, res) => {
                 image: userData.data.picture,
                 role: "user"
             });
+        }
+        if(user.image === null){
+            user.image = userData.data.picture;
+            await user.save();
         }
 
         // creating jwt token for user

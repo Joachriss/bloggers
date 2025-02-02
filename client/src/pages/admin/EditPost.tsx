@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PostForm } from '../../components/posts/PostForm';
 import { UserContext } from '../../../context/UserContext';
+import { EditPostDialog } from '../../components/utils/EditPostDialog';
 
 export const EditPost = () => {
   const params = useParams();
@@ -19,6 +20,7 @@ export const EditPost = () => {
   const [category, setCategory] = useState('');
   const [visibility, setVisibility] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   userId =  userContext?.user?.id || null;
 
   // request post details
@@ -47,7 +49,7 @@ export const EditPost = () => {
   }, []);
 
   // sending post to server side
-  const upadatePost = async (e: React.SyntheticEvent) => {
+  const updatePost = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -91,7 +93,7 @@ export const EditPost = () => {
   return (
     <div className='flex flex-col gap-2 m-4 max-w-[1280px] mx-auto'>
       <h1 className='text-2xl font-bold p-2 gap-4'>Edit post</h1>
-      <form className="flex flex-col gap-2 w-full" onSubmit={upadatePost} encType='multipart/form-data'>
+      <form className="flex flex-col gap-2 w-full" onSubmit={()=>setIsEditOpen(true)} encType='multipart/form-data'>
         <PostForm viewImage={viewImage}
           setTittle={setTittle}
           setAuthor={setAuthor}
@@ -108,6 +110,7 @@ export const EditPost = () => {
           setVisibility={setVisibility} 
         />
       </form>
+      <EditPostDialog isEditOpen={isEditOpen} setIsEditOpen={setIsEditOpen} updatePost={updatePost} />
     </div>
   )
 }
