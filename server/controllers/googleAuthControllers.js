@@ -9,7 +9,6 @@ const googleAuthentication = async (req, res) => {
         const userData = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
-        console.log(userData.data);
 
         // check user in the database
         const user = await userModel.findOne({ email: userData.data.email });

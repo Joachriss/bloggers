@@ -1,4 +1,3 @@
-import { FaUser } from "react-icons/fa6"
 import user from "../assets/images/user.png";
 
 export const UserAvatar = (props:any) => {

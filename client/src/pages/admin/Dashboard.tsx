@@ -4,7 +4,6 @@ import { Link, Outlet } from "react-router-dom";
 import { ThemeButton } from "../../components/ThemeButton";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { FaUser } from "react-icons/fa";
 import userAvatarImage from "../../assets/images/user.png";
 export const Dashboard = () => {
     const [totalPosts, setTotalPosts] = useState();
@@ -45,7 +44,6 @@ export const Dashboard = () => {
     }
 
     const userAvatar = userImageCheck() || userAvatarImage;
-    console.log(userAvatar);
 
     return (
         <>

@@ -55,12 +55,6 @@ export const Profile = () => {
         getPosts();
     }, [profileId]);
 
-
-
-
-
-
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 w-full max-w-[1280px] mx-auto">
             <div className="col-span-2 md:col-span-1 mx-auto flex flex-col gap-2">

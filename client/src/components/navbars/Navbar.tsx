@@ -55,7 +55,6 @@ export const Navbar = () => {
     }
 
     const userAvatar = userImageCheck() || userAvatarImage;
-    console.log(userAvatar);
 
     useEffect(() => {
         userContext?.reloadUser();
