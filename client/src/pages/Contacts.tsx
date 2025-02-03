@@ -12,7 +12,7 @@ export const Contacts = () => {
                     <img src={contactss} loading="lazy" className="w-[70%] mx-auto" alt="" />
                     <div className="flex flex-col gap-y-5 text-xl text-center mx-auto md:text-start">
                         <div className="text-4xl  my-6">Contact us</div>
-                        <div className="flex flex-row gap-x-2"><FaPhone size={24} /> <div>255 658 191 222</div></div>
+                        <div className="flex flex-row gap-x-2"><FaPhone size={24} /> <div>+255 658 191 222</div></div>
                         <a href="http://joachriss@gmail.com">
                             <div className="flex flex-row gap-x-2">
                                 <IoMail size={24} />

@@ -36,9 +36,9 @@ export const Footer = () => {
                         <div className="text-2xl font-bold mt-4">Our blog</div>
                         <hr className="border border-red-500 my-2 w-[80%]"/>
                         <Link to="/" className="text-md w-fit p-1">Home</Link>
+                        <Link to='aboutus' className="text-md w-fit p-1">About us</Link>
                         <Link to="login" className="text-md w-fit p-1">Login</Link>
                         <Link to="register" className="text-md w-fit p-1">Sign up</Link>
-                        <Link to='aboutus' className="text-md w-fit p-1">About us</Link>
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4">Documents</div>
@@ -47,11 +47,11 @@ export const Footer = () => {
                         <div className="text-md w-fit p-1">Terms and conditions</div>
                         <div className="text-md w-fit p-1">Help & Support</div>
                     </div>
-                    <div className="flex flex-col gap-y-2">
+                    <div className="flex flex-col gap-y-1">
                         <div className="text-2xl font-bold mt-4 w-fit">Contacts</div>
                         <hr className="border border-red-500 my-2 w-[80%]"/>
                         <div className="flex flex-row gap-x-3 w-fit">
-                            <FaPhone size={24} /> <div>255 658 191 222</div>
+                            <FaPhone size={24} /> <div>+255 658 191 222</div>
                         </div>
                         <a href="http://joachriss@gmail.com" className="flex flex-row gap-x-2 items-center"><IoMail size={24} /> <div></div>joachriss@gmail.com</a>
                         <Link to='contacts' className="text-md w-fit p-1">Contact us</Link>
