@@ -85,7 +85,7 @@ export const Login = () => {
                     <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                   </div>
                 </div>
-                <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-gray-300">Forgot password?</a>
+                <Link to="/passwordresetrequest" className="text-sm font-medium text-primary-600 hover:underline dark:text-gray-300">Forgot password?</Link>
               </div>
               <button type="submit" className="w-full text-gray-600 dark:text-gray-300 border-2 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 " disabled={loading}>{loading ?<DefaultSpinner />:"Sign in"}</button>
               <div className="mx-auto w-fit">

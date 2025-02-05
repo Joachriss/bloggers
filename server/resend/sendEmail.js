@@ -1,12 +1,12 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import { verificationEmailTemplate, welcomeEmailTemplate } from './emailTemplates.js';
+import { passwordResetTemplate, verificationEmailTemplate, welcomeEmailTemplate } from './emailTemplates.js';
 dotenv.config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // verification email
-const verificationEmail = async (emailTo, verificationToken) => {
+const sendVerificationEmail = async (emailTo, verificationToken) => {
     try {
         const { data, error } = await resend.emails.send({
             from: 'Acme <onboarding@resend.dev>',
@@ -23,7 +23,7 @@ const verificationEmail = async (emailTo, verificationToken) => {
 }
 
 // welcome email
-const welcomeEmail = async(emailTo, username) => {
+const sendWelcomeEmail = async (emailTo, username) => {
     try {
         const { data, error } = await resend.emails.send({
             from: 'Acme <onboarding@resend.dev>',
@@ -32,11 +32,28 @@ const welcomeEmail = async(emailTo, username) => {
             html: welcomeEmailTemplate(username),
         });
     }
-    catch(error) {
+    catch (error) {
         console.log({ error: 'Error sending email', error });
         throw error;
     }
 
 }
 
-export { verificationEmail, welcomeEmail }
+// password reset
+const sendPasswordResetEmail = async (name,emailTo, resetToken) => {
+    try {
+        const { data, error } = await resend.emails.send({
+            from: 'Acme <onboarding@resend.dev>',
+            to: [emailTo],
+            subject: 'Reset your password',
+            html: passwordResetTemplate(name,resetToken),
+        });
+    }
+    catch (error) {
+        console.log({ error: 'Error sending email', error });
+        throw error;
+    }
+}
+
+
+export { sendVerificationEmail, sendWelcomeEmail, sendPasswordResetEmail }

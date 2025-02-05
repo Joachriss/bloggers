@@ -27,6 +27,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 import { Profile } from './pages/Profile.tsx';
 import { VerifyEmail } from './pages/VerifyEmail.tsx';
+import { EmailPasswordResetRequest } from './pages/EmailPasswordResetRequest.tsx';
+import { ResetPassword } from './pages/ResetPassword.tsx';
+
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -141,6 +144,26 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <VerifyEmail />
+      }
+    ]
+  },
+  {
+    path: '/passwordresetrequest',
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <EmailPasswordResetRequest />
+      }
+    ]
+  },
+  {
+    path: '/resetpassword/:token',
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <ResetPassword />
       }
     ]
   },

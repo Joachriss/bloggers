@@ -1,8 +1,8 @@
 import userModel from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { generateVerificationToken } from '../utils/generateVerificationToken.js';
-import {verificationEmail, welcomeEmail} from '../resend/sendEmail.js';
+import { generatePasswordResetToken, generateVerificationToken } from '../utils/generateVerificationToken.js';
+import { sendVerificationEmail, sendWelcomeEmail, sendPasswordResetEmail } from '../resend/sendEmail.js';
 
 const test = (req, res) => {
     res.json('we are good');
@@ -47,7 +47,7 @@ const registerUser = async (req, res) => {
         });
         res.json({ message: 'User created successfully', user });
 
-        await verificationEmail(email, emailVerificationToken);
+        await sendVerificationEmail(email, emailVerificationToken);
 
     } catch (error) {
         console.log(error);
@@ -108,9 +108,9 @@ const getProfile = async (req, res) => {
 const verifyEmail = async (req, res) => {
     try {
         const token = req.params.token;
-        const user = await userModel.findOne({ 
-            emailVerificationToken: token, 
-            emailVerificationTokenExpiry:{$gt:Date.now()}
+        const user = await userModel.findOne({
+            emailVerificationToken: token,
+            emailVerificationTokenExpiry: { $gt: Date.now() }
         });
 
         if (!user) {
@@ -119,16 +119,67 @@ const verifyEmail = async (req, res) => {
 
         user.isEmailVerified = true;
         user.emailVerificationToken = null;
-        user.emailVerificationTokenExpiry=null;
+        user.emailVerificationTokenExpiry = null;
         await user.save();
         res.json({ message: 'Email verified successfully' });
-        await welcomeEmail(user.email,user.name);
+        await sendWelcomeEmail(user.email, user.name);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Server error' });
     }
 
 }
+
+// Request password reset token
+const requestPasswordResetToken = async (req, res) => {
+    try {
+        const  {email}  = req.body;
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            return res.json({ error: 'User not found' });
+        }
+
+        user.passwordResetToken = generatePasswordResetToken();
+        user.passwordResetTokenExpiry = Date.now() + 15 * 60 * 1000  // Resets after
+        await user.save();
+        try{
+            await sendPasswordResetEmail(user.name,user.email, user.passwordResetToken);
+        }catch(error){
+            console.log(error);
+        }
+        res.json({ message: 'Password reset token sent to your email' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+
+// Reset password
+const resetPassword = async (req, res) => {
+    try {
+        const { passwordResetToken, newPassword } = req.body;
+        console.log(newPassword);
+        const user = await userModel.findOne({ passwordResetToken, passwordResetTokenExpiry: { $gt: Date.now() } });
+        if (!user) {
+            return res.json({ error: 'Invalid or expired token' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+        user.password = hashedPassword;
+        user.passwordResetToken = null;
+        user.passwordResetTokenExpiry = null;
+
+        await user.save();
+        res.json({ message: 'Password reset successfully' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+
 
 // logout
 const logoutUser = async (req, res) => {
@@ -148,5 +199,7 @@ export {
     loginUser,
     getProfile,
     logoutUser,
-    verifyEmail
+    verifyEmail,
+    requestPasswordResetToken,
+    resetPassword
 }
