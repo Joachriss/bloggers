@@ -26,6 +26,7 @@ import { ThemeButton } from './components/ThemeButton.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 import { Profile } from './pages/Profile.tsx';
+import { VerifyEmail } from './pages/VerifyEmail.tsx';
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -130,6 +131,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Login />
+      }
+    ]
+  },
+  {
+    path: '/emailverification',
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <VerifyEmail />
       }
     ]
   },
