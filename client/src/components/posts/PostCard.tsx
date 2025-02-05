@@ -16,10 +16,10 @@ export const PostCard = (props: any) => {
     let [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
     return (
-        <div>
+        <div className="">
             <div className='flex flex-col relative rounded-xl bg-transparent p-3 shadow-lg cursor-pointer'>
                 <Link to={`/post/${props._id}`} className="mx-auto max-h-52 w-full overflow-hidden rounded-lg">
-                    <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${image}`} loading="lazy" className='rounded-lg object-cover' alt="post picture" />
+                    <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${image}`} loading="lazy" className='rounded-lg object-cover w-full' alt="post picture" />
                 </Link>
                 {
                     user?.id === creator && user?.id && (
@@ -31,7 +31,7 @@ export const PostCard = (props: any) => {
                 }
                 <Link to={`/post/${props._id}`} className="flex flex-col mt-3 mb-auto">
                     <div className="font-bold text-lg line-clamp-1">{tittle}</div>
-                    <div className="md:text-md font-medium line-clamp-2" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}></div>
+                    <div className="md:text-md font-medium line-clamp-2 min-h-14" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}></div>
                 </Link>
                 <div className="flex flex-row justify-between items-center mt-2">
                     <Link to={`/user/profile/${creator}`} className="flex flex-row justify-between items-center gap-x-2">

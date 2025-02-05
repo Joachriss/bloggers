@@ -3,7 +3,7 @@ import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
 import { MdClose, MdKeyboardArrowDown, MdLogin, MdLogout, MdOutlineLogout } from "react-icons/md";
 
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
