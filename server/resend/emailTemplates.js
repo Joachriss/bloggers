@@ -366,7 +366,7 @@ export const passwordResetTemplate = (name,token) => {
                       password here:
                     </p>
                     <a
-                      href="https://127.0.0.1:5173/resetpassword/${token}"
+                      href="https://localhost:5173/resetpassword/${token}"
                       style="line-height:100%;text-decoration:none;display:block;max-width:100%;mso-padding-alt:0px;background-color:#007ee6;border-radius:4px;color:#fff;font-family:&#x27;Open Sans&#x27;, &#x27;Helvetica Neue&#x27;, Arial;font-size:15px;text-align:center;width:210px;padding:14px 7px 14px 7px"
                       target="_blank"
                       ><span

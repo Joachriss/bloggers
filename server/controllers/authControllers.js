@@ -159,7 +159,6 @@ const requestPasswordResetToken = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const { passwordResetToken, newPassword } = req.body;
-        console.log(newPassword);
         const user = await userModel.findOne({ passwordResetToken, passwordResetTokenExpiry: { $gt: Date.now() } });
         if (!user) {
             return res.json({ error: 'Invalid or expired token' });
