@@ -20,6 +20,11 @@ export const Profile = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // get posts, views and likes
+    const totalPosts = posts.filter((post: any) => post.createdBy === profileId).length;
+    const totalViews = posts.filter((post: any) => post.createdBy === profileId).reduce((total: any, post: any) => total + post.viewedBy.length, 0);
+    const totalLikes = posts.filter((post: any) => post.createdBy === profileId).reduce((total: any, post: any) => total + post.likedBy.length, 0);
+
 
     useEffect(() => {
         profileId === params.userid;
@@ -29,8 +34,14 @@ export const Profile = () => {
                 setUsername(response.data.name);
                 setAboutMe(response.data.aboutMe);
                 setEmail(response.data.email);
-                if (response.data.image) {
-                    setViewImage(`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${response.data.image}` || `${userss}`);
+                if (response.data.image !== null) {
+                    if (response.data.image.startsWith('http')) {
+                        setViewImage(response.data.image);
+                    } else {
+                        setViewImage(`${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${response.data.image}`);
+                    }
+                } else {
+                    setViewImage(userss);
                 }
             } catch (error) {
                 console.error(error);
@@ -81,17 +92,17 @@ export const Profile = () => {
                 <div className="grid grid-cols-3 gap-1 mb-4">
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-                            Post <br />  <span className="text-green-700 font-extrabold dark:text-green-500">12</span>
+                            Post <br />  <span className="text-green-700 font-extrabold dark:text-green-500">{totalPosts}</span>
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-                            Views <br />  <span className="text-green-700 font-extrabold dark:text-green-500">689</span>
+                            Views <br />  <span className="text-green-700 font-extrabold dark:text-green-500">{totalViews}</span>
                         </p>
                     </div>
                     <div className="flex text-center items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                         <p className="text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-                            Impressions <br /> <span className="text-green-700 font-extrabold dark:text-green-500">3k</span>
+                            Impressions <br /> <span className="text-green-700 font-extrabold dark:text-green-500">{totalLikes}</span>
                         </p>
                     </div>
                 </div>
@@ -113,10 +124,10 @@ export const Profile = () => {
                         </div>
                     ) :
                         (
-                            posts && posts.length > 0 ? (
+                            posts.some((post: any) => post.createdBy === profileId)? (
                                 [...posts].reverse().slice(0, 6).filter((post: any) => post.createdBy === profileId).map((post: any) => <PostCard key={post._id} image={post.image} creator={post.createdBy} description={post.description} tittle={post.tittle} category={post.category} author={post.author} date={post.createdAt} _id={post._id} />)
                             ) : (
-                                <div className="text-center col-span-full text-gray-950 mx-auto dark:text-gray-100 my-3 p-8">No posts found</div>
+                                <div className="text-center col-span-full text-gray-950 mx-auto dark:text-gray-100 my-3 p-8">No works found</div>
                             )
 
                         )
