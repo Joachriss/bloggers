@@ -9,7 +9,6 @@ const googleAuthentication = async (req, res) => {
         const userData = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
-
         // check user in the database
         const user = await userModel.findOne({ email: userData.data.email });
         if (!user) {
@@ -18,6 +17,7 @@ const googleAuthentication = async (req, res) => {
                 name: userData.data.name,
                 email: userData.data.email,
                 image: userData.data.picture,
+                isEmailVerified: userData.data.email_verified,
                 role: "user"
             });
         }
