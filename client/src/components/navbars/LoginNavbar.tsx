@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export const LoginNavbar = () => {
     return (
-        <nav className="absolute top-0 w-full flex flex-row justify-between items-center py-5 px-3">
+        <nav className="absolute top-0 w-full flex flex-row justify-between items-center py-5 px-3 md:px-5 ">
             <Link to="/" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
                 {/* <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" /> */}
                 <div><span className="text-green-600 font-bold">/</span><span className="text-orange-600 text- font-bold">/</span>Describe</div>

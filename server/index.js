@@ -10,6 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import commentRoutes from './routes/commentRoutes.js';
 import googleRoutes from './routes/googleAuthRoutes.js';
+import subscribersRoutes from './routes/subscribersRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,6 +36,7 @@ app.use('/',postRoutes);
 app.use('/',commentRoutes);
 app.use('/',userRoutes);
 app.use('/',googleRoutes);
+app.use('/',subscribersRoutes);
 
 
 // database connection

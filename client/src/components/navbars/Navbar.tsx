@@ -13,6 +13,7 @@ import { UserAvatar } from "../UserAvatar";
 import toast from "react-hot-toast";
 import userAvatarImage from "../../assets/images/user.png";
 import { UserContext } from "../../../context/UserContext";
+import { DefaultSpinner } from "../spinners/DefaultSpinner";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -20,6 +21,10 @@ export const Navbar = () => {
     const [isOpenSearch, setIsOpenSearch] = useState(false);
     const [search, setSearch] = useState('');
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [email,setEmail] = useState('');
+    const [username,setUsername] = useState('');
     const dropdown = dropdownOpen ? '' : 'hidden';
     const active = 'px-2 flex justify-center items-center rounded  border-b-4 border-green-600';
     const notActive = 'px-2 flex justify-center items-center rounded hover:border-b border-green-300';
@@ -37,7 +42,7 @@ export const Navbar = () => {
     const handleMenu = () => {
         setIsOpen(!isOpen);
     }
-    
+
     // for backdrop
     const handleBackdrop = () => {
         setIsOpen(false);
@@ -45,11 +50,11 @@ export const Navbar = () => {
     }
 
     // image checker
-    const userImageCheck = (image : any)=>{
+    const userImageCheck = (image: any) => {
         if (image !== null) {
             image = image.toString();
             image = image.trim();
-            return image.startsWith('http') ? image : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${image}`; 
+            return image.startsWith('http') ? image : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${image}`;
         }
     }
 
@@ -57,7 +62,7 @@ export const Navbar = () => {
 
     useEffect(() => {
         userContext?.reloadUser();
-        userImage =userContext?.user?.image || null;
+        userImage = userContext?.user?.image || null;
         const fetchPosts = async () => {
             try {
                 const response = await axios.get('/posts');
@@ -69,6 +74,21 @@ export const Navbar = () => {
         };
         fetchPosts();
     }, [userContext?.user?.id]);
+
+    // subscribe
+    const subscribe = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.post('/subscribe', { email, username });
+            toast.success(response.data.message);
+            setLoading(false);
+            setIsSubscribeOpen(false);
+        } catch (error) {
+            console.error(error);
+            toast.error('Something went wrong please check connection or try again');
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="sticky top-0 mynav z-30 w-full bg-white dark:text-white border-b border-gray-200 dark:bg-[#131313] dark:border-gray-700">
@@ -83,7 +103,7 @@ export const Navbar = () => {
 
                         <div className="flex items-center ms-3 relative">
                             <div>
-                                <button type="button" onClick={() => {setDropdownOpen(!dropdownOpen)}} className="flex text-sm hover:bg-gray-200 bg-transparent rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <button type="button" onClick={() => { setDropdownOpen(!dropdownOpen) }} className="flex text-sm hover:bg-gray-200 bg-transparent rounded-full overflow-hidden aspect-square focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                     <span className="sr-only">Open user menu</span>
                                     <img className="rounded-full w-8 aspect-square object-cover" src={userAvatar} alt="user photo" />
                                 </button>
@@ -114,7 +134,7 @@ export const Navbar = () => {
                             </div>
                         </div>
 
-                        <button className="p-2 text-sm bg-black text-white rounded-lg">Subscribe</button>
+                        <button onClick={() => setIsSubscribeOpen(true)} className="p-2 text-sm bg-black hover:bg-green-600 text-white rounded-lg">Subscribe</button>
                     </div>
                 </div>
                 <div className="mx-auto hidden md:block px-3 md:px-0 max-w-[1280px]">
@@ -277,6 +297,33 @@ export const Navbar = () => {
                                     )
                                 }
                             </div>
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+
+
+            {/* Subscribe dialog */}
+            <Dialog open={isSubscribeOpen} onClose={() => setIsSubscribeOpen(false)} className="relative z-50">
+                <DialogBackdrop className="fixed inset-0 bg-black/50 backdrop-blur-md" />
+                <div className="fixed inset-0 flex w-screen items-center justify-center p-4 rounded-lg">
+                    <DialogPanel className="min-w-[90%] md:min-w-[50%] space-y-4 max-w-lg rounded-xl bg-[#212121] text-gray-100 p-12">
+                        <div className="flex flex-row justify-between">
+                            <DialogTitle className="font-bold">Subscribe to our newsletter</DialogTitle>
+                            <div>
+                                <button onClick={() => setIsSubscribeOpen(false)}><IoCloseSharp size={24} /></button>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                            <label htmlFor="name">Name</label>
+                            <input onChange={(e)=>setUsername(e.target.value)} id="name" type="text" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" placeholder="name" name="name" contentEditable={true} value={username}  />
+                        </div>
+                        <div className="flex flex-col gap-y-1 my-2">
+                            <label htmlFor="email">email</label>
+                            <input onChange={(e)=>setEmail(e.target.value)} id="email" type="email" className="w-full p-2 rounded-md bg-transparent border-[1px] border-gray-600" placeholder="name@example.com" name="email" contentEditable={true} value={email}  />
+                        </div>
+                        <div className="w-full text-center">
+                            <button onClick={subscribe} className="p-2 bg-green-600 w-[40%] mx-auto rounded-lg hover:bg-green-800 text-white" disabled={loading}>{loading ? <DefaultSpinner /> : 'Subscribe'}</button>
                         </div>
                     </DialogPanel>
                 </div>
