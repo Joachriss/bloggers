@@ -3,7 +3,7 @@ import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
 import { MdClose, MdKeyboardArrowDown, MdLogin, MdLogout, MdOutlineLogout } from "react-icons/md";
 
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { TrendyPost } from "../posts/TrendyPost";
 import { Link, NavLink } from "react-router-dom";
@@ -45,16 +45,15 @@ export const Navbar = () => {
     }
 
     // image checker
-    const userImageCheck = ()=>{
-        if (!userImage) {
-            return null;
+    const userImageCheck = (image : any)=>{
+        if (image !== null) {
+            image = image.toString();
+            image = image.trim();
+            return image.startsWith('http') ? image : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_USER_IMAGE_URL}/${image}`; 
         }
-        userImage = userImage.toString();
-        userImage = userImage.trim();
-        return userImage.startsWith('http') ? userImage : `${import.meta.env.VITE_BACKEND_BASE_URL}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${userImage}`; 
     }
 
-    const userAvatar = userImageCheck() || userAvatarImage;
+    const userAvatar = userImageCheck(userImage) || userAvatarImage;
 
     useEffect(() => {
         userContext?.reloadUser();

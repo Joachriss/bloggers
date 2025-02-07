@@ -29,7 +29,11 @@ export const Register = () => {
                 toast.success('User registered successfully');
                 toast.success('Verification email sent!')
                 setLoading(false);
-                navigate('/emailverification');
+                if(data.user.isEmailVerified === false){
+                    navigate('/emailverification');
+                }else{
+                    navigate('/login');
+                }
             }
 
         }
