@@ -29,6 +29,7 @@ import { Profile } from './pages/Profile.tsx';
 import { VerifyEmail } from './pages/VerifyEmail.tsx';
 import { EmailPasswordResetRequest } from './pages/EmailPasswordResetRequest.tsx';
 import { ResetPassword } from './pages/ResetPassword.tsx';
+import { Subscription } from './pages/Subscription.tsx';
 
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: 'user/editprofile/',
         element: <EditProfile />
+      },
+      {
+        path: 'subscribe',
+        element: <Subscription />
       }
     ]
   },
