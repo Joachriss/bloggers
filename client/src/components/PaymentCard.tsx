@@ -40,6 +40,9 @@ export const PaymentCard = (props: any) => {
                 setIsAzampayOpen(false);
             }, 1000);
             // Redirect to success page
+            // coming soon
+
+            
         } catch (err: any) {
             setLoading(false);
             console.log(err);
