@@ -1,23 +1,47 @@
 import axios from "axios";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { UserContext } from "../../context/UserContext";
+import { AzampayDialog } from "./utils/AzampayDialog";
 
 export const PaymentCard = (props: any) => {
-    const {tittle, description, price, plan} = props;
+    const { tittle, description, price, plan } = props;
+    const userContext = useContext(UserContext);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [provider, setProvider] = useState('__');
+    const [isAzampayOpen, setIsAzampayOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const subscribe = async () => {
-        try{
-            // Payment authorization
-            const response = await axios.post('/subscription');
-            console.log(response.data);
-
-            // Checkout process
-            const  checkoutResponse  = await axios.post(`/azampay/checkout`, response.data );
-            console.log(checkoutResponse.data);
-            if(checkoutResponse.data.success === false){
+    const handleCheckout = async () => {
+        if (!phoneNumber) {
+            return toast.error('Phone number is required');
+        }
+        if(provider == '__') {
+            return toast.error('Provider is required');
+        }
+        setLoading(true);
+        try {
+            // Payment checkout process
+            const transactionRequest = {
+                "amount": price,
+                "userId": userContext?.user?.id,
+                "account": phoneNumber,
+                "provider": provider
+            }
+            const checkoutResponse = await axios.post(`/azampay/checkout`, transactionRequest);
+            if (checkoutResponse.data.success === false) {
+                setLoading(false);
                 return toast.error(checkoutResponse.data.message);
             }
             toast.success(checkoutResponse.data.message);
-        }catch(err : any){
+            setTimeout(() => {
+                toast.success('Payment successful');
+                setLoading(false);
+                setIsAzampayOpen(false);
+            }, 1000);
+            // Redirect to success page
+        } catch (err: any) {
+            setLoading(false);
             console.log(err);
             toast.error(err.message);
         }
@@ -30,7 +54,7 @@ export const PaymentCard = (props: any) => {
                 <span className="text-4xl font-bold tracking-tight text-yellow-500">{price} TZS</span>
                 <span className="text-sm font-semibold leading-6 text-teal-600">/ {plan}</span>
             </p>
-            <button type="button" onClick={subscribe} aria-describedby="tier-startup" className="mt-6 block w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Buy plan</button>
+            <button type="button" onClick={() => setIsAzampayOpen(true)} aria-describedby="tier-startup" className="mt-6 block w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Buy plan</button>
             <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-pink-600">
                 <li className="flex gap-x-3">
                     <svg className="h-6 w-5 flex-none text-purple-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -45,6 +69,7 @@ export const PaymentCard = (props: any) => {
                     Full {plan} access
                 </li>
             </ul>
+            <AzampayDialog isAzampayOpen={isAzampayOpen} loading={loading} setIsAzampayOpen={setIsAzampayOpen} handleCheckout={handleCheckout} price={price} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} provider={provider} setProvider={setProvider} />
         </div>
     )
 }
