@@ -28,9 +28,6 @@ const checkout = async (req, res) => {
       userId: transactionRequest.userId,
     });
 
-    // res.json(response.data);
-
-
     // Checkout process
     let body = {
       'accountNumber': transactionRequest.account,
@@ -51,8 +48,8 @@ const checkout = async (req, res) => {
       }
     });
 
+    // Update transaction in database
     if (checkoutResponse.data.success === false) {
-      // Update transaction in database
       await paymentModel.update({ paymentId: transactinData.paymentId }, {
         status: 'failed',
       });
@@ -60,9 +57,19 @@ const checkout = async (req, res) => {
     }
 
     // Update transaction in database
+    if(transactionRequest.plan == 'week') {
+      const plan = 'week';
+      const endDate = Date.now() + 7 * 24 * 60 * 60 * 1000;
+    }else {
+      const plan = 'month';
+      const endDate = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    }
+    const endDate = Date.now() + 30 * 24 * 60 * 60 * 1000;
     await paymentModel.updateOne({ paymentId: transactinData.paymentId }, {
       $set: {
         status: 'success',
+        plan: transactionRequest.plan,
+        expiresAt: endDate
       }
     });
 

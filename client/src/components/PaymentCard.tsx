@@ -24,6 +24,7 @@ export const PaymentCard = (props: any) => {
             // Payment checkout process
             const transactionRequest = {
                 "amount": price,
+                "plan": plan,
                 "userId": userContext?.user?.id,
                 "account": phoneNumber,
                 "provider": provider

@@ -16,10 +16,19 @@ const paymentSchema = new mongoose.Schema({
         enum: ["pending", "success", "failed"],
         default: "pending",
     },
+    expiresAt:{
+        type: Date,
+        default: null
+    },
+    plan:{
+        type: String,
+    },
     paymentId: {
         type: String,
         required: true,
     },
+},{
+    timestamps: true,
 });
 
 const paymentModel = mongoose.model('payment',paymentSchema);
