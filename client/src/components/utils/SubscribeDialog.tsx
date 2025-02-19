@@ -13,7 +13,7 @@ export const SubscribeDialog = (prop:any) => {
                     <p></p>
                     <div className="flex gap-4 ms-auto justify-end">
                         <Link to={'/'} className='p-2 bg-gray-600 rounded-lg hover:bg-gray-800 text-white'>Home</Link>
-                        <Link to={'/subscribe'} className='p-2 bg-red-600 rounded-lg hover:bg-red-800 text-white' >Subscribe</Link>
+                        <Link to={'/subscribe'} className='p-2 bg-green-600 rounded-lg hover:bg-red-800 text-white' >Subscribe</Link>
                     </div>
                 </DialogPanel>
             </div>

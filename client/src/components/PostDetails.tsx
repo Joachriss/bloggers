@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { UserContext } from "../../context/UserContext";
 import { LikeButton } from "./LikeButton";
 import { NumberFormatter } from "./NumberFormatter";
+import { SubscribeDialog } from "./utils/SubscribeDialog";
 
 export const PostDetails = (props: any) => {
     const baseImageUrl = import.meta.env.VITE_BASE_IMAGE_URL || 'http://localhost:8000';
@@ -16,13 +17,16 @@ export const PostDetails = (props: any) => {
     const [postDescription, setPostDescription] = useState('');
     const [postComments, setPostComments] = useState([]);
     const [postViews, setPostViews] = useState([]);
-    const [postLikes,setPostLikes]= useState<any[]>([]);
-    const [hasUserLiked,setHasUserLiked] = useState(false);
-    
-    
+    const [postLikes, setPostLikes] = useState<any[]>([]);
+    const [hasUserLiked, setHasUserLiked] = useState(false);
+    const [category, setCategory] = useState('');
+    console.log(category);
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
+
     const userContext = useContext(UserContext);
     const userId = userContext?.user?.id || null;
-    
+
     useEffect(() => {
         const getPostDetails = async () => {
             try {
@@ -35,11 +39,28 @@ export const PostDetails = (props: any) => {
                 setPostComments(data.comments);
                 setPostViews(data.viewedBy);
                 setPostLikes(data.likedBy);
-                
-                if(userId && userId !== null){
+                setCategory(data.category);
+
+                if (userId && userId !== null) {
                     setHasUserLiked(postLikes.some(liker => liker.toString() === userId));
                 }
-                
+
+                // subscription checker
+                const paymentList = await axios.get('/getallpayments');
+
+                if (category == 'Exclusive') {
+                    console.log(paymentList.data);
+                    const userPayments = paymentList.data.filter((payment: any) => payment?.userId?._id.toString() == userId);
+                    console.log(userPayments);
+                    const latestPayment = userPayments.filter((payment: any) => new Date(payment?.expiresAt).getTime() > Date.now())
+                        .sort((a: any, b: any) => new Date(b.expiresAt).getTime() - new Date(a.expiresAt).getTime())[0];
+                    if ( latestPayment) {
+                        setIsSubscribed(true);
+                    }
+                }
+                if (userId == null && category == 'Exclusive') {
+                    setIsSubscribed(true);
+                }
             } catch (error) {
                 console.log(error);
                 toast.error("something went wrong, please check connection or try again");
@@ -47,7 +68,7 @@ export const PostDetails = (props: any) => {
         }
         getPostDetails();
 
-    }, [postId,userId,hasUserLiked,postLikes.length]);
+    }, [postId, userId, hasUserLiked, postLikes.length]);
     return (
         <div className=" flex flex-col gap-y-3 gap-x-4">
             <div className="text-2xl md:text-4xl font-bold">{postTittle}</div>
@@ -62,13 +83,14 @@ export const PostDetails = (props: any) => {
                 <img src={`${baseImageUrl}/${import.meta.env.VITE_BACKEND_POST_IMAGE_URL}/${postImage}`} className='rounded-lg scale-110' alt="Post image" />
             </div>
             <div className="grid grid-cols-3 justify-between text-center items-center">
-                <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked}/>
-                <div className=" text-sm font-bold flex flex-row items-center justify-center gap-x-1 border-x-2"><NumberFormatter value={postViews.length}/> <span className="text-gray-500 dark:text-gray-400">Views</span></div>
+                <LikeButton postId={postId} userId={userId} setHasUserLiked={setHasUserLiked} likes={postLikes.length} liked={hasUserLiked} />
+                <div className=" text-sm font-bold flex flex-row items-center justify-center gap-x-1 border-x-2"><NumberFormatter value={postViews.length} /> <span className="text-gray-500 dark:text-gray-400">Views</span></div>
                 <div className=" text-sm font-bold flex flex-row items-center justify-center gap-x-1"><NumberFormatter value={postComments.length} /><span className="text-gray-500 dark:text-gray-400">Comments</span></div>
             </div>
             <hr className="mb-2 border border-green-500" />
             <div className="text-lg" dangerouslySetInnerHTML={{ __html: postDescription }}></div>
             <CommentSection comments={postComments} postid={postId} />
+            {category == 'Exclusive' ? <SubscribeDialog isSubscribed={!isSubscribed} /> : ""}
         </div>
     )
 }

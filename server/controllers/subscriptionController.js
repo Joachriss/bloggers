@@ -60,11 +60,11 @@ const checkout = async (req, res) => {
     if(transactionRequest.plan == 'week') {
       const plan = 'week';
       const endDate = Date.now() + 7 * 24 * 60 * 60 * 1000;
-    }else {
+    }else if(transactionRequest.plan == 'month') {
       const plan = 'month';
-      const endDate = Date.now() + 30 * 24 * 60 * 60 * 1000;
-    }
-    const endDate = Date.now() + 30 * 24 * 60 * 60 * 1000;
+      const endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    } 
+    const endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     await paymentModel.updateOne({ paymentId: transactinData.paymentId }, {
       $set: {
         status: 'success',
@@ -82,6 +82,17 @@ const checkout = async (req, res) => {
   }
 }
 
+// payment list
+const getPaymentList = async (req, res) => {
+  try {
+    const paymentList = await paymentModel.find().populate('userId');
+    res.json(paymentList);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export {
-  checkout
+  checkout,
+  getPaymentList
 }

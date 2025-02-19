@@ -1,27 +1,32 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Description } from '@headlessui/react';
 import { DefaultSpinner } from '../spinners/DefaultSpinner';
+import mpesa from '../../assets/thumbnails/voda.png';
+import halopesa from '../../assets/thumbnails/halopesa.png';
+import mixx from '../../assets/thumbnails/yas.png';
+import azam from '../../assets/thumbnails/azam.jpg';
+import airtel from '../../assets/thumbnails/airtel.png';
 
 export const AzampayDialog = (props: any) => {
-    const { isAzampayOpen, price, provider,loading, setProvider, phoneNumber, setPhoneNumber, setIsAzampayOpen, handleCheckout } = props
+    const { isAzampayOpen, price, provider, loading, setProvider, phoneNumber, setPhoneNumber, setIsAzampayOpen, handleCheckout } = props
     return (
         <Dialog open={isAzampayOpen} onClose={() => setIsAzampayOpen(false)} className="relative z-50 rounded-lg" >
             <DialogBackdrop className="fixed inset-0 bg-black/50 blur-2xl" />
-            <div className="fixed inset-0 flex w-screen items-center justify-center p-4 rounded-lg">
+            <div className="fixed inset-0 flex w-screen items-center justify-center p-2 rounded-lg">
                 <DialogPanel className="max-w-lg space-y-4 bg-white rounded-lg dark:bg-[#1f1f1f] p-12">
-                    <DialogTitle className="font-bold">Pay {price} to Describe</DialogTitle>
+                    <DialogTitle className="font-bold ">Pay {price} to Describe</DialogTitle>
                     <Description>All of your changes to the post will be permanently applied.</Description>
                     <div className='flex flex-col gap-1'>
                         <div>Choose provider : {provider}</div>
-                        <div className="flex flex-wrap">
-                            <div className="p-2 border border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => setProvider('Mpesa')}>Mpesa</div>
-                            <div className="p-2 border border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => setProvider('Tigo')}>Tigo</div>
-                            <div className="p-2 border border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => setProvider('Airtel')}>Airtel</div>
-                            <div className="p-2 border border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => setProvider('Azampesa')}>Azampesa</div>
-                            <div className="p-2 border border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => setProvider('Halopesa')}>Halopesa</div>
+                        <div className="flex flex-wrap my-2">
+                            <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Mpesa') }}><img src={mpesa} alt="Mpesa" className={`w-14 hover:border rounded-lg`} /></div>
+                            <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Tigo') }}><img src={mixx} alt="mixx" className={`w-14 hover:border rounded-lg`} /></div>
+                            <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Airtel') }}><img src={airtel} alt="airtel" className={`w-14 hover:border rounded-lg`} /></div>
+                            <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Azampesa') }}><img src={azam} alt="azampay" className={`w-14 hover:border rounded-lg`} /></div>
+                            <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Halopesa') }}><img src={halopesa} alt="halopesa" className={`w-14 hover:border rounded-lg`} /></div>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                        <label htmlFor="phoneNumber" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number :</label>
                         <input
                             required
                             type="tel"
