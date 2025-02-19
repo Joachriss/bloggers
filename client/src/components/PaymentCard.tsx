@@ -11,6 +11,7 @@ export const PaymentCard = (props: any) => {
     const [provider, setProvider] = useState('__');
     const [isAzampayOpen, setIsAzampayOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState('Processing...');
 
     const handleCheckout = async () => {
         if (!phoneNumber) {
@@ -34,6 +35,7 @@ export const PaymentCard = (props: any) => {
                 setLoading(false);
                 return toast.error(checkoutResponse.data.message);
             }
+            setFeedback(checkoutResponse.data.message);
             toast.success(checkoutResponse.data.message);
             setTimeout(() => {
                 toast.success('Payment successful');
@@ -47,6 +49,7 @@ export const PaymentCard = (props: any) => {
         } catch (err: any) {
             setLoading(false);
             console.log(err);
+            setFeedback(err.message);
             toast.error(err.message);
         }
     };
@@ -73,7 +76,7 @@ export const PaymentCard = (props: any) => {
                     Full {plan} access
                 </li>
             </ul>
-            <AzampayDialog isAzampayOpen={isAzampayOpen} loading={loading} setIsAzampayOpen={setIsAzampayOpen} handleCheckout={handleCheckout} price={price} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} provider={provider} setProvider={setProvider} />
+            <AzampayDialog isAzampayOpen={isAzampayOpen} plan={plan} feedback={feedback} loading={loading} setIsAzampayOpen={setIsAzampayOpen} handleCheckout={handleCheckout} price={price} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} provider={provider} setProvider={setProvider} />
         </div>
     )
 }

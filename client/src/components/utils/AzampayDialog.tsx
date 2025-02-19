@@ -7,14 +7,14 @@ import azam from '../../assets/thumbnails/azam.jpg';
 import airtel from '../../assets/thumbnails/airtel.png';
 
 export const AzampayDialog = (props: any) => {
-    const { isAzampayOpen, price, provider, loading, setProvider, phoneNumber, setPhoneNumber, setIsAzampayOpen, handleCheckout } = props
+    const { isAzampayOpen, price, provider, loading,feedback, setProvider, phoneNumber, setPhoneNumber, setIsAzampayOpen, handleCheckout, plan } = props
     return (
         <Dialog open={isAzampayOpen} onClose={() => setIsAzampayOpen(false)} className="relative z-50 rounded-lg" >
             <DialogBackdrop className="fixed inset-0 bg-black/50 blur-2xl" />
             <div className="fixed inset-0 flex w-screen items-center justify-center p-2 rounded-lg">
-                <DialogPanel className="max-w-lg space-y-4 bg-white rounded-lg dark:bg-[#1f1f1f] p-12">
-                    <DialogTitle className="font-bold ">Pay {price} to Describe</DialogTitle>
-                    <Description>All of your changes to the post will be permanently applied.</Description>
+                <DialogPanel className="max-w-lg space-y-4 bg-white rounded-lg dark:bg-[#1f1f1f] p-8">
+                    <DialogTitle className="font-bold text-2xl text-center">Pay {price} to Describe?</DialogTitle>
+                    <Description>You are paying {price} for a {plan} plan. proceed to checkout below</Description>
                     <div className='flex flex-col gap-1'>
                         <div>Choose provider : {provider}</div>
                         <div className="flex flex-wrap my-2">
@@ -42,9 +42,12 @@ export const AzampayDialog = (props: any) => {
                             className="p-2 bg-transparent rounded-md text-sm font-medium border-2 border-gray-400  dark:border-gray-300 text-gray-900 dark:text-white" name="phoneNumber"
                         />
                     </div>
-                    <div className="flex gap-4 ms-auto justify-end">
-                        <button className='p-2 bg-gray-600 rounded-lg hover:bg-gray-800 text-white' onClick={() => setIsAzampayOpen(false)} disabled={loading}>Cancel</button>
-                        <button className='p-2 bg-green-600 rounded-lg hover:bg-green-800 text-white' onClick={handleCheckout} disabled={loading}>{loading ? <DefaultSpinner /> : 'Checkout'}</button>
+
+                    <div className="text-center text-green-700 w-full">{loading? feedback : ''}</div>
+
+                    <div className="flex flex-col gap-4 ms-auto justify-center">
+                        <button className='p-2 bg-green-600 text-xl font-bold rounded-lg hover:bg-green-800 text-white' onClick={handleCheckout} disabled={loading}>{loading ? <DefaultSpinner /> : 'Checkout'}</button>
+                        <button className='text-sm' onClick={() => setIsAzampayOpen(false)} disabled={loading}>Cancel</button>
                     </div>
                 </DialogPanel>
             </div>
