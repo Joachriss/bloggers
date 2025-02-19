@@ -50,21 +50,21 @@ const checkout = async (req, res) => {
 
     // Update transaction in database
     if (checkoutResponse.data.success === false) {
-      await paymentModel.update({ paymentId: transactinData.paymentId }, {
+      await paymentModel.findOneAndUpdate({ paymentId: transactinData.paymentId }, {
         status: 'failed',
       });
       return res.json(checkoutResponse.data);
     }
 
     // Update transaction in database
+    let endDate = null;
     if(transactionRequest.plan == 'week') {
       const plan = 'week';
-      const endDate = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      endDate = Date.now() + 7 * 24 * 60 * 60 * 1000;
     }else if(transactionRequest.plan == 'month') {
       const plan = 'month';
-      const endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+      endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     } 
-    const endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     await paymentModel.updateOne({ paymentId: transactinData.paymentId }, {
       $set: {
         status: 'success',
