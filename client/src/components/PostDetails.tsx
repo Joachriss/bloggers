@@ -20,7 +20,6 @@ export const PostDetails = (props: any) => {
     const [postLikes, setPostLikes] = useState<any[]>([]);
     const [hasUserLiked, setHasUserLiked] = useState(false);
     const [category, setCategory] = useState('');
-    console.log(category);
     const [isSubscribed, setIsSubscribed] = useState(false);
 
 
@@ -49,9 +48,7 @@ export const PostDetails = (props: any) => {
                 const paymentList = await axios.get('/getallpayments');
 
                 if (category == 'Exclusive') {
-                    console.log(paymentList.data);
                     const userPayments = paymentList.data.filter((payment: any) => payment?.userId?._id.toString() == userId);
-                    console.log(userPayments);
                     const latestPayment = userPayments.filter((payment: any) => new Date(payment?.expiresAt).getTime() > Date.now())
                         .sort((a: any, b: any) => new Date(b.expiresAt).getTime() - new Date(a.expiresAt).getTime())[0];
                     if ( latestPayment) {

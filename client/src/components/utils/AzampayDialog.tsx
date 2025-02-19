@@ -14,9 +14,9 @@ export const AzampayDialog = (props: any) => {
             <div className="fixed inset-0 flex w-screen items-center justify-center p-2 rounded-lg">
                 <DialogPanel className="max-w-lg space-y-4 bg-white rounded-lg dark:bg-[#1f1f1f] p-8">
                     <DialogTitle className="font-bold text-2xl text-center">Pay {price} to Describe?</DialogTitle>
-                    <Description>You are paying {price} for a {plan} plan. proceed to checkout below</Description>
+                    <Description className='text-lg'>You are paying <span className='font-bold'>{price}</span> for a <span className='font-bold'>{plan}</span> plan. proceed to checkout below</Description>
                     <div className='flex flex-col gap-1'>
-                        <div>Choose provider : {provider}</div>
+                        <div>Choose provider : <span className='font-bold'>{provider}</span></div>
                         <div className="flex flex-wrap my-2">
                             <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Mpesa') }}><img src={mpesa} alt="Mpesa" className={`w-14 hover:border rounded-lg`} /></div>
                             <div className="flex items-center justify-center h-fit w-fit hover:scale-105 duration-100 border-gray-500 cursor-pointer text-bold rounded-lg mx-auto hover:bg-[#1f1f1f] " onClick={() => {setProvider('Tigo') }}><img src={mixx} alt="mixx" className={`w-14 hover:border rounded-lg`} /></div>
