@@ -1,5 +1,6 @@
 import express, { json } from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import authRoutes from './routes/authRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -13,6 +14,7 @@ import googleRoutes from './routes/googleAuthRoutes.js';
 import subscribersRoutes from './routes/subscribersRoutes.js';
 import subscriptionRoutes from './routes/subscriptionRoutes.js';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -22,6 +24,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
