@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import { passwordResetTemplate, verificationEmailTemplate, welcomeEmailTemplate,subscribedEmailTemplate, unsubscribedEmailTemplate } from './emailTemplates.js';
+import { passwordResetTemplate, verificationEmailTemplate, welcomeEmailTemplate,subscribedEmailTemplate, unsubscribedEmailTemplate, successifulSubscriptionEmailTemplate } from './emailTemplates.js';
 dotenv.config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -74,4 +74,15 @@ const sendUnsubscribedEmail = async (name, emailTo) => {
 
 }
 
-export { sendVerificationEmail, sendWelcomeEmail, sendPasswordResetEmail, sendSubscribedEmail,sendUnsubscribedEmail }
+// succesiful subscription email
+const sendSuccessSubscriptionEmail = async (name,price,plan,transactionId,emailTo) => {
+    try {
+        sendEmail(emailTo, `Subscription successful (${plan})`, successifulSubscriptionEmailTemplate(name,price,plan,transactionId));
+    }
+    catch (error) {
+        console.log({ error: 'Error sending email', error });
+        throw error;
+    }
+}
+
+export { sendVerificationEmail, sendWelcomeEmail, sendPasswordResetEmail, sendSubscribedEmail,sendUnsubscribedEmail,sendSuccessSubscriptionEmail };

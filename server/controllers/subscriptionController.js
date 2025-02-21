@@ -2,7 +2,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import axios from 'axios';
 import paymentModel from '../models/paymentModel.js';
+import userModel from '../models/userModel.js';
 import {generatePaymentId} from '../utils/generatePaymentId.js';
+import { sendSuccessSubscriptionEmail } from '../resend/sendEmail.js';
 
 
 //  Checkout
@@ -72,7 +74,8 @@ const checkout = async (req, res) => {
         expiresAt: endDate
       }
     });
-
+    const user = await userModel.findById(transactionRequest.userId);
+    await sendSuccessSubscriptionEmail(user.name, transactionRequest.amount, transactionRequest.plan, transactinData.paymentId,user.email);
     console.log(checkoutResponse.data);
     res.json(checkoutResponse.data);
     

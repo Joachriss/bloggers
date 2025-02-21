@@ -647,3 +647,80 @@ export const unsubscribedEmailTemplate = (name) => {
 </html>
   `
 }
+
+// FUNCTION TO SEND SUCCESSFUL SUBSCRIPTION EMAIL
+export const successifulSubscriptionEmailTemplate = (name,price,plan,transactionId) => {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Subscription Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .details {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .footer {
+            font-size: 14px;
+            color: #777;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎉 Payment Successful – Thank You!</h2>
+        <p>Dear <strong>${name}</strong>,</p>
+        <p>We’re excited to confirm your successful subscription. Below are your details:</p>
+
+        <div class="details">
+            <p><strong>📌 Plan:</strong> ${plan}</p>
+            <p><strong>💰 Price:</strong> ${ price }</p>
+            <p><strong>🔑 Transaction ID:</strong> ${ transactionId}</p>
+        </div>
+
+        <p>Thank you for choosing us! If you have any questions, feel free to contact our support team.</p>
+        
+        <p><a href="{{ support_link }}" class="btn">Contact Support</a></p>
+
+        <div class="footer">
+            <p>Best regards,<br><strong>Describe Team</strong></p>
+            <p><a href="https://describe.com" target="_blank">Visit our website</a></p>
+        </div>
+    </div>
+</body>
+</html>
+`}

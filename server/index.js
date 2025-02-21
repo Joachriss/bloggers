@@ -6,7 +6,6 @@ import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 import { connect } from 'mongoose';
-import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import commentRoutes from './routes/commentRoutes.js';
@@ -24,7 +23,6 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
