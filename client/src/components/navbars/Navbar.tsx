@@ -118,11 +118,11 @@ export const Navbar = () => {
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">
+                                    <Link to={`user/profile/${userContext?.user?.id}`}>
+                                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profile</div>
+                                    </Link>
                                     <Link to="/posts/create" >
                                         <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Create Post</div>
-                                    </Link>
-                                    <Link to={`user/profile/${userContext?.user?.id}`}>
-                                        <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">My profile</div>
                                     </Link>
                                     {/* <li>
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
